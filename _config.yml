@@ -30,3 +30,6 @@ sass:
 
 # Gems
 gems: [jekyll-paginate, jekyll-sitemap, octopress-autoprefixer]
+
+include:
+  - "_picture"

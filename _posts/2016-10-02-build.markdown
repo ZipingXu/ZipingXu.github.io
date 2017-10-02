@@ -19,5 +19,5 @@ jekyll的文件结构：
 └── index.md
 ```
 
-![test](/_picture/test.png)
+![test](/assets/pic/test.png)
 
