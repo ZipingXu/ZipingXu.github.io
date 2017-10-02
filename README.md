@@ -1,103 +1,72 @@
-# 🏆 – A Blog Theme for Jekyll
-Trophy is a blog theme for Jekyll built using HTML, Sass, and JavaScript (no jQuery). External stylesheets and libraries included are Google Fonts, Font Awesome, Normalize.CSS, Rellax, and WOW.js.
-Trophy is also available in [Ghost](https://github.com/thomasvaeth/trophy-ghost).
+# RubyGems [![Travis Build Status](https://secure.travis-ci.org/rubygems/rubygems.svg?branch=master)](http://travis-ci.org/rubygems/rubygems) [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/github/rubygems/rubygems?branch=master&svg=true)](https://ci.appveyor.com/project/rubygems/rubygems?branch=master)
 
-## Screenshots
-Blog Page (Posts)
-![Blog Page](https://github.com/thomasvaeth/trophy-jekyll/blob/master/_screenshots/screenshot-1.png "Desktop screenshot")
+RubyGems is a package management framework for Ruby.
 
-Blog Page (Categories)
-![Blog Page](https://github.com/thomasvaeth/trophy-jekyll/blob/master/_screenshots/screenshot-2.png "Desktop screenshot")
+This gem is an update for the RubyGems software. You must have an
+installation of RubyGems before this update can be applied.
 
-Post Page (Mast)
-![Post Page](https://github.com/thomasvaeth/trophy-jekyll/blob/master/_screenshots/screenshot-3.png "Desktop screenshot")
+See Gem for information on RubyGems (or `ri Gem`)
 
-Post Page (Profile & Footer)
-![Post Page](https://github.com/thomasvaeth/trophy-jekyll/blob/master/_screenshots/screenshot-4.png "Desktop screenshot")
+To upgrade to the latest RubyGems, run:
 
-Archive Page
-![Archive Page](https://github.com/thomasvaeth/trophy-jekyll/blob/master/_screenshots/screenshot-5.png "Desktop screenshot")
+```
+  $ gem update --system  # you might need to be an administrator or root
+```
 
-## Installation
-All dependencies are saved in the ````Gemfile````. Run ````bundle install```` (Install [Bundler](http://bundler.io/) if it is not already) after cloning the repo.
+See [UPGRADING](UPGRADING.rdoc) for more details and alternative instructions.
 
-## Edit Theme
-I made everything as easy as possible to edit. Most things can be found in the ````_config.yml````, but if more editing is required digging through the code will be required. The ````head.html```` file is in the ````_includes```` folder and the Sass variables are found in the ````_base.scss```` file in the ````_sass```` folder.
+-----
 
-### _config.yml
+If you don't have RubyGems installed, you can still do it manually:
 
-#### Site Settings
-    email: 
-    baseurl: ""
-    paginate: 5
-    paginate_path: "/blog/page-:num"
-    google_analytics: UA—XXXXXXXX-X
+* Download from: https://rubygems.org/pages/download, unpack, and cd there
+* OR clone this repository and cd there (make sure to run `git submodule update -\-init`)
+* Install with: ruby setup.rb  # you may need admin/root privilege
 
-* ````email```` - Your email for the contact card and the footer
-* ````baseurl```` - Path of blog if adding this on to another website
-* ````paginate```` - Number of blog posts per page
-* ````paginate_path```` - URL structure of paginated pages
-* ````google_analytics```` - Option field to replace with correct Google Analytics code
+For more details and other options, see:
 
-#### SEO Settings
-    title: 
-    description: 
-    url: ""
-    twitter_username: 
-    default_img: 
+```
+  ruby setup.rb --help
+```
 
-* ````title```` - Title of blog
-* ````description```` - Description of blog (recommended to not go over 160 characters)
-* ````url```` - URL of main website
-* ````twitter_username```` - Twitter username
-* ````default_img```` - Image that will appear when posting links on social networks
+## Documentation
 
-#### Profile Settings
-    name: 
-    profile_img: 
-    profile: 
-    social:
-      github: 
+RubyGems uses [rdoc](https://github.com/rdoc/rdoc) for documentation. A compiled set of the docs
+can be viewed online at http://www.rubydoc.info/github/rubygems/rubygems
 
-* ````name```` - Full name for SEO purposes
-* ````profile_img```` - Image for the profile card (size to 2000x1200px)
-* ````profile```` - Short description that will be in the profile card
-* ````social```` - List of social networks for icons in the contact card and the footer ([Font Awesome](http://fontawesome.io/) is used, so only match the name of the icon, but do not include ````fa-````)
+RubyGems also provides a comprehensive set of guides which covers numerous topics such as
+creating a new gem, security practices and other resources at http://guides.rubygems.org
 
+## GETTING HELP
 
-#### Build Settings
-    exclude: ["_screenshots", "Gemfile", "Gemfile.lock", "LICENSE.txt", "README.md"]
-    permalink: /:year/:month/:day/:title/
+### Support Requests
 
-* ````exclude```` - Folders that are excluded from `_site_`
-* ````permalink```` - URL structure of blog posts
+Are you unsure of how to use RubyGems?  Do you think you've found a bug and
+you're not sure?  If that is the case, the best place for you is to file a
+support request at [help.rubygems.org](http://help.rubygems.org).
 
-### _posts
-    ---
-    layout: post
-    title: ""
-    date: 
-    categories:
-    description: 
-    image: 
-    image-sm:
-    ---
+### Filing Tickets
 
-This is the YAML front matter block for blog posts.
-* ````layout```` - This field will always be post
-* ````title```` - The title of the blog post
-* ````date```` - The date that will appear on the blog post
-* ````categories```` - Optional field that can be entered as an array or a list
-* ````description```` - Optional field for SEO (recommended to not go over 160 characters)
-* ````image```` - The blog theme was designed for 2000x1200px images (optimize your images because this is a picture heavy theme)
-* ````image-sm```` - Optional field for card layouts for image optimization and page speed (designed for 500x300px images)
+Got a bug and you're not sure?  You're sure you have a bug, but don't know
+what to do next?  In any case, let us know about it!  The best place
+for letting the RubyGems team know about bugs or problems you're having is
+[on the RubyGems issues page at GitHub](http://github.com/rubygems/rubygems/issues).
 
-## Upcoming Additions
-* Page transitions
-* More styled elements for blog posts
+### Bundler Compatibility
 
-## Issues
-Please submit any issues [here](https://github.com/thomasvaeth/trophy-jekyll/issues).
+See http://bundler.io/compatibility for known issues.
 
-## License
-Trophy is licensed under the MIT License.
+### Supporting
+
+<a href="https://rubytogether.org/"><img src="https://rubytogether.org/images/rubies.svg" width=200></a><br/>
+<a href="https://rubytogether.org/">Ruby Together</a> pays some RubyGems maintainers for their ongoing work. As a grassroots initiative committed to supporting the critical Ruby infrastructure you rely on, Ruby Together is funded entirely by the Ruby community. Contribute today <a href="https://rubytogether.org/developers">as an individual</a> or even better, <a href="https://rubytogether.org/companies">as a company</a>, and ensure that RubyGems, Bundler, and other shared tooling is around for years to come.
+
+### Contributing
+
+If you'd like to contribute to RubyGems, that's awesome, and we <3 you. Check out our [guide to contributing](https://github.com/rubygems/rubygems/blob/master/CONTRIBUTING.rdoc#how-to-contribute) for more information.
+
+While some RubyGems contributors are compensated by Ruby Together, the project maintainers make decisions independent of Ruby Together. As a project, we welcome contributions regardless of the author’s affiliation with Ruby Together.
+
+### Code of Conduct
+
+Everyone interacting in the RubyGems project’s codebases, issue trackers, chat rooms, and mailing lists is expected to follow the [contributor code of conduct](https://github.com/rubygems/rubygems/blob/master/CODE_OF_CONDUCT.md).
