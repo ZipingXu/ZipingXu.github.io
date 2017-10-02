@@ -1,0 +1,21 @@
+# ![test](/Users/leon/Documents/GitHub/ZipingXu.github.io/_picture/test.png)个人主页搭建
+
+Github + jekyll
+
+- 首先在github下面创建和账户同名的repository。
+- 安装ruby
+- 安装Rubygems
+- 安装jekyll
+- 在本地build
+
+jekyll的文件结构：
+```
+├── Gemfile
+├── Gemfile.lock
+├── _config.yml
+├── _posts
+│   └── 2016-12-04-welcome-to-jekyll.markdown
+├── about.md
+└── index.md
+```
+
