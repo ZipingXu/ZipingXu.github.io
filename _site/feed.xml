@@ -5,13 +5,13 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 02 Oct 2017 08:04:19 +0800</pubDate>
-    <lastBuildDate>Mon, 02 Oct 2017 08:04:19 +0800</lastBuildDate>
+    <pubDate>Mon, 02 Oct 2017 08:14:48 +0800</pubDate>
+    <lastBuildDate>Mon, 02 Oct 2017 08:14:48 +0800</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
         <title>Build</title>
-        <description>&lt;h1 id=&quot;testusersleondocumentsgithubzipingxugithubiopicturetestpng&quot;&gt;&lt;img src=&quot;/Users/leon/Documents/GitHub/ZipingXu.github.io/_picture/test.png&quot; alt=&quot;test&quot; /&gt;个人主页搭建&lt;/h1&gt;
+        <description>&lt;h1 id=&quot;section&quot;&gt;个人主页搭建&lt;/h1&gt;
 
 &lt;p&gt;Github + jekyll&lt;/p&gt;
 
@@ -33,6 +33,10 @@
 ├── about.md
 └── index.md
 &lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;_picture/test.png&quot; alt=&quot;test&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;_picture/test.png&quot; alt=&quot;test&quot; /&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Sun, 02 Oct 2016 00:00:00 +0800</pubDate>
