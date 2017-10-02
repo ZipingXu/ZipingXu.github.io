@@ -19,7 +19,5 @@ jekyll的文件结构：
 └── index.md
 ```
 
-![test]({{github.com/ZipingXu/ZipingXu.github.io/tree/master/}}_picture/test.png)
-
-![test]({{ZipingXu.github.io}}_picture/test.png)
+![test](/_picture/test.png)
 
