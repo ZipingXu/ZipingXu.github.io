@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      my_title
@@ -10,3 +9,4 @@ catalog: true
 tags:
     - life
 ---
+
