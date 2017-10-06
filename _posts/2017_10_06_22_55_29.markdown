@@ -1,0 +1,12 @@
+---
+layout:     post
+title:      my_title
+subtitle:   my_subtitle
+date:       2017-10-06 22:55:29
+author:     "Ziping"
+header-img: "img/2017_10_06_22_55_29.jpg"
+catalog: true
+tags:
+    - life
+---
+
