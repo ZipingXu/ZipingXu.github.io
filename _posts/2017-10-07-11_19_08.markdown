@@ -1,0 +1,22 @@
+---
+layout:     post
+title:      "Encoding in Python"
+subtitle:   "Some Records for encoding operations in Python"
+date:       2017-10-07
+author:     "Ziping"
+header-img: "img/2017-10-07-11_19_08.jpg"
+catalog: true
+tags:
+    - python
+---
+
+# Encoding in Python
+
+## Check encoding
+
+```python
+with open("test.csv","rb") as f:
+    data = f.read()
+    print(chardet.detect(data))
+```
+

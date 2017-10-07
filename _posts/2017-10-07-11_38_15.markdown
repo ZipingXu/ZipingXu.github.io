@@ -1,0 +1,49 @@
+---
+layout:     post
+title:      "Demo for Wavelets Analysis"
+subtitle:   "A test for python pywt module"
+date:       2017-10-07
+author:     "Ziping"
+header-img: "img/2017-10-07-11_38_15.jpg"
+catalog: false
+tags:
+    - python
+    - wavelets
+---
+
+```python
+​```python
+import pywt
+import matplotlib.pyplot as plt
+import numpy as np
+
+ts = [2, 56, 3, 22, 3, 4, 56, 7, 8, 9, 44, 23, 1, 4, 6, 2]
+
+(ca, cd) = pywt.dwt(ts,'haar')
+
+#cat = pywt.threshold(ca, np.std(ca)/2, mode = "soft")
+#cdt = pywt.threshold(cd, np.std(cd)/2, mode = "soft")
+
+ca[4:8] = 0
+cd[4:8] = 0
+ts_rec = pywt.idwt(ca, cd, 'haar')
+plt.close('all')
+
+plt.subplot(211)
+# Original coefficients
+plt.plot(ca, '--*b')
+plt.plot(cd, '--*r')
+
+plt.legend(['ca','cd','ca_thresh', 'cd_thresh'], loc=0)
+plt.grid('on')
+
+plt.subplot(212)
+plt.plot(ts)
+plt.hold('on')
+plt.plot(ts_rec, 'r')
+plt.legend(['original signal', 'reconstructed signal'])
+plt.grid('on')
+plt.show()
+​```
+```
+

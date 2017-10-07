@@ -1,0 +1,46 @@
+---
+layout:     post
+title:      "Vim Command"
+subtitle:   "A collection of Vim Command"
+date:       2017-10-07
+author:     "Ziping"
+header-img: "img/2017-10-07-11_05_26.jpg"
+catalog: true
+tags:
+    - linux
+---
+
+# Vim Command
+
+# Move
+- w: move the cursor to the start of next word.
+- e: move to the end of the next word
+- b: move to the start of current word, or to the start of prior word
+
+# Insert
+- o: insert a new line below
+- shift + o: insert a new line above
+
+# Delete
+- dd: delete the current line and copy it to clipboard
+- dw: delete the current word and copy it to clipboard
+
+# Copy and Paste
+Use *v* to enter visual mode, move the cursor to select some words
+
+- y: copy what you selected
+- yy: copy the whole line
+- d: clip what you selected
+- dd: clip the whole line
+- p: paste
+
+# Find and Replace
+- f + *word*: find word after the cursor
+- F + *word*: find word before the cursor
+- :/*word*: find the word in the file and you can use  regular expression
+- :%s/*from*/*to*/: replace *from* to *to*
+- :%s/*from*/*to*/gc: consult you before replace
+
+# Command for Shell
+- :!command
+

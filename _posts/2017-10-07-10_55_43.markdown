@@ -1,0 +1,24 @@
+---
+layout:     post
+title:      "Line Feeds within a Cell"
+subtitle:   "Some lines are too long!"
+date:       2017-10-07
+author:     "Ziping"
+header-img: "img/2017-10-07-10_55_43.jpg"
+catalog: true
+tags:
+    - latex
+---
+
+# A solution for line feeds within a table cell
+
+In latex, a line could be too long for a table cell.
+
+```Latex
+% set a new command for line feed
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}} 
+
+% in a table cell
+\tabincell{l}{contents1 // content2}
+```
+

@@ -10,7 +10,7 @@
     <meta name="keywords"  content="Data Science; Statistics; Unity">
     <meta name="theme-color" content="#000000">
     
-    <title>About - 子平的博客 | Ziping Blog</title>
+    <title>Shell - 子平的博客 | Ziping Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/about/">
+    <link rel="canonical" href="http://localhost:4000/2017/10/07/11_08_22/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -153,212 +153,231 @@
 </script>
 
 
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/about-bg.jpg')">
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/2017-10-07-11_08_22.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/2017-10-07-11_08_22.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>About</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">Hey, this is Ziping.</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#linux" title="linux">linux</a>
+                        
+                        <a class="tag" href="/tags/#shell" title="shell">shell</a>
+                        
+                    </div>
+                    <h1>Shell</h1>
+                    
+                    
+                    <h2 class="subheading">Introduction for shell</h2>
+                    
+                    <span class="meta">Posted by Ziping on October 7, 2017</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-        
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-<!-- USE SIDEBAR -->
-    <!-- PostList Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                postlist-container
-            ">
-    			<!-- Language Selector -->
-<select class="sel-lang" onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
-    <option value="0" selected> 中文 Chinese </option>
-    <option value="1"> 英文 English </option>
-</select>
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-<!-- Chinese Version -->
-<div class="zh post-container">
-    
-    <blockquote>
-  <p>Data, Machine learning, Statistics, Deep Learning</p>
-</blockquote>
+				<h1 id="shell">Shell</h1>
 
-<p>Hey, I am Ziping Xu. Student in Peking University major in Data Science.</p>
+<p>Shell支持自定义变量。</p>
 
-<p>I am interested in techniques in data science including deep learning, statistics and visualization.</p>
+<h2 id="定义变量">定义变量</h2>
 
+<p>定义变量时，变量名不加美元符号（$），如：</p>
 
-</div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">variableName</span><span class="o">=</span><span class="s2">"value"</span>
+</code></pre></div></div>
 
-<!-- English Version -->
-<div class="en post-container">
-    
-    
-<blockquote>
-  <p>Yet another man.</p>
-</blockquote>
+<p>注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。</p>
 
-<p>Hi, I am <em>@huxpro</em> (Huang, Xuan), a software engineer &amp; a designer. I previously worked as Web Front-End Engineer at <a href="https://www.alitrip.com/">Alibaba Trip</a>; Web Front-End Infrastructure Team Lead at <a href="https://www.crunchbase.com/organization/wepiao#/entity">Wepiao.com</a>; And <a href="(https://medium.com/elemefe/upgrading-ele-me-to-progressive-web-app-2a446832e509)">Invited Consultant on PWA</a> at <a href="https://github.com/elemefe/">Ele.me</a>.</p>
-
-<p>I studied Digital Media Art and graduated from <a href="https://en.wikipedia.org/wiki/Communication_University_of_China">Communication University of China</a> by 2016, and am studying Computer Science at <a href="https://en.wikipedia.org/wiki/Rochester_Institute_of_Technology">Rochester Institute of Technology</a> from 2017.</p>
-
-<h5 id="talks">Talks</h5>
+<p>同时，变量名的命名须遵循如下规则：</p>
 
 <ul>
-  <li><a href="//huangxuan.me/jsconfcn2017/">Upgrading to Progressive Web Apps</a> · <a href="http://2017.jsconf.cn/">JSConf China Shanghai 2017</a></li>
-  <li>Building Progressive Web Apps · <a href="http://www.csdisummit.com/">CSDI Guangzhou 2017</a></li>
-  <li>The State of Progressive Web App · GDG IO Redux Beijing 2017</li>
-  <li>PWA Rehashing · Baidu HQ Beijing 2017</li>
-  <li><a href="//huangxuan.me/2016/11/20/sw-101-gdgdf/">Service Worker 101</a> · GDG DevFest Beijing 2016</li>
-  <li><a href="//huangxuan.me/2016/10/20/pwa-qcon2016/">Progressive Web Apps</a> · QCon Shanghai 2016</li>
-  <li>Progressive Web App in my POV · GDG IO Redux Beijing 2016</li>
-  <li><a href="//huangxuan.me/2015/12/28/css-sucks-2015/">CSS Still Sucks 2015</a> · 2015</li>
-  <li><a href="//huangxuan.me/2015/07/09/js-module-7day/">JavaScript Modularization Journey</a> · 2015</li>
+  <li>首个字符必须为字母（a-z，A-Z）。</li>
+  <li>中间不能有空格，可以使用下划线（_）。</li>
+  <li>不能使用标点符号。</li>
+  <li>不能使用bash里的关键字（可用help命令查看保留关键字）。</li>
 </ul>
 
+<p>变量定义举例：</p>
 
-</div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">myUrl</span><span class="o">=</span><span class="s2">"http://see.xidian.edu.cn/cpp/linux/"</span>
+<span class="nv">myNum</span><span class="o">=</span>100
+</code></pre></div></div>
 
-<!-- Handle Language Change -->
-<script type="text/javascript">
-    // get nodes
-    var $zh = document.querySelector(".zh");
-    var $en = document.querySelector(".en");
-    var $select = document.querySelector("select");
+<p>使用变量</p>
 
-    // bind hashchange event
-    window.addEventListener('hashchange', _render);
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">your_name</span><span class="o">=</span><span class="s2">"mozhiyan"</span>
+<span class="nb">echo</span> <span class="nv">$your_name</span>
+<span class="nb">echo</span> <span class="k">${</span><span class="nv">your_name</span><span class="k">}</span>
+</code></pre></div></div>
 
-    // handle render
-    function _render(){
-        var _hash = window.location.hash;
-        // en
-        if(_hash == "#en"){
-            $select.selectedIndex = 1;
-            $en.style.display = "block";
-            $zh.style.display = "none";
-        // zh by default
-        }else{
-            // not trigger onChange, otherwise cause a loop call.
-            $select.selectedIndex = 0;
-            $zh.style.display = "block";
-            $en.style.display = "none";
-        }
-    }
+<p>变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：</p>
 
-    // handle select change
-    function onLanChange(index){
-        if(index == 0){
-            window.location.hash = "#zh"
-        }else{
-            window.location.hash = "#en"
-        }
-    }
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>skill <span class="k">in </span>Ada Coffe Action Java 
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"I am good at </span><span class="k">${</span><span class="nv">skill</span><span class="k">}</span><span class="s2">Script"</span>
+<span class="k">done</span>
+</code></pre></div></div>
 
-    // init
-    _render();
-</script>
+<h2 id="只读变量">只读变量</h2>
+
+<p>使用 readonly命令可以将变量定义为只读变量，只读变量的值不能被改变。</p>
+
+<p>下面的例子尝试更改只读变量，结果报错：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+<span class="nv">myUrl</span><span class="o">=</span><span class="s2">"http://see.xidian.edu.cn/cpp/shell/"</span>
+<span class="nb">readonly </span>myUrl
+<span class="nv">myUrl</span><span class="o">=</span><span class="s2">"http://see.xidian.edu.cn/cpp/danpianji/"</span>
+</code></pre></div></div>
+
+<h2 id="变量类型">变量类型</h2>
+
+<p>运行shell时，会同时存在三种变量：</p>
+
+<h4 id="1-局部变量">1) 局部变量</h4>
+
+<p>局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。</p>
+
+<h4 id="2-环境变量">2) 环境变量</h4>
+
+<p>所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。</p>
+
+<h4 id="3-shell变量">3) shell变量</h4>
+
+<p>shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行</p>
+
+<h1 id="运行">运行</h1>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+.....
+</code></pre></div></div>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/bin/sh run.sh
+</code></pre></div></div>
 
 
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/10/07/11_05_26/" data-toggle="tooltip" data-placement="top" title="Vim Command">
+                        Previous<br>
+                        <span>Vim Command</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/10/07/11_09_11/" data-toggle="tooltip" data-placement="top" title="Copy Files Across Servers">
+                        Next<br>
+                        <span>Copy Files Across Servers</span>
+                        </a>
+                    </li>
+                    
+                </ul>
 
 
-    		</div>
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
     <!-- Sidebar Container -->
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
                 <section>
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-                        
+        				
                             
-                        
+        				
                             
-                                <a href="/tags/#c/c++" title="c/c++" rel="2">
+                				<a href="/tags/#c/c++" title="c/c++" rel="2">
                                     c/c++
                                 </a>
                             
-                        
+        				
                             
-                        
+        				
                             
-                                <a href="/tags/#latex" title="latex" rel="2">
+                				<a href="/tags/#latex" title="latex" rel="2">
                                     latex
                                 </a>
                             
-                        
+        				
                             
-                                <a href="/tags/#linux" title="linux" rel="3">
+                				<a href="/tags/#linux" title="linux" rel="3">
                                     linux
                                 </a>
                             
-                        
+        				
                             
-                        
+        				
                             
-                                <a href="/tags/#python" title="python" rel="5">
+                				<a href="/tags/#python" title="python" rel="5">
                                     python
                                 </a>
                             
-                        
+        				
                             
-                        
+        				
                             
-                        
-                    </div>
+        				
+        			</div>
                 </section>
                 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-                        
-                            <img src="/img/avatar-Ziping.jpeg" />
-                        
-                        
-                            <p>Try to think different</p>
-                        
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-                            
-                            
-                            
-                            <li>
-                                <a target="_blank" href="https://github.com/Zipingxu">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            
-                            
-                        </ul>
-                    </div>
-                </section>
                 <!-- Friends Blog -->
                 
                 <hr>
@@ -367,10 +386,52 @@
                     
                 </ul>
                 
-    		</div>
-        
-	</div>
-</div>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
 
     <!-- Footer -->
@@ -496,6 +557,50 @@
 
 
 <!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
 
 
 

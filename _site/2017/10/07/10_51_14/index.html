@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="In Data We Trust">
+    <meta name="keywords"  content="Data Science; Statistics; Unity">
+    <meta name="theme-color" content="#000000">
+    
+    <title>A C++ implement for KD-tree - 子平的博客 | Ziping Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2017/10/07/10_51_14/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Ziping Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/portfolio/">Portfolio</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/2017-10-07-10_51_14.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/2017-10-07-10_51_14.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#c/c++" title="c/c++">c/c++</a>
+                        
+                        <a class="tag" href="/tags/#kd-tree" title="kd-tree">kd-tree</a>
+                        
+                    </div>
+                    <h1>A C++ implement for KD-tree</h1>
+                    
+                    
+                    <h2 class="subheading">Distance is defined as the correlation</h2>
+                    
+                    <span class="meta">Posted by Ziping on October 7, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h1 id="a-c-implement-for-kd-tree">A C++ implement for KD-tree</h1>
+
+<p>I just list the header file and some implement for KD-tree.</p>
+
+<p>The distance here is the correlation of two series.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+KD tree for finding k nearest with distance measured by correlation
+ziping 
+20170908
+*/</span>
+
+<span class="cp">#define MAX_LEN 2328
+#define MAX_STR 512
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;queue&gt;
+#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt;
+#include &lt;stack&gt;
+#include &lt;dirent.h&gt;
+</span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">KDtree</span><span class="p">{</span>
+	<span class="kt">double</span> <span class="n">data</span><span class="p">[</span><span class="n">MAX_LEN</span><span class="p">];</span> <span class="c1">// data
+</span>	<span class="kt">int</span> <span class="n">dim</span><span class="p">;</span> <span class="c1">// current dimension 
+</span>	<span class="kt">char</span><span class="o">*</span> <span class="n">alpha_id</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">KDtree</span> <span class="o">*</span><span class="n">left</span><span class="p">;</span> <span class="c1">// left child
+</span>	<span class="k">struct</span> <span class="n">KDtree</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span> <span class="c1">// right child
+</span><span class="p">}</span><span class="n">kdtree_node</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="n">class</span> <span class="n">result</span><span class="p">{</span>
+<span class="n">public</span><span class="o">:</span>
+	<span class="kt">char</span><span class="o">*</span> <span class="n">alpha_id</span><span class="p">;</span>
+	<span class="kt">double</span> <span class="n">correlation</span><span class="p">;</span>
+
+	<span class="n">result</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">alpha_id</span><span class="p">,</span> <span class="kt">double</span> <span class="n">correlation</span><span class="p">)</span><span class="o">:</span> <span class="n">alpha_id</span><span class="p">(</span><span class="n">alpha_id</span><span class="p">),</span> <span class="n">correlation</span><span class="p">(</span><span class="n">correlation</span><span class="p">){};</span>
+
+	<span class="n">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">result</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">){</span>
+		<span class="k">return</span> <span class="n">this</span><span class="o">-&gt;</span><span class="n">correlation</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">.</span><span class="n">correlation</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span><span class="n">k_result</span><span class="p">;</span>
+
+<span class="c1">// Find the medium in a series
+</span><span class="n">class</span> <span class="n">Solution</span> <span class="p">{</span>
+<span class="n">public</span><span class="o">:</span>
+	<span class="n">Solution</span><span class="p">(){</span>
+		<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="p">}</span>
+    <span class="kt">void</span> <span class="n">Insert</span><span class="p">(</span><span class="kt">double</span> <span class="n">data</span><span class="p">)</span>
+    <span class="p">{</span>
+	    <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+	    <span class="k">if</span><span class="p">(</span><span class="n">count</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+	    <span class="p">{</span>
+	        <span class="n">big_heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	        <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="n">big_heap</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+	        <span class="n">small_heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+	        <span class="n">big_heap</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+	    <span class="p">}</span>
+	    <span class="k">else</span>
+	    <span class="p">{</span>
+	        <span class="n">small_heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	        <span class="kt">double</span> <span class="n">value</span> <span class="o">=</span> <span class="n">small_heap</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+	        <span class="n">big_heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+	        <span class="n">small_heap</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+	    <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">double</span> <span class="n">GetMedian</span><span class="p">()</span>
+    <span class="p">{</span> 
+    	<span class="c1">//cout &lt;&lt; count &lt;&lt; endl;
+</span>    	<span class="c1">//cout &lt;&lt; big_heap.top() &lt;&lt; ", " &lt;&lt; small_heap.top() &lt;&lt; endl;
+</span>        <span class="k">if</span><span class="p">(</span><span class="n">count</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="kt">double</span><span class="p">((</span><span class="n">big_heap</span><span class="p">.</span><span class="n">top</span><span class="p">()</span> <span class="o">+</span> <span class="n">small_heap</span><span class="p">.</span><span class="n">top</span><span class="p">()))</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="n">big_heap</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="n">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">count</span><span class="p">;</span>
+    <span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">less</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">big_heap</span><span class="p">;</span>
+    <span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">greater</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">small_heap</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// compute correlation
+</span><span class="kt">double</span> <span class="n">correlation</span><span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dim</span><span class="p">){</span>
+	<span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+		<span class="n">d</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">d</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// compute Euclid distance
+</span><span class="kt">double</span> <span class="n">distance</span><span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dim</span><span class="p">){</span>
+	<span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+		<span class="n">d</span> <span class="o">+=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">d</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">double</span> <span class="n">distance_except_dim</span><span class="p">(</span><span class="kt">double</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="kt">int</span> <span class="n">except_dim</span><span class="p">){</span>
+	<span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">except_dim</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="n">except_dim</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">except_dim</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="n">except_dim</span><span class="p">]);</span>
+	<span class="k">return</span> <span class="n">d</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/*
+void saveTree(kdtree_node * &amp;tree_node, char* targetName){
+	// To be implemented	
+}
+*/</span>
+
+<span class="cm">/*/ 递归构建kd树，通过节点所在的层数控制选择的维度
+int kdtree_insert(kdtree_node * &amp;tree_node, double *data, string alpha_id, int layer, int dim){
+	// 空树
+	if (NULL == tree_node){
+		// 申请空间
+		//tree_node = (kdtree_node *)malloc(sizeof(kdtree_node));
+		tree_node = new kdtree_node;
+		if (NULL == tree_node) return 1;
+
+		//插入元素
+		for (int i = 0; i &lt; dim; i ++){
+			(tree_node-&gt;data)[i] = data[i];
+		}
+		tree_node-&gt;dim = layer % (dim);
+		tree_node-&gt;alpha_id = alpha_id;
+		tree_node-&gt;left = NULL;
+		tree_node-&gt;right = NULL;
+
+		return 0;
+	}
+	
+	// 插入左子树
+	if (data[tree_node-&gt;dim] &lt;= (tree_node-&gt;data)[tree_node-&gt;dim]){
+		return kdtree_insert(tree_node-&gt;left, data, alpha_id, ++layer, dim);
+	}
+	
+	// 插入右子树
+	return kdtree_insert(tree_node-&gt;right, data, alpha_id, ++layer, dim);
+}*/</span>
+
+<span class="c1">// Build a new tree
+</span><span class="kt">void</span> <span class="n">kdtree_build</span><span class="p">(</span><span class="n">kdtree_node</span> <span class="o">*</span> <span class="o">&amp;</span><span class="n">tree_node</span><span class="p">,</span> <span class="kt">double</span> <span class="o">**</span><span class="n">data</span><span class="p">,</span> <span class="n">string</span><span class="o">*</span> <span class="n">alpha_id</span><span class="p">,</span> <span class="kt">int</span> <span class="n">layer</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dim</span><span class="p">,</span> <span class="n">bool</span><span class="o">*</span> <span class="n">subGroup</span><span class="p">,</span> <span class="n">bool</span> <span class="n">ifLog</span> <span class="o">=</span> <span class="nb">false</span><span class="p">){</span>	
+	<span class="c1">// 空树
+</span>	<span class="c1">// 申请空间
+</span>	<span class="k">if</span><span class="p">(</span><span class="n">ifLog</span><span class="p">)</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Build: "</span> <span class="o">&lt;&lt;</span> <span class="n">layer</span> <span class="o">&lt;&lt;</span> <span class="s">"th Layer"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+	<span class="c1">//tree_node = (kdtree_node *)malloc(sizeof(kdtree_node));
+</span>	<span class="n">tree_node</span> <span class="o">=</span> <span class="n">new</span> <span class="n">kdtree_node</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">tree_node</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+	<span class="c1">//插入元素
+</span>	<span class="c1">//首先确定需要插入哪个元素
+</span>	<span class="n">Solution</span> <span class="n">find_median</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">();</span>
+	<span class="kt">int</span> <span class="n">t_dim</span> <span class="o">=</span> <span class="n">layer</span> <span class="o">%</span> <span class="p">(</span><span class="n">dim</span><span class="p">);</span>
+	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">subGroup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="nb">true</span><span class="p">){</span>
+			<span class="c1">//cout &lt;&lt; data[i][t_dim] &lt;&lt;",";
+</span>			<span class="n">find_median</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">t_dim</span><span class="p">]);</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="kt">double</span> <span class="n">median</span> <span class="o">=</span> <span class="n">find_median</span><span class="p">.</span><span class="n">GetMedian</span><span class="p">();</span>
+	<span class="kt">double</span> <span class="n">mini</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">mIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">m</span><span class="p">;</span>
+	<span class="k">for</span><span class="p">(</span><span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">;</span> <span class="n">m</span><span class="o">++</span><span class="p">){</span>
+		<span class="k">if</span><span class="p">((</span><span class="n">subGroup</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">==</span> <span class="nb">true</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">fabs</span><span class="p">(</span><span class="n">median</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">t_dim</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">mini</span><span class="p">)){</span>
+			<span class="n">mini</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">median</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">t_dim</span><span class="p">]);</span>
+			<span class="n">mIndex</span> <span class="o">=</span> <span class="n">m</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">ifLog</span><span class="p">)</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\t</span><span class="s">"</span> <span class="o">&lt;&lt;</span> <span class="s">"Select: "</span> <span class="o">&lt;&lt;</span> <span class="n">mIndex</span> <span class="o">&lt;&lt;</span> <span class="s">"th alpha: "</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span> <span class="o">&lt;&lt;</span> <span class="n">alpha_id</span><span class="p">[</span><span class="n">mIndex</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+	<span class="c1">//cout &lt;&lt; median &lt;&lt; endl;
+</span>	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+		<span class="p">(</span><span class="n">tree_node</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">mIndex</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+	<span class="p">}</span>
+	<span class="n">tree_node</span><span class="o">-&gt;</span><span class="n">dim</span> <span class="o">=</span> <span class="n">layer</span> <span class="o">%</span> <span class="p">(</span><span class="n">dim</span><span class="p">);</span>
+
+	<span class="n">tree_node</span><span class="o">-&gt;</span><span class="n">alpha_id</span> <span class="o">=</span> <span class="n">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">MAX_STR</span><span class="p">];</span>
+	<span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">alpha_id</span><span class="p">[</span><span class="n">mIndex</span><span class="p">].</span><span class="n">length</span><span class="p">();</span>
+	<span class="n">alpha_id</span><span class="p">[</span><span class="n">mIndex</span><span class="p">].</span><span class="n">copy</span><span class="p">(</span><span class="n">tree_node</span><span class="o">-&gt;</span><span class="n">alpha_id</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+	<span class="n">tree_node</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+	<span class="n">tree_node</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+	<span class="n">bool</span><span class="o">*</span> <span class="n">leftSubGroup</span> <span class="o">=</span> <span class="n">new</span> <span class="n">bool</span><span class="p">[</span><span class="n">num</span><span class="p">];</span>
+	<span class="n">bool</span> <span class="n">left</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+	<span class="n">bool</span><span class="o">*</span> <span class="n">rightSubGroup</span> <span class="o">=</span> <span class="n">new</span> <span class="n">bool</span><span class="p">[</span><span class="n">num</span><span class="p">];</span>
+	<span class="n">bool</span> <span class="n">right</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">subGroup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="nb">false</span><span class="p">){</span>
+			<span class="n">leftSubGroup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+			<span class="n">rightSubGroup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+			<span class="k">continue</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">t_dim</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">data</span><span class="p">[</span><span class="n">mIndex</span><span class="p">][</span><span class="n">t_dim</span><span class="p">]){</span>
+			<span class="n">leftSubGroup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+			<span class="n">rightSubGroup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+			<span class="n">right</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">t_dim</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">data</span><span class="p">[</span><span class="n">mIndex</span><span class="p">][</span><span class="n">t_dim</span><span class="p">]){</span>
+			<span class="n">rightSubGroup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+			<span class="n">leftSubGroup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+			<span class="n">left</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">else</span><span class="p">{</span>
+			<span class="n">leftSubGroup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+			<span class="n">rightSubGroup</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="cm">/* The distribution!
+	cout &lt;&lt; left &lt;&lt; ", " &lt;&lt; right &lt;&lt; endl;
+	for(int i = 0; i &lt; num; i++)
+		cout &lt;&lt; leftSubGroup[i] &lt;&lt; ",";
+	cout &lt;&lt; endl;
+	for(int i = 0; i &lt; num; i++)
+		cout &lt;&lt; rightSubGroup[i] &lt;&lt; ",";
+	cout &lt;&lt; endl;
+	*/</span>
+	<span class="c1">// 插入左子树
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">left</span><span class="p">){</span>
+		<span class="n">kdtree_build</span><span class="p">(</span><span class="n">tree_node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">alpha_id</span><span class="p">,</span> <span class="n">layer</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">leftSubGroup</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="c1">// 插入右子树
+</span>	<span class="k">if</span><span class="p">(</span><span class="n">right</span><span class="p">){</span>
+		<span class="n">kdtree_build</span><span class="p">(</span><span class="n">tree_node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">alpha_id</span><span class="p">,</span> <span class="n">layer</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">rightSubGroup</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// search the alpha with a correlation larger than a threshold
+</span><span class="kt">void</span> <span class="n">search_nearestK</span><span class="p">(</span><span class="n">kdtree_node</span> <span class="o">*</span><span class="n">tree</span><span class="p">,</span> <span class="kt">double</span> <span class="o">*</span><span class="n">data_search</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dim</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">k_result</span><span class="o">&gt;*</span> <span class="n">result</span><span class="p">,</span> <span class="kt">double</span> <span class="n">thred</span><span class="p">,</span> <span class="n">bool</span> <span class="n">ifLog</span> <span class="o">=</span> <span class="nb">false</span><span class="p">){</span>
+	<span class="c1">//对距离的阈值设置
+</span>	<span class="kt">double</span><span class="o">*</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">new</span> <span class="kt">double</span><span class="p">;</span>
+	<span class="o">*</span><span class="n">theta</span> <span class="o">=</span> <span class="n">acos</span><span class="p">(</span><span class="n">thred</span><span class="p">);</span>
+	<span class="kt">double</span><span class="o">*</span> <span class="n">thred_dis</span> <span class="o">=</span> <span class="n">new</span> <span class="kt">double</span><span class="p">;</span>
+	<span class="o">*</span><span class="n">thred_dis</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="o">*</span><span class="n">theta</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="o">*</span><span class="n">theta</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+	<span class="n">stack</span><span class="o">&lt;</span><span class="n">kdtree_node</span> <span class="o">*&gt;</span> <span class="n">st</span><span class="p">;</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">ifLog</span><span class="p">)</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">thred_dis</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+	<span class="n">kdtree_node</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">tree</span><span class="p">;</span>
+	
+	<span class="k">while</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+		<span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">p</span><span class="p">);</span><span class="c1">// 将p压栈
+</span>		<span class="k">if</span> <span class="p">(</span><span class="n">data_search</span><span class="p">[</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">dim</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)[</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">dim</span><span class="p">]){</span><span class="c1">// 选择左子树
+</span>			<span class="c1">// 判断左子树是否为空
+</span>			
+			<span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+			<span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+		<span class="p">}</span><span class="k">else</span><span class="p">{</span> <span class="c1">// 选择右子树
+</span>			
+			<span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+			<span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+	<span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+		<span class="n">kdtree_node</span> <span class="o">*</span><span class="n">q</span> <span class="o">=</span> <span class="n">st</span><span class="p">.</span><span class="n">top</span><span class="p">();</span><span class="c1">// 找到栈顶元素
+</span>		<span class="n">st</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span> <span class="c1">// 出栈
+</span>		
+		<span class="c1">// 判断与父节点之间的距离
+</span>		<span class="k">if</span><span class="p">(</span><span class="n">ifLog</span><span class="p">)</span>
+			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Search: "</span> <span class="o">&lt;&lt;</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">alpha_id</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+		<span class="n">d</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">data_search</span><span class="p">,</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="p">);</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">ifLog</span><span class="p">)</span>
+			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\t</span><span class="s">"</span> <span class="o">&lt;&lt;</span> <span class="s">"The distance is: "</span> <span class="o">&lt;&lt;</span> <span class="n">d</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">&lt;=</span> <span class="o">*</span><span class="n">thred_dis</span><span class="p">){</span>
+			<span class="kt">double</span> <span class="n">corr</span> <span class="o">=</span> <span class="n">correlation</span><span class="p">(</span><span class="n">data_search</span><span class="p">,</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">,</span> <span class="n">dim</span><span class="p">);</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">ifLog</span><span class="p">)</span>
+				<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\t</span><span class="s">"</span> <span class="o">&lt;&lt;</span> <span class="s">"The Correlation is: "</span> <span class="o">&lt;&lt;</span> <span class="n">corr</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+			<span class="n">result</span><span class="o">-&gt;</span><span class="n">push_back</span><span class="p">(</span><span class="n">k_result</span><span class="p">(</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">alpha_id</span><span class="p">,</span> <span class="n">corr</span><span class="p">));</span>
+		<span class="p">}</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">ifLog</span><span class="p">)</span>
+			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+		<span class="c1">// 判断与分隔面是否相交
+</span>		<span class="kt">double</span> <span class="n">d_line</span> <span class="o">=</span> <span class="n">distance_except_dim</span><span class="p">(</span><span class="n">data_search</span><span class="p">,</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">,</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">dim</span><span class="p">);</span> <span class="c1">// 到平面之间的距离
+</span>		<span class="k">if</span> <span class="p">(</span><span class="n">d_line</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">thred_dis</span><span class="p">){</span> <span class="c1">// 相交
+</span>			<span class="c1">// 如果本来在右子树，现在查找左子树
+</span>			<span class="c1">// 如果本来在左子树，现在查找右子树
+</span>			<span class="k">if</span> <span class="p">(</span><span class="n">data_search</span><span class="p">[</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">dim</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)[</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">dim</span><span class="p">]){</span>
+				<span class="c1">// 选择左子树
+</span>				<span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+				<span class="k">else</span> <span class="n">q</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+			<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+				<span class="c1">// 选择右子树
+</span>				<span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+				<span class="k">else</span> <span class="n">q</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+			<span class="p">}</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">q</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+				<span class="k">while</span> <span class="p">(</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+					<span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">q</span><span class="p">);</span>
+					<span class="k">if</span> <span class="p">(</span><span class="n">data_search</span><span class="p">[</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">dim</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)[</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">dim</span><span class="p">]){</span>
+						<span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+						<span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+					<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+						<span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+						<span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+					<span class="p">}</span>
+				<span class="p">}</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">q</span><span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// print trees
+</span><span class="kt">void</span> <span class="n">kdtree_print</span><span class="p">(</span><span class="n">kdtree_node</span> <span class="o">*</span><span class="n">tree</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dim</span><span class="p">){</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">tree</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+		<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"dim:%d "</span><span class="p">,</span> <span class="n">tree</span><span class="o">-&gt;</span><span class="n">dim</span><span class="p">);</span>
+		<span class="c1">//cout &lt;&lt; tree-&gt;alpha_id &lt;&lt; endl;
+</span>		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+			<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"%lf</span><span class="se">\t</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)[</span><span class="n">i</span><span class="p">]);</span>
+		<span class="p">}</span>
+		<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">kdtree_print</span><span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">dim</span><span class="p">);</span>
+		<span class="n">kdtree_print</span><span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">dim</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">kdtree_print_in</span><span class="p">(</span><span class="n">kdtree_node</span> <span class="o">*</span><span class="n">tree</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dim</span><span class="p">){</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">tree</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+		<span class="n">kdtree_print_in</span><span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">dim</span><span class="p">);</span>
+		<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"dim:%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">tree</span><span class="o">-&gt;</span><span class="n">dim</span><span class="p">);</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">tree</span><span class="o">-&gt;</span><span class="n">alpha_id</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+			<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"%lf</span><span class="se">\t</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)[</span><span class="n">i</span><span class="p">]);</span>
+		<span class="p">}</span>
+		<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">kdtree_print_in</span><span class="p">(</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">dim</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/10/07/10_23_57/" data-toggle="tooltip" data-placement="top" title="C/C++ file system">
+                        Previous<br>
+                        <span>C/C++ file system</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/10/07/10_55_43/" data-toggle="tooltip" data-placement="top" title="Line Feeds within a Cell">
+                        Next<br>
+                        <span>Line Feeds within a Cell</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+        				
+                            
+                				<a href="/tags/#c/c++" title="c/c++" rel="2">
+                                    c/c++
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#latex" title="latex" rel="2">
+                                    latex
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#linux" title="linux" rel="3">
+                                    linux
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#python" title="python" rel="5">
+                                    python
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Zipingxu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Ziping Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+---
+layout:     post
+title:      "Latex Reference"
+subtitle:   "How to reference papars in Latex?"
+date:       2017-10-07
+author:     "Ziping"
+header-img: "img/2017-10-07-10_59_13.jpg"
+catalog: true
+tags:
+    - latex
+---
+
+# Latex Reference
+
+## Steps
+
+1. Copy the Google scholar cite text into a file with a suffix called ``.bib``.
+2. In your ``.tex`` file, cite the reference and configure the file, which will generate a ``.aux`` file.
+3. Open terminal in the directory and enter  ``bibtex + file_name``, which will generate ``.bbl`` file.
+4. Configure ``.tex`` file again, you will get the final output.
+
+## Reference tables, figures or sections
+
+```latex
+% table and figure
+\label{type:example}
+~\ref{type:example}
+```
+

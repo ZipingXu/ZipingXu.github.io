@@ -10,7 +10,7 @@
     <meta name="keywords"  content="Data Science; Statistics; Unity">
     <meta name="theme-color" content="#000000">
     
-    <title>About - 子平的博客 | Ziping Blog</title>
+    <title>子平的博客 | Ziping Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/about/">
+    <link rel="canonical" href="http://localhost:4000/page2/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -154,14 +154,14 @@
 
 
     <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/about-bg.jpg')">
+<header class="intro-header" style="background-image: url('/img/home-bg.png')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
                 <div class="site-heading">
-                    <h1>About</h1>
+                    <h1>Ziping Blog</h1>
                     <!--<hr class="small">-->
-                    <span class="subheading">Hey, this is Ziping.</span>
+                    <span class="subheading">In data we trust.</span>
                 </div>
             </div>
         </div>
@@ -182,96 +182,111 @@
                 col-xs-12
                 postlist-container
             ">
-    			<!-- Language Selector -->
-<select class="sel-lang" onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
-    <option value="0" selected> 中文 Chinese </option>
-    <option value="1"> 英文 English </option>
-</select>
+    			
+<div class="post-preview">
+    <a href="/2017/10/07/10_51_14/">
+        <h2 class="post-title">
+            A C++ implement for KD-tree
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Distance is defined as the correlation
+        </h3>
+        
+        <div class="post-content-preview">
+            A C++ implement for KD-tree
 
-<!-- Chinese Version -->
-<div class="zh post-container">
-    
-    <blockquote>
-  <p>Data, Machine learning, Statistics, Deep Learning</p>
-</blockquote>
+I just list the header file and some implement for KD-tree.
 
-<p>Hey, I am Ziping Xu. Student in Peking University major in Data Science.</p>
+The distance here is the correlation of two series.
 
-<p>I am interested in techniques in data science including deep learning, statistics and visualization.</p>
-
-
+/*
+KD tree for finding k nearest with distance measure...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on October 7, 2017
+    </p>
 </div>
+<hr>
 
-<!-- English Version -->
-<div class="en post-container">
+<div class="post-preview">
+    <a href="/2017/10/07/10_23_57/">
+        <h2 class="post-title">
+            C/C++ file system
+        </h2>
+        
+        <h3 class="post-subtitle">
+            An record of structure for file system in C/C++
+        </h3>
+        
+        <div class="post-content-preview">
+            C/C++ file system
+
+This is simple demo for file system operation.
+
+In Unix/Linix system, direct.h defines some structures.
+
+Data Structure
+
+DIR: structure for directory stream.
+
+struct __dirstream
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on October 7, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/10/02/hello-2015/">
+        <h2 class="post-title">
+            test
+        </h2>
+        
+        <h3 class="post-subtitle">
+             hahah
+        </h3>
+        
+        <div class="post-content-preview">
+            Header1
+
+Header2
+
+Header3
+
+
+  hahaha
+
+
+import numpy as np
+
+
+a
+
+
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on October 2, 2017
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/">&larr; Newer Posts</a>
+    </li>
     
     
-<blockquote>
-  <p>Yet another man.</p>
-</blockquote>
-
-<p>Hi, I am <em>@huxpro</em> (Huang, Xuan), a software engineer &amp; a designer. I previously worked as Web Front-End Engineer at <a href="https://www.alitrip.com/">Alibaba Trip</a>; Web Front-End Infrastructure Team Lead at <a href="https://www.crunchbase.com/organization/wepiao#/entity">Wepiao.com</a>; And <a href="(https://medium.com/elemefe/upgrading-ele-me-to-progressive-web-app-2a446832e509)">Invited Consultant on PWA</a> at <a href="https://github.com/elemefe/">Ele.me</a>.</p>
-
-<p>I studied Digital Media Art and graduated from <a href="https://en.wikipedia.org/wiki/Communication_University_of_China">Communication University of China</a> by 2016, and am studying Computer Science at <a href="https://en.wikipedia.org/wiki/Rochester_Institute_of_Technology">Rochester Institute of Technology</a> from 2017.</p>
-
-<h5 id="talks">Talks</h5>
-
-<ul>
-  <li><a href="//huangxuan.me/jsconfcn2017/">Upgrading to Progressive Web Apps</a> · <a href="http://2017.jsconf.cn/">JSConf China Shanghai 2017</a></li>
-  <li>Building Progressive Web Apps · <a href="http://www.csdisummit.com/">CSDI Guangzhou 2017</a></li>
-  <li>The State of Progressive Web App · GDG IO Redux Beijing 2017</li>
-  <li>PWA Rehashing · Baidu HQ Beijing 2017</li>
-  <li><a href="//huangxuan.me/2016/11/20/sw-101-gdgdf/">Service Worker 101</a> · GDG DevFest Beijing 2016</li>
-  <li><a href="//huangxuan.me/2016/10/20/pwa-qcon2016/">Progressive Web Apps</a> · QCon Shanghai 2016</li>
-  <li>Progressive Web App in my POV · GDG IO Redux Beijing 2016</li>
-  <li><a href="//huangxuan.me/2015/12/28/css-sucks-2015/">CSS Still Sucks 2015</a> · 2015</li>
-  <li><a href="//huangxuan.me/2015/07/09/js-module-7day/">JavaScript Modularization Journey</a> · 2015</li>
 </ul>
-
-
-</div>
-
-<!-- Handle Language Change -->
-<script type="text/javascript">
-    // get nodes
-    var $zh = document.querySelector(".zh");
-    var $en = document.querySelector(".en");
-    var $select = document.querySelector("select");
-
-    // bind hashchange event
-    window.addEventListener('hashchange', _render);
-
-    // handle render
-    function _render(){
-        var _hash = window.location.hash;
-        // en
-        if(_hash == "#en"){
-            $select.selectedIndex = 1;
-            $en.style.display = "block";
-            $zh.style.display = "none";
-        // zh by default
-        }else{
-            // not trigger onChange, otherwise cause a loop call.
-            $select.selectedIndex = 0;
-            $zh.style.display = "block";
-            $en.style.display = "none";
-        }
-    }
-
-    // handle select change
-    function onLanChange(index){
-        if(index == 0){
-            window.location.hash = "#zh"
-        }else{
-            window.location.hash = "#en"
-        }
-    }
-
-    // init
-    _render();
-</script>
-
-
 
 
     		</div>

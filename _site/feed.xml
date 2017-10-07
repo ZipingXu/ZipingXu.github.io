@@ -3,35 +3,470 @@
   <channel>
     <title>Ziping Blog</title>
     <description>In Data We Trust</description>
-    <link>https://zipingxu.github.io/</link>
-    <atom:link href="https://zipingxu.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 06 Oct 2017 23:04:44 +0800</pubDate>
-    <lastBuildDate>Fri, 06 Oct 2017 23:04:44 +0800</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sat, 07 Oct 2017 13:33:55 +0800</pubDate>
+    <lastBuildDate>Sat, 07 Oct 2017 13:33:55 +0800</lastBuildDate>
     <generator>Jekyll v3.6.0</generator>
     
       <item>
-        <title>test</title>
-        <description>&lt;h1 id=&quot;header1&quot;&gt;Header1&lt;/h1&gt;
+        <title>Demo for Wavelets Analysis</title>
+        <description>&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;​&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;``&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;python&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pywt&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
 
-&lt;h2 id=&quot;header2&quot;&gt;Header2&lt;/h2&gt;
+&lt;span class=&quot;n&quot;&gt;ts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;56&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;56&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;44&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 
-&lt;h2 id=&quot;header3&quot;&gt;Header3&lt;/h2&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ca&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pywt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dwt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'haar'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;hahaha&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;span class=&quot;c&quot;&gt;#cat = pywt.threshold(ca, np.std(ca)/2, mode = &quot;soft&quot;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#cdt = pywt.threshold(cd, np.std(cd)/2, mode = &quot;soft&quot;)&lt;/span&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ca&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ts_rec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pywt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;idwt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ca&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'haar'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'all'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;211&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Original coefficients&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ca&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'--*b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'--*r'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ca'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'cd'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ca_thresh'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'cd_thresh'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'on'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;212&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hold&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'on'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ts_rec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'r'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'original signal'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'reconstructed signal'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'on'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;​&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;``&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/10/07/11_38_15/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_38_15/</guid>
+        
+        <category>python</category>
+        
+        <category>wavelets</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Add directory into python path</title>
+        <description>&lt;h2 id=&quot;method1-sys-functions&quot;&gt;Method1: sys functions&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sys&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;c:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;method2-change-path&quot;&gt;Method2: Change Path&lt;/h2&gt;
+
+&lt;p&gt;Windows: add PYTHONPATH&lt;/p&gt;
+
+&lt;h2 id=&quot;method3-pth文件&quot;&gt;Method3: .pth文件&lt;/h2&gt;
+
+&lt;p&gt;Add a &lt;code class=&quot;highlighter-rouge&quot;&gt;.pth&lt;/code&gt; file in site-packages and write the path of the modules you want to insert.&lt;/p&gt;
+
+&lt;p&gt;2 linux(ubuntu)
+   /usr/local/lib/python2.7/dist-packages&lt;/p&gt;
+
+&lt;p&gt;2 linux(redhat)
+   /usr/lib/python2.7/site-packages&lt;/p&gt;
+</description>
+        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/10/07/11_34_33/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_34_33/</guid>
+        
+        <category>python</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Efficient Rolling in Python</title>
+        <description>&lt;p&gt;As far as I know, there are two ways for rolling apply.&lt;/p&gt;
+
+&lt;h2 id=&quot;pandas&quot;&gt;Pandas&lt;/h2&gt;
+&lt;p&gt;For pandas DataFrame object&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;b&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]})&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rolling&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nanmean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;numpy&quot;&gt;Numpy&lt;/h2&gt;
+&lt;p&gt;We can define a rolling window to acheive rolling apply,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-pyhton&quot;&gt;def rolling_window(a, window):
+    shape = a.shape[:-1] + (a.shape[-1] - window + 1, window)
+    strides = a.strides + (a.strides[-1],)
+    return np.lib.stride_tricks.as_strided(a, shape=shape, strides=strides)
+
+x=np.arange(10).reshape((2,5))
+rolling_window(x, 3)
+    
+np.mean(rolling_window(x, 3), -1)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/10/07/11_33_33/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_33_33/</guid>
+        
+        <category>python</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>How to install multi-version python in anaconda</title>
+        <description>&lt;h1 id=&quot;anaconda-multi-version-python&quot;&gt;Anaconda Multi-version Python&lt;/h1&gt;
+
+&lt;h2 id=&quot;manage-python&quot;&gt;Manage Python&lt;/h2&gt;
+
+&lt;p&gt;Check the available versions for Python&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conda search &lt;span class=&quot;nt&quot;&gt;--full&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; python
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;create-a-second-environment&quot;&gt;Create a second environment&lt;/h2&gt;
+
+&lt;p&gt;we call it &lt;code class=&quot;highlighter-rouge&quot;&gt;new_env&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conda create &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; new_env &lt;span class=&quot;nv&quot;&gt;python&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;New version is installed in &lt;code class=&quot;highlighter-rouge&quot;&gt;/envs/bunnies&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;list-all-the-environments-in-your-system&quot;&gt;List all the environments in your system:&lt;/h2&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conda info &lt;span class=&quot;nt&quot;&gt;--envs&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;check-the-current-environment&quot;&gt;Check the current environment:&lt;/h2&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conda info &lt;span class=&quot;nt&quot;&gt;-envis&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;change-environment-activatedeactivate&quot;&gt;Change environment (activate/deactivate)&lt;/h2&gt;
+
+&lt;p&gt;Linux, OS X:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;source &lt;/span&gt;activate new_env
+&lt;span class=&quot;nb&quot;&gt;source &lt;/span&gt;deactivate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;copy-an-environment&quot;&gt;Copy an environment&lt;/h2&gt;
+
+&lt;p&gt;Clone a environment. Here we clone &lt;code class=&quot;highlighter-rouge&quot;&gt;old_env&lt;/code&gt; as &lt;code class=&quot;highlighter-rouge&quot;&gt;new_env&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conda create &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; new_env &lt;span class=&quot;nt&quot;&gt;--clone&lt;/span&gt; old_env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;delete-an-environment&quot;&gt;Delete an environment&lt;/h2&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conda remove &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; old_env &lt;span class=&quot;nt&quot;&gt;--all&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 </description>
-        <pubDate>Mon, 02 Oct 2017 20:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/02/hello-2015/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/02/hello-2015/</guid>
+        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/10/07/11_21_51/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_21_51/</guid>
         
-        <category>生活</category>
+        <category>python</category>
+        
+        <category>anaconda</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Encoding in Python</title>
+        <description>&lt;h1 id=&quot;encoding-in-python&quot;&gt;Encoding in Python&lt;/h1&gt;
+
+&lt;h2 id=&quot;check-encoding&quot;&gt;Check encoding&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;test.csv&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;rb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chardet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;detect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/10/07/11_19_08/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_19_08/</guid>
+        
+        <category>python</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Copy Files Across Servers</title>
+        <description>&lt;h1 id=&quot;copy-files-across-servers&quot;&gt;Copy Files Across Servers&lt;/h1&gt;
+
+&lt;p&gt;以前一直是在服务器上tar打包压缩，下载到本地电脑上，再上传到另外一台服务器上，再解压。&lt;/p&gt;
+
+&lt;p&gt;其实使用scp就可以直接对拷文件或者文件夹了。&lt;/p&gt;
+
+&lt;p&gt;scp就是secure copy,是用来进行远程文件拷贝的.数据传输使用ssh1,并且和ssh1使用相同的认证方式,提供相同的安全保证.与rcp不同的是,scp会要求你输入密码如果需要的话.&lt;/p&gt;
+
+&lt;p&gt;最简单的应用如下:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scp local_user@IP1:name1 remote_user@IP2:name2 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;意思是将本地的文件名1拷贝到，远程的文件名2内。&lt;/p&gt;
+
+&lt;p&gt;[本地用户名@IP地址:]可以不输入,可能需要输入远程用户名所对应的密码.&lt;/p&gt;
+
+&lt;p&gt;可能有用的几个参数: 
+-v 和大多数Linux命令中的-v意思一样,用来显示进度.可以用来查看连接,认证,或是配置错误. 
+-C 使能压缩选项. 
+-P 选择端口.注意-p已经被rcp使用. 
+-4 强行使用IPV4地址. 
+-6 强行使用IPV6地址. 
+scp中很多参数都和ssh1有关,需要的话在看.&lt;/p&gt;
+
+&lt;p&gt;例如拷贝单个文件命令：&lt;/p&gt;
+
+&lt;p&gt;scp file username@ip:filepath&lt;/p&gt;
+
+&lt;p&gt;说明：file是要拷贝的文件名&lt;/p&gt;
+
+&lt;p&gt;username:远程登录的用户名，&lt;/p&gt;
+
+&lt;p&gt;ip：远程服务器ip&lt;/p&gt;
+
+&lt;p&gt;filepath：远程文件路径&lt;/p&gt;
+
+&lt;p&gt;拷贝文件夹命令如下：scp -r file username@ip:filepath&lt;/p&gt;
+
+&lt;p&gt;多加上一个-r参数即可。&lt;/p&gt;
+
+&lt;h1 id=&quot;example&quot;&gt;example&lt;/h1&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh ziping@60.205.205.xx
+scp &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ~/file yourUserName@60.205.205.xx:~/file/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/10/07/11_09_11/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_09_11/</guid>
+        
+        <category>linux</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Shell</title>
+        <description>&lt;h1 id=&quot;shell&quot;&gt;Shell&lt;/h1&gt;
+
+&lt;p&gt;Shell支持自定义变量。&lt;/p&gt;
+
+&lt;h2 id=&quot;定义变量&quot;&gt;定义变量&lt;/h2&gt;
+
+&lt;p&gt;定义变量时，变量名不加美元符号（$），如：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;variableName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。&lt;/p&gt;
+
+&lt;p&gt;同时，变量名的命名须遵循如下规则：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;首个字符必须为字母（a-z，A-Z）。&lt;/li&gt;
+  &lt;li&gt;中间不能有空格，可以使用下划线（_）。&lt;/li&gt;
+  &lt;li&gt;不能使用标点符号。&lt;/li&gt;
+  &lt;li&gt;不能使用bash里的关键字（可用help命令查看保留关键字）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;变量定义举例：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;myUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://see.xidian.edu.cn/cpp/linux/&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;myNum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;使用变量&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mozhiyan&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$your_name&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;skill &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;Ada Coffe Action Java 
+&lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;I am good at &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;skill&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Script&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;只读变量&quot;&gt;只读变量&lt;/h2&gt;
+
+&lt;p&gt;使用 readonly命令可以将变量定义为只读变量，只读变量的值不能被改变。&lt;/p&gt;
+
+&lt;p&gt;下面的例子尝试更改只读变量，结果报错：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;myUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://see.xidian.edu.cn/cpp/shell/&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;readonly &lt;/span&gt;myUrl
+&lt;span class=&quot;nv&quot;&gt;myUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://see.xidian.edu.cn/cpp/danpianji/&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;变量类型&quot;&gt;变量类型&lt;/h2&gt;
+
+&lt;p&gt;运行shell时，会同时存在三种变量：&lt;/p&gt;
+
+&lt;h4 id=&quot;1-局部变量&quot;&gt;1) 局部变量&lt;/h4&gt;
+
+&lt;p&gt;局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。&lt;/p&gt;
+
+&lt;h4 id=&quot;2-环境变量&quot;&gt;2) 环境变量&lt;/h4&gt;
+
+&lt;p&gt;所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。&lt;/p&gt;
+
+&lt;h4 id=&quot;3-shell变量&quot;&gt;3) shell变量&lt;/h4&gt;
+
+&lt;p&gt;shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行&lt;/p&gt;
+
+&lt;h1 id=&quot;运行&quot;&gt;运行&lt;/h1&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+.....
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/bin/sh run.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/10/07/11_08_22/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_08_22/</guid>
+        
+        <category>linux</category>
+        
+        <category>shell</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Vim Command</title>
+        <description>&lt;h1 id=&quot;vim-command&quot;&gt;Vim Command&lt;/h1&gt;
+
+&lt;h1 id=&quot;move&quot;&gt;Move&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;w: move the cursor to the start of next word.&lt;/li&gt;
+  &lt;li&gt;e: move to the end of the next word&lt;/li&gt;
+  &lt;li&gt;b: move to the start of current word, or to the start of prior word&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;insert&quot;&gt;Insert&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;o: insert a new line below&lt;/li&gt;
+  &lt;li&gt;shift + o: insert a new line above&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;delete&quot;&gt;Delete&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;dd: delete the current line and copy it to clipboard&lt;/li&gt;
+  &lt;li&gt;dw: delete the current word and copy it to clipboard&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;copy-and-paste&quot;&gt;Copy and Paste&lt;/h1&gt;
+&lt;p&gt;Use &lt;em&gt;v&lt;/em&gt; to enter visual mode, move the cursor to select some words&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;y: copy what you selected&lt;/li&gt;
+  &lt;li&gt;yy: copy the whole line&lt;/li&gt;
+  &lt;li&gt;d: clip what you selected&lt;/li&gt;
+  &lt;li&gt;dd: clip the whole line&lt;/li&gt;
+  &lt;li&gt;p: paste&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;find-and-replace&quot;&gt;Find and Replace&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;f + &lt;em&gt;word&lt;/em&gt;: find word after the cursor&lt;/li&gt;
+  &lt;li&gt;F + &lt;em&gt;word&lt;/em&gt;: find word before the cursor&lt;/li&gt;
+  &lt;li&gt;:/&lt;em&gt;word&lt;/em&gt;: find the word in the file and you can use  regular expression&lt;/li&gt;
+  &lt;li&gt;:%s/&lt;em&gt;from&lt;/em&gt;/&lt;em&gt;to&lt;/em&gt;/: replace &lt;em&gt;from&lt;/em&gt; to &lt;em&gt;to&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;:%s/&lt;em&gt;from&lt;/em&gt;/&lt;em&gt;to&lt;/em&gt;/gc: consult you before replace&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;command-for-shell&quot;&gt;Command for Shell&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;:!command&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/10/07/11_05_26/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_05_26/</guid>
+        
+        <category>linux</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Latex Reference</title>
+        <description>&lt;h1 id=&quot;latex-reference&quot;&gt;Latex Reference&lt;/h1&gt;
+
+&lt;h2 id=&quot;steps&quot;&gt;Steps&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Copy the Google scholar cite text into a file with a suffix called &lt;code class=&quot;highlighter-rouge&quot;&gt;.bib&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;In your &lt;code class=&quot;highlighter-rouge&quot;&gt;.tex&lt;/code&gt; file, cite the reference and configure the file, which will generate a &lt;code class=&quot;highlighter-rouge&quot;&gt;.aux&lt;/code&gt; file.&lt;/li&gt;
+  &lt;li&gt;Open terminal in the directory and enter  &lt;code class=&quot;highlighter-rouge&quot;&gt;bibtex + file_name&lt;/code&gt;, which will generate &lt;code class=&quot;highlighter-rouge&quot;&gt;.bbl&lt;/code&gt; file.&lt;/li&gt;
+  &lt;li&gt;Configure &lt;code class=&quot;highlighter-rouge&quot;&gt;.tex&lt;/code&gt; file again, you will get the final output.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;reference-tables-figures-or-sections&quot;&gt;Reference tables, figures or sections&lt;/h2&gt;
+
+&lt;div class=&quot;language-latex highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;% table and figure&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;type:example&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+~&lt;span class=&quot;k&quot;&gt;\ref&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;type:example&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/10/07/10_59_13/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/10_59_13/</guid>
+        
+        <category>latex</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Line Feeds within a Cell</title>
+        <description>&lt;h1 id=&quot;a-solution-for-line-feeds-within-a-table-cell&quot;&gt;A solution for line feeds within a table cell&lt;/h1&gt;
+
+&lt;p&gt;In latex, a line could be too long for a table cell.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Latex&quot;&gt;% set a new command for line feed
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}} 
+
+% in a table cell
+\tabincell{l}{contents1 // content2}
+&lt;/code&gt;&lt;/pre&gt;
+
+</description>
+        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/10/07/10_55_43/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/10_55_43/</guid>
+        
+        <category>latex</category>
         
         
       </item>

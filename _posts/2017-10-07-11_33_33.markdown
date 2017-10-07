@@ -1,0 +1,39 @@
+---
+layout:     post
+title:      "Efficient Rolling in Python"
+subtitle:   "Use numpy arrays for rolling"
+date:       2017-10-07
+author:     "Ziping"
+header-img: "img/2017-10-07-11_33_33.jpg"
+catalog: true
+tags:
+    - python
+---
+
+As far as I know, there are two ways for rolling apply.
+
+## Pandas
+For pandas DataFrame object
+``` python
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({"a":[1, 2, 3, 4], "b":[1, 2, 3, 4]})
+
+df.rolling(2).apply(np.nanmean)
+```
+
+## Numpy
+We can define a rolling window to acheive rolling apply,
+
+``` pyhton
+def rolling_window(a, window):
+    shape = a.shape[:-1] + (a.shape[-1] - window + 1, window)
+    strides = a.strides + (a.strides[-1],)
+    return np.lib.stride_tricks.as_strided(a, shape=shape, strides=strides)
+
+x=np.arange(10).reshape((2,5))
+rolling_window(x, 3)
+    
+np.mean(rolling_window(x, 3), -1)
+```
