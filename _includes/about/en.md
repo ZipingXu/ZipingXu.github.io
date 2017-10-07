@@ -12,7 +12,7 @@
 
 
 
-同样热爱平面设计和棒垒球。大家可以在[PORTFOLIO](https://zipingxu.github.io/portfolio/)中找到我的一些工作。
+同样热爱平面设计和棒垒球。大家可以在[PROJECTS](https://zipingxu.github.io/projects/)中找到我的一些工作。
 
 
 

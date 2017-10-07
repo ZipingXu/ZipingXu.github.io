@@ -12,7 +12,7 @@ My brief is that with data we could better and deeper understand the world. I wa
 
 
 
-Graphic design and baseball are also my hobbies. You can find some of my works in [PORTFOLIO](https://zipingxu.github.io/portfolio/).
+Graphic design and baseball are also my hobbies. You can find some of my works in [PROJECTS](https://zipingxu.github.io/projects/).
 
 
 
