@@ -4,7 +4,7 @@ title:      "Vim Command"
 subtitle:   "A collection of Vim Command"
 date:       2017-10-07
 author:     "Ziping"
-header-img: "img/2017-10-07-11_05_26.jpg"
+header-img: "img/linux.jpg"
 catalog: true
 tags:
     - linux

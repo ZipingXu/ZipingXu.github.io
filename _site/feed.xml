@@ -3,11 +3,28 @@
   <channel>
     <title>Ziping Blog</title>
     <description>In Data We Trust</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 07 Oct 2017 13:33:55 +0800</pubDate>
-    <lastBuildDate>Sat, 07 Oct 2017 13:33:55 +0800</lastBuildDate>
+    <link>https://zipingxu.github.io/</link>
+    <atom:link href="https://zipingxu.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sat, 07 Oct 2017 14:10:00 +0800</pubDate>
+    <lastBuildDate>Sat, 07 Oct 2017 14:10:00 +0800</lastBuildDate>
     <generator>Jekyll v3.6.0</generator>
+    
+      <item>
+        <title>First Day</title>
+        <description>&lt;h1 id=&quot;first-day&quot;&gt;First Day&lt;/h1&gt;
+
+&lt;p&gt;This is my first day in my blog!&lt;/p&gt;
+
+&lt;p&gt;It’s based on &lt;code class=&quot;highlighter-rouge&quot;&gt;Github Page&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;. Template is from &lt;a href=&quot;http://huangxuan.me&quot;&gt;Hux&lt;/a&gt;. It’s a wonderful template with tags and categories.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
+        <link>https://zipingxu.github.io/2017/10/07/14_06_20/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/14_06_20/</guid>
+        
+        <category>life</category>
+        
+        
+      </item>
     
       <item>
         <title>Demo for Wavelets Analysis</title>
@@ -48,8 +65,8 @@
 
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/11_38_15/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_38_15/</guid>
+        <link>https://zipingxu.github.io/2017/10/07/11_38_15/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_38_15/</guid>
         
         <category>python</category>
         
@@ -82,8 +99,8 @@
    /usr/lib/python2.7/site-packages&lt;/p&gt;
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/11_34_33/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_34_33/</guid>
+        <link>https://zipingxu.github.io/2017/10/07/11_34_33/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_34_33/</guid>
         
         <category>python</category>
         
@@ -119,8 +136,8 @@ np.mean(rolling_window(x, 3), -1)
 &lt;/code&gt;&lt;/pre&gt;
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/11_33_33/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_33_33/</guid>
+        <link>https://zipingxu.github.io/2017/10/07/11_33_33/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_33_33/</guid>
         
         <category>python</category>
         
@@ -179,8 +196,8 @@ np.mean(rolling_window(x, 3), -1)
 
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/11_21_51/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_21_51/</guid>
+        <link>https://zipingxu.github.io/2017/10/07/11_21_51/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_21_51/</guid>
         
         <category>python</category>
         
@@ -202,8 +219,8 @@ np.mean(rolling_window(x, 3), -1)
 
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/11_19_08/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_19_08/</guid>
+        <link>https://zipingxu.github.io/2017/10/07/11_19_08/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_19_08/</guid>
         
         <category>python</category>
         
@@ -259,8 +276,8 @@ scp &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ~/file yourUserName@60.205.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/11_09_11/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_09_11/</guid>
+        <link>https://zipingxu.github.io/2017/10/07/11_09_11/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_09_11/</guid>
         
         <category>linux</category>
         
@@ -350,8 +367,8 @@ scp &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ~/file yourUserName@60.205.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/11_08_22/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_08_22/</guid>
+        <link>https://zipingxu.github.io/2017/10/07/11_08_22/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_08_22/</guid>
         
         <category>linux</category>
         
@@ -410,8 +427,8 @@ scp &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ~/file yourUserName@60.205.
 
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/11_05_26/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_05_26/</guid>
+        <link>https://zipingxu.github.io/2017/10/07/11_05_26/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_05_26/</guid>
         
         <category>linux</category>
         
@@ -440,31 +457,8 @@ scp &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ~/file yourUserName@60.205.
 
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/10_59_13/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/10_59_13/</guid>
-        
-        <category>latex</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Line Feeds within a Cell</title>
-        <description>&lt;h1 id=&quot;a-solution-for-line-feeds-within-a-table-cell&quot;&gt;A solution for line feeds within a table cell&lt;/h1&gt;
-
-&lt;p&gt;In latex, a line could be too long for a table cell.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Latex&quot;&gt;% set a new command for line feed
-\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}} 
-
-% in a table cell
-\tabincell{l}{contents1 // content2}
-&lt;/code&gt;&lt;/pre&gt;
-
-</description>
-        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/10_55_43/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/10_55_43/</guid>
+        <link>https://zipingxu.github.io/2017/10/07/10_59_13/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/10_59_13/</guid>
         
         <category>latex</category>
         

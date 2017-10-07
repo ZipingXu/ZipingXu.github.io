@@ -4,7 +4,7 @@ title:      "C/C++ file system"
 subtitle:   "An record of structure for file system in C/C++"
 date:       2017-10-07
 author:     "Ziping"
-header-img: "img/c/c++.jpg"
+header-img: "img/c.jpg"
 catalog: true
 tags:
     - c/c++

@@ -4,7 +4,7 @@ title:      "Add directory into python path"
 subtitle:   "Makes import easier"
 date:       2017-10-07
 author:     "Ziping"
-header-img: "img/2017-10-07-11_34_33.jpg"
+header-img: "img/python.jpg"
 catalog: true
 tags:
     - python

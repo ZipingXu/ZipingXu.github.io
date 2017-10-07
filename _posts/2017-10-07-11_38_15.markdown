@@ -4,7 +4,7 @@ title:      "Demo for Wavelets Analysis"
 subtitle:   "A test for python pywt module"
 date:       2017-10-07
 author:     "Ziping"
-header-img: "img/2017-10-07-11_38_15.jpg"
+header-img: "img/python.jpg"
 catalog: false
 tags:
     - python

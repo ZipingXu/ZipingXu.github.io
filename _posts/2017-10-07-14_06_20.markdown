@@ -1,0 +1,17 @@
+---
+layout:     post
+title:      "First Day"
+subtitle:   "life record"
+date:       2017-10-07
+author:     "Ziping"
+header-img: "img/life.jpg"
+catalog: true
+tags:
+    - life
+---
+
+# First Day
+
+This is my first day in my blog!
+
+It's based on ``Github Page`` and ``Jekyll``. Template is from [Hux](http://huangxuan.me). It's a wonderful template with tags and categories.

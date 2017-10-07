@@ -4,7 +4,7 @@ title:      "How to install multi-version python in anaconda"
 subtitle:   "Multi-version python"
 date:       2017-10-07
 author:     "Ziping"
-header-img: "img/2017-10-07-11_21_51.jpg"
+header-img: "img/python.jpg"
 catalog: true
 tags:
     - python

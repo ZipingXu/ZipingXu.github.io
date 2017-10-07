@@ -4,7 +4,7 @@ title:      "Shell"
 subtitle:   "Introduction for shell"
 date:       2017-10-07
 author:     "Ziping"
-header-img: "img/2017-10-07-11_08_22.jpg"
+header-img: "img/linux.jpg"
 catalog: true
 tags:
     - linux

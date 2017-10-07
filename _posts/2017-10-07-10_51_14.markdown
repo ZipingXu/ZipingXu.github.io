@@ -4,7 +4,7 @@ title:      "A C++ implement for KD-tree"
 subtitle:   "Distance is defined as the correlation"
 date:       2017-10-07
 author:     "Ziping"
-header-img: "img/2017-10-07-10_51_14.jpg"
+header-img: "img/c.jpg"
 catalog: true
 tags:
     - c/c++
