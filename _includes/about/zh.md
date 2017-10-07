@@ -12,9 +12,9 @@ My brief is that with data we could better and deeper understand the world. I wa
 
 
 
-Graphic design and baseball are also my hobbies. You can find some of my works in ``PORTOFOLIO``.
+Graphic design and baseball are also my hobbies. You can find some of my works in [PORTFOLIO](https://zipingxu.github.io/portfolio/).
 
 
 
-Open for everyone who wants to communicate with me! My email is [pkuluke@gmai.com](pkuluke@gmai.com).
+Open for everyone who wants to communicate with me! My email is [pkuluke@gmail.com](pkuluke@gmail.com).
 

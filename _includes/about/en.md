@@ -12,9 +12,9 @@
 
 
 
-同样热爱平面设计和棒垒球。大家可以在``PORTOFOLIO``中找到我的一些工作。
+同样热爱平面设计和棒垒球。大家可以在[PORTFOLIO](https://zipingxu.github.io/portfolio/)中找到我的一些工作。
 
 
 
-希望和所有感兴趣或者想和我交流的朋友一起聊聊天。我的邮箱是[pkuluke@gmai.com](pkuluke@gmai.com)。
+希望和所有感兴趣或者想和我交流的朋友一起聊聊天。我的邮箱是[pkuluke@gmail.com](pkuluke@gmail.com)。
 
