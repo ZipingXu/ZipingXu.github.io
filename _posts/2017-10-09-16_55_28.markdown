@@ -93,42 +93,26 @@ guides(fill = guide_legend(reverse = TRUE))
 
 #
 ```
-# Color
+
 
 ```R
 # Colors
 library(RColorBrewer)
-brewer.pal.info
+head(brewer.pal.info)
 
 display.brewer.pal(9,"OrRd")
 
 brewer.pal(9,"OrRd")
+```
 
 
-# 自己生成
-# 1. 单个颜色
-mycolors<-brewer.pal(9,"YlGnBu")
-plotCol(mycolors)
 
-# 2. 多个组合颜色
-mycolors<-c(brewer.pal(3,"YlGnBu"),brewer.pal(3, "YlOrRd"),brewer.pal(3,"PuOr"))
-plotCol(mycolors)
-
-# 3.自己定制
-cols<-brewer.pal(3, "YlOrRd")
-
-pal<-colorRampPalette(cols)
-
-mycolors<-pal(28)
-
-plotCol(mycolors)
+![png](img/2017-10-09-16_55_28/output_0_2.png)
 
 
-# 与ggplot2连接
 
-scale_color_manual("Day",values = mycolors)
-
-#展示颜色用的
+```R
+#For showing colors
 plotCol <- function(col, nrow=1, ncol=ceiling(length(col) / nrow),
                     txt.col="black") {
   stopifnot(nrow >= 1, ncol >= 1)
@@ -151,7 +135,46 @@ plotCol <- function(col, nrow=1, ncol=ceiling(length(col) / nrow),
   upViewport()
   invisible(gl)
 }
+
+# Make your own colorbar
+# 1. single color
+mycolors<-brewer.pal(9,"YlGnBu")
+plotCol(mycolors)
+
+# 2. multiple colors
+mycolors<-c(brewer.pal(3,"YlGnBu"),brewer.pal(3, "YlOrRd"),brewer.pal(3,"PuOr"))
+plotCol(mycolors)
+
+# 3.set your own style
+cols<-brewer.pal(3, "YlOrRd")
+
+pal<-colorRampPalette(cols)
+
+mycolors<-pal(28)
+
+plotCol(mycolors)
+
+
+# connect with ggplot2
+
+#scale_color_manual("Day",values = mycolors)
 ```
+
+    Loading required package: grid
+
+
+
+![png](img/2017-10-09-16_55_28/output_1_1.png)
+
+
+
+![png](img/2017-10-09-16_55_28/output_1_2.png)
+
+
+
+![png](img/2017-10-09-16_55_28/output_1_3.png)
+
+
 
 scale_manual {ggplot2}	R Documentation
 ## Create your own discrete scale
@@ -181,25 +204,35 @@ common discrete scale parameters: name, breaks, labels, na.value, limits and gui
 a set of aesthetic values to map data values to. If this is a named vector, then the values will be matched based on the names. If unnamed, values will be matched in order (usually alphabetical) with the limits of the scale. Any data values that don't match will be given na.value.
 ### Examples
 
+
 ```R
+library(ggplot2)
 p <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(colour = factor(cyl)))
-p + scale_colour_manual(values = c("red", "blue", "green"))
+p1 = p + scale_colour_manual(values = c("red", "blue", "green"))
 
 # It's recommended to use a named vector
 cols <- c("8" = "red", "4" = "blue", "6" = "darkgreen", "10" = "orange")
-p + scale_colour_manual(values = cols)
+p2 = p + scale_colour_manual(values = cols)
 
 # As with other scales you can use breaks to control the appearance
 # of the legend.
-p + scale_colour_manual(values = cols)
-p + scale_colour_manual(
+p3 = p + scale_colour_manual(values = cols)
+p4 = p + scale_colour_manual(
   values = cols,
   breaks = c("4", "6", "8"),
   labels = c("four", "six", "eight")
 )
 
 # And limits to control the possible values of the scale
-p + scale_colour_manual(values = cols, limits = c("4", "8"))
-p + scale_colour_manual(values = cols, limits = c("4", "6", "8", "10"))
+p5 = p + scale_colour_manual(values = cols, limits = c("4", "8"))
+p6 = p + scale_colour_manual(values = cols, limits = c("4", "6", "8", "10"))
+
+p6
 ```
+
+
+
+
+![png](img/2017-10-09-16_55_28/output_3_1.png)
+

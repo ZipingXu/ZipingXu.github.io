@@ -282,41 +282,19 @@
 
 </span><span class="c1">#</span><span class="w">
 </span></code></pre></div></div>
-<h1 id="color">Color</h1>
 
 <div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Colors</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span><span class="w">
-</span><span class="n">brewer.pal.info</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">brewer.pal.info</span><span class="p">)</span><span class="w">
 
 </span><span class="n">display.brewer.pal</span><span class="p">(</span><span class="m">9</span><span class="p">,</span><span class="s2">"OrRd"</span><span class="p">)</span><span class="w">
 
 </span><span class="n">brewer.pal</span><span class="p">(</span><span class="m">9</span><span class="p">,</span><span class="s2">"OrRd"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 
+<p><img src="img/2017-10-09-16_55_28/output_0_2.png" alt="png" /></p>
 
-</span><span class="c1"># 自己生成</span><span class="w">
-</span><span class="c1"># 1. 单个颜色</span><span class="w">
-</span><span class="n">mycolors</span><span class="o">&lt;-</span><span class="n">brewer.pal</span><span class="p">(</span><span class="m">9</span><span class="p">,</span><span class="s2">"YlGnBu"</span><span class="p">)</span><span class="w">
-</span><span class="n">plotCol</span><span class="p">(</span><span class="n">mycolors</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># 2. 多个组合颜色</span><span class="w">
-</span><span class="n">mycolors</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="n">brewer.pal</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="s2">"YlGnBu"</span><span class="p">),</span><span class="n">brewer.pal</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="s2">"YlOrRd"</span><span class="p">),</span><span class="n">brewer.pal</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="s2">"PuOr"</span><span class="p">))</span><span class="w">
-</span><span class="n">plotCol</span><span class="p">(</span><span class="n">mycolors</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># 3.自己定制</span><span class="w">
-</span><span class="n">cols</span><span class="o">&lt;-</span><span class="n">brewer.pal</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="s2">"YlOrRd"</span><span class="p">)</span><span class="w">
-
-</span><span class="n">pal</span><span class="o">&lt;-</span><span class="n">colorRampPalette</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span><span class="w">
-
-</span><span class="n">mycolors</span><span class="o">&lt;-</span><span class="n">pal</span><span class="p">(</span><span class="m">28</span><span class="p">)</span><span class="w">
-
-</span><span class="n">plotCol</span><span class="p">(</span><span class="n">mycolors</span><span class="p">)</span><span class="w">
-
-
-</span><span class="c1"># 与ggplot2连接</span><span class="w">
-
-</span><span class="n">scale_color_manual</span><span class="p">(</span><span class="s2">"Day"</span><span class="p">,</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mycolors</span><span class="p">)</span><span class="w">
-
-</span><span class="c1">#展示颜色用的</span><span class="w">
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#For showing colors</span><span class="w">
 </span><span class="n">plotCol</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="o">=</span><span class="nf">ceiling</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">nrow</span><span class="p">),</span><span class="w">
                     </span><span class="n">txt.col</span><span class="o">=</span><span class="s2">"black"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">stopifnot</span><span class="p">(</span><span class="n">nrow</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
@@ -339,7 +317,39 @@
   </span><span class="n">upViewport</span><span class="p">()</span><span class="w">
   </span><span class="nf">invisible</span><span class="p">(</span><span class="n">gl</span><span class="p">)</span><span class="w">
 </span><span class="p">}</span><span class="w">
+
+</span><span class="c1"># Make your own colorbar</span><span class="w">
+</span><span class="c1"># 1. single color</span><span class="w">
+</span><span class="n">mycolors</span><span class="o">&lt;-</span><span class="n">brewer.pal</span><span class="p">(</span><span class="m">9</span><span class="p">,</span><span class="s2">"YlGnBu"</span><span class="p">)</span><span class="w">
+</span><span class="n">plotCol</span><span class="p">(</span><span class="n">mycolors</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># 2. multiple colors</span><span class="w">
+</span><span class="n">mycolors</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="n">brewer.pal</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="s2">"YlGnBu"</span><span class="p">),</span><span class="n">brewer.pal</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="s2">"YlOrRd"</span><span class="p">),</span><span class="n">brewer.pal</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="s2">"PuOr"</span><span class="p">))</span><span class="w">
+</span><span class="n">plotCol</span><span class="p">(</span><span class="n">mycolors</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># 3.set your own style</span><span class="w">
+</span><span class="n">cols</span><span class="o">&lt;-</span><span class="n">brewer.pal</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="s2">"YlOrRd"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">pal</span><span class="o">&lt;-</span><span class="n">colorRampPalette</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span><span class="w">
+
+</span><span class="n">mycolors</span><span class="o">&lt;-</span><span class="n">pal</span><span class="p">(</span><span class="m">28</span><span class="p">)</span><span class="w">
+
+</span><span class="n">plotCol</span><span class="p">(</span><span class="n">mycolors</span><span class="p">)</span><span class="w">
+
+
+</span><span class="c1"># connect with ggplot2</span><span class="w">
+
+</span><span class="c1">#scale_color_manual("Day",values = mycolors)</span><span class="w">
 </span></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Loading required package: grid
+</code></pre></div></div>
+
+<p><img src="img/2017-10-09-16_55_28/output_1_1.png" alt="png" /></p>
+
+<p><img src="img/2017-10-09-16_55_28/output_1_2.png" alt="png" /></p>
+
+<p><img src="img/2017-10-09-16_55_28/output_1_3.png" alt="png" /></p>
 
 <p>scale_manual {ggplot2}	R Documentation</p>
 <h2 id="create-your-own-discrete-scale">Create your own discrete scale</h2>
@@ -369,27 +379,33 @@
 <p>a set of aesthetic values to map data values to. If this is a named vector, then the values will be matched based on the names. If unnamed, values will be matched in order (usually alphabetical) with the limits of the scale. Any data values that don’t match will be given na.value.</p>
 <h3 id="examples">Examples</h3>
 
-<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">mtcars</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">mpg</span><span class="p">,</span><span class="w"> </span><span class="n">wt</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">(</span><span class="n">mtcars</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">mpg</span><span class="p">,</span><span class="w"> </span><span class="n">wt</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
   </span><span class="n">geom_point</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">cyl</span><span class="p">)))</span><span class="w">
-</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_colour_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"green"</span><span class="p">))</span><span class="w">
+</span><span class="n">p</span><span class="m">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_colour_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"green"</span><span class="p">))</span><span class="w">
 
 </span><span class="c1"># It's recommended to use a named vector</span><span class="w">
 </span><span class="n">cols</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"8"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="s2">"4"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"6"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"darkgreen"</span><span class="p">,</span><span class="w"> </span><span class="s2">"10"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"orange"</span><span class="p">)</span><span class="w">
-</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_colour_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span><span class="w">
+</span><span class="n">p</span><span class="m">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_colour_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span><span class="w">
 
 </span><span class="c1"># As with other scales you can use breaks to control the appearance</span><span class="w">
 </span><span class="c1"># of the legend.</span><span class="w">
-</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_colour_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span><span class="w">
-</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_colour_manual</span><span class="p">(</span><span class="w">
+</span><span class="n">p</span><span class="m">3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_colour_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span><span class="w">
+</span><span class="n">p</span><span class="m">4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_colour_manual</span><span class="p">(</span><span class="w">
   </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w">
   </span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"4"</span><span class="p">,</span><span class="w"> </span><span class="s2">"6"</span><span class="p">,</span><span class="w"> </span><span class="s2">"8"</span><span class="p">),</span><span class="w">
   </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"four"</span><span class="p">,</span><span class="w"> </span><span class="s2">"six"</span><span class="p">,</span><span class="w"> </span><span class="s2">"eight"</span><span class="p">)</span><span class="w">
 </span><span class="p">)</span><span class="w">
 
 </span><span class="c1"># And limits to control the possible values of the scale</span><span class="w">
-</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_colour_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"4"</span><span class="p">,</span><span class="w"> </span><span class="s2">"8"</span><span class="p">))</span><span class="w">
-</span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_colour_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"4"</span><span class="p">,</span><span class="w"> </span><span class="s2">"6"</span><span class="p">,</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span><span class="w"> </span><span class="s2">"10"</span><span class="p">))</span><span class="w">
+</span><span class="n">p</span><span class="m">5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_colour_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"4"</span><span class="p">,</span><span class="w"> </span><span class="s2">"8"</span><span class="p">))</span><span class="w">
+</span><span class="n">p</span><span class="m">6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">scale_colour_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">limits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"4"</span><span class="p">,</span><span class="w"> </span><span class="s2">"6"</span><span class="p">,</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span><span class="w"> </span><span class="s2">"10"</span><span class="p">))</span><span class="w">
+
+</span><span class="n">p</span><span class="m">6</span><span class="w">
 </span></code></pre></div></div>
+
+<p><img src="img/2017-10-09-16_55_28/output_3_1.png" alt="png" /></p>
+
 
 
                 <hr style="visibility: hidden;">
