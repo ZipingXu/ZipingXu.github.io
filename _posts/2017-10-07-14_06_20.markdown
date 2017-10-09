@@ -14,4 +14,8 @@ tags:
 
 This is my first day in my blog!
 
-It's based on ``Github Page`` and ``Jekyll``. Template is from [Hux](http://huangxuan.me). It's a wonderful template with tags and categories.
+It has been a long time since I wanted to start my own blog, since I really need some where to record some notes and write some words. Besides, for those who want to know me, this site comes as a platform showing my projects and thoughts.
+
+Thanks ``Ziyi`` for coming up a name for my blog, Zipping. It is a combination of my name ``Ziping`` and ``zip``.
+
+Zipping is based on ``Github Page`` and ``Jekyll``. Template is from [Hux](http://huangxuan.me). It's a wonderful template with tags and categories.

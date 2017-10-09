@@ -1,0 +1,205 @@
+---
+layout:     post
+title:      "A collection of ggplot2 functions"
+subtitle:   "How to set legend and color"
+date:       2017-10-09
+author:     "Ziping"
+header-img: "img/R.jpg"
+catalog: true
+tags:
+    - R
+    - ggplot2
+---
+
+This article collects some functions used to set legend and color in ``ggplot2``.
+
+# legend设置
+
+### theme
+
+```R
+# legend文字大小
+theme(legend.text = element_text(size = 18, face = "bold"))
+# legend标题大小
+theme(legend.title = element_text(size = 18, face = "bold"))
+
+# 轴文字大小
+theme(axis.text = element_text(size = 15, face = "bold"))
+#轴标题大小
+theme(axis.title = element_text(size = 15, face = "bold")) +
+
+# facet_grid生成的strip大小
+theme(strip.text = element_text(size = 15, face = "bold")) +
+
+#隐藏图例
+theme(legend.position = "none")
+
+#改变图例的位置
+theme(legend.position = "bottom")
+bottom, top, right, left...
+
+show_guide = F #在增加图例的时候设置
+scale_fill_discrete(guide = FALSE)
+```
+
+### guide
+
+```R
+#隐藏图例
+guides(fill=FALSE)
+guides(colour = FALSE)
+
+#去除标题
+guides(colour = guide_legend(title = NULL))
+
+#改变标题
+guides(fill = guide_legend(title = "how"))
+
+#设置标题位置
+guides(fill = guide_legend(title.position = "top"))
+guides(fill = guide_legend(title.position = "bottom"))
+guides(fill = guide_legend(title.position = "left"))
+guides(fill = guide_legend(title.position = "right"))
+
+#标题样式
+guides(fill = guide_legend(title.theme = element_text(size = 15, face = "italic", colour = "red", angle = 30)))
+
+#水平方向调节对齐方式
+guides(fill = guide_legend(title.hjust = 0, nrow = 1))
+guides(fill = guide_legend(title.hjust = 0.5, nrow = 1))
+guides(fill = guide_legend(title.hjust = 1, nrow = 1))
+
+    #竖直是vjust
+
+#设置标签
+guides(fill = guide_legend(label = TRUE))
+guides(fill = guide_legend(label = FALSE))
+
+guides(fill = guide_legend(label.theme = element_text(size = 15, face = "italic",colour = "red", angle = 30)))
+
+#key大小
+guides(fill = guide_legend(keywidth = 5))
+guides(fill = guide_legend(keywidth = 10))
+guides(fill = guide_legend(keyheight = 1))
+guides(fill = guide_legend(keyheight = 5))
+
+#每行的个数
+guides(fill = guide_legend(ncol = 4))
+guides(fill = guide_legend(ncol = 2))
+guides(fill = guide_legend(ncol = 1))
+
+#逆序
+guides(fill = guide_legend(reverse = TRUE))
+
+#
+```
+# Color
+
+```R
+# Colors
+library(RColorBrewer)
+brewer.pal.info
+
+display.brewer.pal(9,"OrRd")
+
+brewer.pal(9,"OrRd")
+
+
+# 自己生成
+# 1. 单个颜色
+mycolors<-brewer.pal(9,"YlGnBu")
+plotCol(mycolors)
+
+# 2. 多个组合颜色
+mycolors<-c(brewer.pal(3,"YlGnBu"),brewer.pal(3, "YlOrRd"),brewer.pal(3,"PuOr"))
+plotCol(mycolors)
+
+# 3.自己定制
+cols<-brewer.pal(3, "YlOrRd")
+
+pal<-colorRampPalette(cols)
+
+mycolors<-pal(28)
+
+plotCol(mycolors)
+
+
+# 与ggplot2连接
+
+scale_color_manual("Day",values = mycolors)
+
+#展示颜色用的
+plotCol <- function(col, nrow=1, ncol=ceiling(length(col) / nrow),
+                    txt.col="black") {
+  stopifnot(nrow >= 1, ncol >= 1)
+  if(length(col) > nrow*ncol)
+    warning("some colors will not be shown")
+  require(grid)
+  grid.newpage()
+  gl <- grid.layout(nrow, ncol)
+  pushViewport(viewport(layout=gl))
+  ic <- 1
+  for(i in 1:nrow) {
+    for(j in 1:ncol) {
+      pushViewport(viewport(layout.pos.row=i, layout.pos.col=j))
+      grid.rect(gp= gpar(fill=col[ic]))
+      grid.text(col[ic], gp=gpar(col=txt.col))
+      upViewport()
+      ic <- ic+1
+    }
+  }
+  upViewport()
+  invisible(gl)
+}
+```
+
+scale_manual {ggplot2}	R Documentation
+## Create your own discrete scale
+
+### Description
+
+This allows you to specify you own set of mappings from levels in the data to aesthetic values.
+
+### Usage
+
+scale_colour_manual(..., values)
+
+scale_fill_manual(..., values)
+
+scale_size_manual(..., values)
+
+scale_shape_manual(..., values)
+
+scale_linetype_manual(..., values)
+
+scale_alpha_manual(..., values)
+### Arguments
+
+### ...	
+common discrete scale parameters: name, breaks, labels, na.value, limits and guide. See discrete_scale for more details
+### values	
+a set of aesthetic values to map data values to. If this is a named vector, then the values will be matched based on the names. If unnamed, values will be matched in order (usually alphabetical) with the limits of the scale. Any data values that don't match will be given na.value.
+### Examples
+
+```R
+p <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(colour = factor(cyl)))
+p + scale_colour_manual(values = c("red", "blue", "green"))
+
+# It's recommended to use a named vector
+cols <- c("8" = "red", "4" = "blue", "6" = "darkgreen", "10" = "orange")
+p + scale_colour_manual(values = cols)
+
+# As with other scales you can use breaks to control the appearance
+# of the legend.
+p + scale_colour_manual(values = cols)
+p + scale_colour_manual(
+  values = cols,
+  breaks = c("4", "6", "8"),
+  labels = c("four", "six", "eight")
+)
+
+# And limits to control the possible values of the scale
+p + scale_colour_manual(values = cols, limits = c("4", "8"))
+p + scale_colour_manual(values = cols, limits = c("4", "6", "8", "10"))
+```
