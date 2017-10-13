@@ -10,7 +10,7 @@
     <meta name="keywords"  content="Data Science; Statistics; Unity">
     <meta name="theme-color" content="#000000">
     
-    <title>First Day - 子平 | Zipping</title>
+    <title>Linux Run Code at fixed time - 子平 | Zipping</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zipingxu.github.io/2017/10/07/14_06_20/">
+    <link rel="canonical" href="https://zipingxu.github.io/2017/10/13/16_51_15/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -155,13 +155,13 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/life.jpg" width="0" height="0"> -->
+<!-- <img src="/img/linux.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/life.jpg')
+        background-image: url('/img/linux.jpg')
     }
 
     
@@ -174,15 +174,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#life" title="life">life</a>
+                        <a class="tag" href="/tags/#linux" title="linux">linux</a>
                         
                     </div>
-                    <h1>First Day</h1>
+                    <h1>Linux Run Code at fixed time</h1>
                     
                     
-                    <h2 class="subheading">life record</h2>
+                    <h2 class="subheading">life is hard. Why not make it easier</h2>
                     
-                    <span class="meta">Posted by Ziping on October 7, 2017</span>
+                    <span class="meta">Posted by Ziping on October 13, 2017</span>
                 </div>
             </div>
         </div>
@@ -200,15 +200,17 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h1 id="first-day">First Day</h1>
+				<h2 id="crontab">crontab</h2>
 
-<p>This is my first day in my blog!</p>
+<p>cron是一个linux下 的定时执行工具，可以在无需人工干预的情况下运行作业。由于Cron 是Linux的内置服务，但它不自动起来，可以用以下的方法启动、关闭这个服务：</p>
 
-<p>It has been a long time since I wanted to start my own blog, since I really need some where to record some notes and write some words. Besides, for those who want to know me, this site comes as a platform showing my projects and thoughts.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/sbin/service crond start//启动服务
+/sbin/service crond stop //关闭服务
+/sbin/service crond restart  //重启服务
+/sbin/service crond reload//重新载入配置
+/sbin/service crond status//查看服务状态
+</code></pre></div></div>
 
-<p>Thanks <code class="highlighter-rouge">Ziyi</code> for coming up a name for my blog, Zipping. It is a combination of my name <code class="highlighter-rouge">Ziping</code> and <code class="highlighter-rouge">zip</code>.</p>
-
-<p>Zipping is based on <code class="highlighter-rouge">Github Page</code> and <code class="highlighter-rouge">Jekyll</code>. Template is from <a href="http://huangxuan.me">Hux</a>. It’s a wonderful template with tags and categories.</p>
 
 
                 <hr style="visibility: hidden;">
@@ -216,17 +218,17 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/10/07/11_38_15/" data-toggle="tooltip" data-placement="top" title="Demo for Wavelets Analysis">
+                        <a href="/2017/10/12/14_09_54/" data-toggle="tooltip" data-placement="top" title="Add user into sudoer list">
                         Previous<br>
-                        <span>Demo for Wavelets Analysis</span>
+                        <span>Add user into sudoer list</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/10/09/16_55_28/" data-toggle="tooltip" data-placement="top" title="A collection of ggplot2 functions">
+                        <a href="/2017/10/13/18_29_11/" data-toggle="tooltip" data-placement="top" title="A simulation system for ICM">
                         Next<br>
-                        <span>A collection of ggplot2 functions</span>
+                        <span>A simulation system for ICM</span>
                         </a>
                     </li>
                     

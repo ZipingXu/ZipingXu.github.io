@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="In Data We Trust">
+    <meta name="keywords"  content="Data Science; Statistics; Unity">
+    <meta name="theme-color" content="#000000">
+    
+    <title>A simulation system for ICM - 子平 | Zipping</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zipingxu.github.io/2017/10/13/18_29_11/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Zipping</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/projects/">Projects</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/ICM.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/ICM.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#ICM" title="ICM">ICM</a>
+                        
+                        <a class="tag" href="/tags/#python" title="python">python</a>
+                        
+                    </div>
+                    <h1>A simulation system for ICM</h1>
+                    
+                    
+                    <h2 class="subheading">based on transfromation probability and directed graph</h2>
+                    
+                    <span class="meta">Posted by Ziping on October 13, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<hr />
+<p>实现于2017年1月24日</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+
+Created on Fri Jan 20 20:34:43 2017
+
+ICM network simulation
+
+@author: LukeXu
+
+"""</span>
+
+
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="kn">import</span> <span class="nn">copy</span> <span class="k">as</span> <span class="n">cp</span>
+
+<span class="kn">from</span> <span class="nn">scipy.sparse.csgraph</span> <span class="kn">import</span> <span class="n">dijkstra</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="n">nx</span>
+
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="n">stats</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
+
+
+
+
+<span class="mi">4</span> <span class="o">*</span> <span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.05</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="nb">pow</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c">#plt.plot(map(lambda x : x / 1000.0, range(10000)), map(pro1, map(lambda x : x / 1000.0, range(10000))))</span>
+
+<span class="k">def</span> <span class="nf">pro</span><span class="p">(</span><span class="n">rat</span><span class="p">,</span><span class="n">a</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span><span class="c">#rat= (cars' number)/(lanes' number)</span>
+
+    <span class="n">temp</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="nb">pow</span><span class="p">(</span><span class="n">rat</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
+
+    <span class="c">#if rat[0, 0] &gt;= 4 and temp &lt; 4 / rat[0, 0]:</span>
+
+    <span class="c">#    temp = 4 / rat[0, 0]</span>
+
+    <span class="k">return</span> <span class="n">temp</span>
+
+
+
+
+<span class="k">def</span> <span class="nf">pro1</span><span class="p">(</span><span class="n">rat</span><span class="p">,</span><span class="n">a</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span><span class="c">#rat= (cars' number)/(lanes' number)</span>
+
+    <span class="n">temp</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="nb">pow</span><span class="p">(</span><span class="n">rat</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">rat</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
+
+        <span class="n">temp</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">/</span> <span class="n">rat</span> <span class="o">*</span> <span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="nb">pow</span><span class="p">(</span><span class="n">rat</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">temp</span>
+
+
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)),</span> <span class="nb">map</span><span class="p">(</span><span class="n">pro</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">))))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)),</span> <span class="nb">map</span><span class="p">(</span><span class="n">pro1</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">))))</span>
+
+<span class="k">def</span> <span class="nf">norm</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">var</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
+
+    <span class="c">#正态随机数生成器</span>
+
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">var</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> 
+
+    <span class="k">if</span> <span class="n">temp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+
+        <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="n">temp</span>
+
+
+
+
+<span class="k">class</span> <span class="nc">network</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Vert</span><span class="p">,</span> <span class="n">Edge</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">pro</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">oV</span> <span class="o">=</span> <span class="n">Vert</span> <span class="c">#可能作为出口的节点列表</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">oEdge</span> <span class="o">=</span> <span class="n">Edge</span> <span class="c">#原来的边（目前不知道有什么用） </span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">interV</span> <span class="o">=</span> <span class="p">[]</span><span class="c">#内部结点</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">interE</span> <span class="o">=</span> <span class="p">[]</span><span class="c">#内部边</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">crossV</span> <span class="o">=</span> <span class="p">[]</span><span class="c">#岔路口的点</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">crossE</span> <span class="o">=</span> <span class="p">[]</span><span class="c">#岔路口的边</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">step</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Edge</span><span class="p">))</span> <span class="c">#网络结点个数（不考虑正负方向）</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span> <span class="o">=</span> <span class="p">[]</span><span class="c">#按边排列的累积节点数</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">newEdge</span> <span class="o">=</span> <span class="p">[]</span><span class="c">#总的边</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)))</span> <span class="c">#邻接矩阵</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">interGraph</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)))</span> <span class="c">#内部节点子图的邻接矩阵</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">prob1</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span> <span class="c">#转移概率矩阵完整图</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">prob2</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interGraph</span><span class="p">)</span> <span class="c">#转移概率矩阵内部子图</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ManCars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">Vert</span><span class="p">))))</span> <span class="c">#人开的车的矩阵</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">AutoCars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">Vert</span><span class="p">))))</span> <span class="c">#自动驾驶车的矩阵</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">jam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span> <span class="c">#总车流量</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">meanJam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span> <span class="c">#道路平均车流量</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">enterV</span> <span class="o">=</span> <span class="p">[]</span> <span class="c">#外部结点作为进入点时在序列中的id</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">exitV</span> <span class="o">=</span> <span class="p">[]</span> <span class="c">#外部结点作为出去点时在序列中的id</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">road</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> 
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="p">{}</span> <span class="c">#可视化时结点的位置</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lanes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="c">#道路数量</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span> <span class="c">#是否发生事故</span>
+
+        
+
+        
+
+        
+
+        <span class="c">#Vnum网络结点个数，Enum网络边的个数，Edge边集（包括起始，终止，长度, eg: [1, 2, 100]）</span>
+
+        <span class="c">#pro转移概率函数，step一小格的长度</span>
+
+        <span class="n">Enum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Edge</span><span class="p">)</span>
+
+        <span class="c">#Vnum = len(Vert)</span>
+
+        
+
+        <span class="c">#---------part1:计算cumVnum，为每个节点标记路号----------#test.Vnum</span>
+
+        <span class="n">temp</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">step</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Edge</span><span class="p">)</span> <span class="c">#每条边上的结点总数</span>
+
+        <span class="c">#累积和</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">numNow</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numNow</span><span class="p">)</span>
+
+            <span class="n">numNow</span> <span class="o">+=</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numNow</span><span class="p">)</span>
+
+        
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">road</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">Edge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">lanes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">Edge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">4</span><span class="p">],</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>
+
+            
+
+        <span class="c">#self.road[self.cumVnum[len(self.cumVnum) - 1]:] = map(lambda x:Edge[len(self.cumVnum) - 1][3], range(self.cumVnum[len(self.cumVnum) - 1], len(self.Vnum)))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">road</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">road</span> <span class="o">*</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lanes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lanes</span> <span class="o">*</span> <span class="mi">2</span>
+
+        <span class="c">#---------part2:计算内部结点边----------#</span>
+
+        <span class="c">#新图的边</span>
+
+        <span class="n">newEdge</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">Enum</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Edge</span><span class="p">)</span>
+
+        
+
+        <span class="n">allnow</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+
+                <span class="n">newEdge</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">j</span> <span class="o">+</span> <span class="n">allnow</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">allnow</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">interV</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="n">allnow</span><span class="p">)</span>
+
+                <span class="c">#print "add1"</span>
+
+            <span class="n">allnow</span> <span class="o">+=</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="n">allnow</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+
+                <span class="n">newEdge</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">j</span> <span class="o">+</span> <span class="n">allnow</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">allnow</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">])</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">interV</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="n">allnow</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">)</span>
+
+                <span class="c">#print "add2"</span>
+
+            <span class="n">allnow</span> <span class="o">+=</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">interE</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">newEdge</span><span class="p">)</span>
+
+        
+
+        <span class="c">#---------part3:计算岔路口处的边----------#test.graph[9, 26]</span>
+
+        <span class="n">crossEdge</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c">#添加岔路口处的边</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="n">Edge</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">Edge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+
+                    <span class="n">crossEdge</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]])</span>
+
+                <span class="k">if</span> <span class="n">Edge</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">Edge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+
+                    <span class="n">crossEdge</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">1</span><span class="p">]])</span>
+
+                <span class="k">if</span> <span class="n">Edge</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">Edge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+
+                    <span class="n">crossEdge</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]])</span>
+
+                <span class="k">if</span> <span class="n">Edge</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">Edge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+
+                    <span class="n">crossEdge</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">1</span><span class="p">]])</span>
+
+        
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">crossE</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">crossEdge</span><span class="p">)</span>
+
+        <span class="n">newEdge</span> <span class="o">=</span> <span class="n">newEdge</span> <span class="o">+</span> <span class="n">crossEdge</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">newEdge</span> <span class="o">=</span> <span class="n">newEdge</span>
+
+        
+
+        <span class="c">#---------part4:生成图和计算转移概率矩阵----------#</span>
+
+        <span class="n">tn</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">newEdge</span><span class="p">)</span>
+
+        <span class="c">#print tn</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tn</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="n">newEdge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">newEdge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        
+
+        <span class="n">tn</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interE</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tn</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">interGraph</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">interE</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">interE</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">prob1</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
+
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">temp</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">),</span> <span class="n">temp</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">prob1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob1</span> <span class="o">/</span> <span class="n">temp</span>
+
+        
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">prob2</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interGraph</span><span class="p">)</span>
+
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interGraph</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">temp</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">),</span> <span class="n">temp</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">prob2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob2</span> <span class="o">/</span> <span class="n">temp</span>
+
+        
+
+        
+
+        <span class="k">def</span> <span class="nf">around1</span><span class="p">(</span><span class="n">tID</span><span class="p">):</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oEdge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">tID</span><span class="p">:</span>
+
+                    <span class="n">addID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+                    <span class="c">#self.cars[addID, temp2] += num</span>
+
+                    <span class="k">break</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oEdge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tID</span><span class="p">:</span>
+
+                    <span class="n">addID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+                    <span class="k">break</span>
+
+                    <span class="c">#self.cars[addID, temp2] += num</span>
+
+            <span class="k">return</span> <span class="n">addID</span>
+
+        <span class="k">def</span> <span class="nf">around2</span><span class="p">(</span><span class="n">tID</span><span class="p">):</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oEdge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tID</span><span class="p">:</span>
+
+                    <span class="n">addID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+                    <span class="c">#self.cars[addID, temp2] += num</span>
+
+                    <span class="k">break</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oEdge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">tID</span><span class="p">:</span>
+
+                    <span class="n">addID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+                    <span class="k">break</span>
+
+                    <span class="c">#self.cars[addID, temp2] += num</span>
+
+            <span class="k">return</span> <span class="n">addID</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">enterV</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">around1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">exitV</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">around2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="p">)</span>
+
+
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">interV</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interV</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exitV</span><span class="p">)))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">interV</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interV</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">enterV</span><span class="p">)))</span>       
+
+        
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">crossV</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interV</span><span class="p">)))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">updateCrash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span> <span class="n">lun</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">now</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+
+                <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="n">t</span> <span class="o">=</span> <span class="n">x</span>
+
+            <span class="k">return</span> <span class="n">t</span>
+
+        <span class="n">ManJam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ManCars</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">AutoJam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">AutoCars</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">now</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">AutoJam</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">ManJam</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">AutoJam</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="n">ManJam</span><span class="p">[</span><span class="n">x</span><span class="p">]))</span> <span class="o">*</span> <span class="n">lun</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">crossV</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">AutoJam</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">ManJam</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">AutoJam</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="n">ManJam</span><span class="p">[</span><span class="n">x</span><span class="p">]))</span> <span class="o">*</span> <span class="n">lun</span>
+
+        <span class="c">#self.ifCrash = map(lambda x: self.ifCrash + int(random.random() &lt; p) * 3, self.ifCrash)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jam</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+
+        
+
+    <span class="k">def</span> <span class="nf">getSpeed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">car</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">meanJam</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">jam</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">lanes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>      
+
+        <span class="k">if</span> <span class="n">car</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+
+            <span class="n">speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">pro</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">meanJam</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+
+            <span class="n">speed</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span>  <span class="n">speed</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span> <span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="k">if</span> <span class="n">car</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+
+            <span class="n">speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">pro1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">meanJam</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+
+            <span class="n">speed1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">pro</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">meanJam</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+
+            <span class="n">AutoCars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">AutoCars</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>            
+
+            <span class="n">ManCars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ManCars</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">):</span>
+
+                <span class="k">if</span> <span class="n">AutoCars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">ManCars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+
+                    <span class="n">speed</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">speed1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ManCars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">speed</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">AutoCars</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">ManCars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">AutoCars</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+            <span class="n">speed</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span>  <span class="n">speed</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span> <span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="k">def</span> <span class="nf">getSpeed1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">car</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">meanJam</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">jam</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">lanes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>      
+
+        <span class="k">if</span> <span class="n">car</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+
+            <span class="n">speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">pro</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">meanJam</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+
+            <span class="n">speed</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span>  <span class="n">speed</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span> <span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="k">if</span> <span class="n">car</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+
+            <span class="n">speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">pro1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">meanJam</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+
+            <span class="n">speed</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span>  <span class="n">speed</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span> <span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="k">def</span> <span class="nf">location</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">x5</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">y5</span> <span class="o">=</span> <span class="mi">1</span>
+
+        
+
+        <span class="n">x405</span> <span class="o">=</span> <span class="mi">9</span>
+
+        <span class="n">y405</span> <span class="o">=</span> <span class="mi">0</span>
+
+        
+
+        <span class="n">x90</span> <span class="o">=</span> <span class="mi">2</span>
+
+        <span class="n">y90</span> <span class="o">=</span> <span class="mi">9</span>
+
+        
+
+        <span class="n">x520</span> <span class="o">=</span> <span class="mi">2</span>
+
+        <span class="n">y520</span> <span class="o">=</span> <span class="mi">12</span>
+
+        <span class="n">position</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">-</span> <span class="mi">4</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">road</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+
+                <span class="n">temp1</span> <span class="o">=</span> <span class="p">[</span><span class="n">x5</span><span class="p">,</span> <span class="n">y5</span><span class="p">]</span>
+
+                <span class="n">temp2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x5</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y5</span><span class="p">]</span>
+
+                <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">i</span><span class="p">:</span><span class="n">temp1</span><span class="p">})</span>
+
+                <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({(</span><span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">):</span><span class="n">temp2</span><span class="p">})</span>
+
+                <span class="n">y5</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">road</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">405</span><span class="p">:</span>
+
+                <span class="n">temp1</span> <span class="o">=</span> <span class="p">[</span><span class="n">x405</span><span class="p">,</span> <span class="n">y405</span><span class="p">]</span>
+
+                <span class="n">temp2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x405</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y405</span><span class="p">]</span>
+
+                <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">i</span><span class="p">:</span><span class="n">temp1</span><span class="p">})</span>
+
+                <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({(</span><span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">):</span><span class="n">temp2</span><span class="p">})</span>
+
+                <span class="n">y405</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">road</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+
+                <span class="n">temp1</span> <span class="o">=</span> <span class="p">[</span><span class="n">x90</span><span class="p">,</span> <span class="n">y90</span><span class="p">]</span>
+
+                <span class="n">temp2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x90</span><span class="p">,</span> <span class="n">y90</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+                <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">i</span><span class="p">:</span><span class="n">temp1</span><span class="p">})</span>
+
+                <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({(</span><span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">):</span><span class="n">temp2</span><span class="p">})</span>
+
+                <span class="n">x90</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">road</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">520</span><span class="p">:</span>
+
+                <span class="n">temp1</span> <span class="o">=</span> <span class="p">[</span><span class="n">x520</span><span class="p">,</span> <span class="n">y520</span><span class="p">]</span>
+
+                <span class="n">temp2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x520</span><span class="p">,</span> <span class="n">y520</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+                <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">i</span><span class="p">:</span><span class="n">temp1</span><span class="p">})</span>
+
+                <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({(</span><span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">):</span><span class="n">temp2</span><span class="p">})</span>
+
+                <span class="n">x520</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">64</span>
+
+        <span class="n">temp1</span> <span class="o">=</span> <span class="p">[</span><span class="n">x90</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y90</span><span class="p">]</span>
+
+        <span class="n">temp2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x90</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y90</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({(</span><span class="mi">132</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">):</span><span class="n">temp1</span><span class="p">})</span>
+
+        <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="mi">132</span><span class="p">:</span><span class="n">temp2</span><span class="p">})</span>
+
+        <span class="n">x90</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">temp1</span> <span class="o">=</span> <span class="p">[</span><span class="n">x90</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y90</span><span class="p">]</span>
+
+        <span class="n">temp2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x90</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y90</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({(</span><span class="mi">133</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">):</span><span class="n">temp1</span><span class="p">})</span>
+
+        <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="mi">133</span><span class="p">:</span><span class="n">temp2</span><span class="p">})</span>
+
+        
+
+        <span class="n">temp1</span> <span class="o">=</span> <span class="p">[</span><span class="n">x520</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y520</span><span class="p">]</span>
+
+        <span class="n">temp2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x520</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y520</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="mi">134</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">:</span><span class="n">temp1</span><span class="p">})</span>
+
+        <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="mi">134</span><span class="p">:</span><span class="n">temp2</span><span class="p">})</span>
+
+        <span class="n">x520</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">temp1</span> <span class="o">=</span> <span class="p">[</span><span class="n">x520</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y520</span><span class="p">]</span>
+
+        <span class="n">temp2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x520</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y520</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="mi">135</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">:</span><span class="n">temp1</span><span class="p">})</span>
+
+        <span class="n">position</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="mi">135</span><span class="p">:</span><span class="n">temp2</span><span class="p">})</span>
+
+        
+
+        <span class="k">return</span> <span class="n">position</span>
+
+    <span class="k">def</span> <span class="nf">getID</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ID</span><span class="p">,</span> <span class="n">dire</span><span class="p">):</span>
+
+        <span class="c">#给定边的序号返回起始点和终止点的序号</span>
+
+        <span class="k">if</span> <span class="n">dire</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span><span class="c">#正向</span>
+
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">[</span><span class="n">ID</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">[</span><span class="n">ID</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">dire</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span><span class="c">#负向</span>
+
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">[</span><span class="n">ID</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cumVnum</span><span class="p">[</span><span class="n">ID</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">getSum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jam</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">]),</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">jam</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="p">:])]</span>
+
+    <span class="c">#def </span>
+
+    
+
+    <span class="c">#更新车流量</span>
+
+    <span class="k">def</span> <span class="nf">updateJam</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">jam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ManCars</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">AutoCars</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+
+
+
+    <span class="c">#人的决策函数</span>
+
+    <span class="k">def</span> <span class="nf">way</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span><span class="p">,</span> <span class="n">ShortPath</span><span class="p">):</span>
+
+        <span class="n">ShortPath</span> <span class="o">=</span> <span class="n">ShortPath</span><span class="p">[</span><span class="n">id1</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="n">now</span> <span class="o">=</span> <span class="n">id2</span>
+
+        <span class="n">before</span> <span class="o">=</span> <span class="n">id2</span>
+
+        <span class="n">que</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">while</span> <span class="n">now</span> <span class="o">!=</span> <span class="n">id1</span><span class="p">:</span>
+
+            <span class="n">before</span> <span class="o">=</span> <span class="n">now</span>
+
+            <span class="k">if</span> <span class="n">before</span> <span class="o">==</span> <span class="o">-</span><span class="mi">9999</span><span class="p">:</span>
+
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+            <span class="n">now</span> <span class="o">=</span> <span class="n">ShortPath</span><span class="p">[</span><span class="n">before</span><span class="p">]</span>
+
+            <span class="n">que</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">before</span><span class="p">)</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="s">""</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">que</span><span class="p">)):</span>
+
+            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">que</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="s">" "</span>
+
+        <span class="c">#print p</span>
+
+        <span class="k">return</span> <span class="n">before</span>
+
+    <span class="k">def</span> <span class="nf">AutoDecide</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">):</span>
+
+        <span class="n">selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">crossV</span>
+
+        <span class="n">speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSpeed</span><span class="p">(</span><span class="n">car</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">tProb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span>
+
+        <span class="n">Distance</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">tProb</span>
+
+        <span class="n">ShortPath</span> <span class="o">=</span> <span class="n">dijkstra</span><span class="p">(</span><span class="n">Distance</span><span class="p">,</span> <span class="n">directed</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">return_predecessors</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+        
+
+        <span class="n">sel</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span>
+
+        <span class="n">numV</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="p">)</span>
+
+        <span class="n">nextCar2</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">AutoCars</span> <span class="o">/</span> <span class="n">num</span><span class="p">)</span>
+
+        <span class="n">nextCar2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">nextCar2</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numV</span><span class="p">):</span>
+
+            <span class="n">tProb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)))</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sel</span><span class="p">):</span>
+
+                <span class="n">tid</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+                <span class="n">nextID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">way</span><span class="p">(</span><span class="n">tid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exitV</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">ShortPath</span><span class="p">)</span>
+
+                <span class="n">tProb</span><span class="p">[</span><span class="n">tid</span><span class="p">,</span> <span class="n">nextID</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+            <span class="n">tProb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">tProb</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+            <span class="n">nextCar2</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">tProb</span> <span class="o">*</span> <span class="n">nextCar2</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">nextCar2</span>
+
+    
+
+    <span class="k">def</span> <span class="nf">ManDecide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">crossV</span>
+
+        <span class="n">speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSpeed</span><span class="p">()</span>
+
+        <span class="n">tProb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span>
+
+        <span class="n">Distance</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">tProb</span>
+
+        <span class="n">ShortPath</span> <span class="o">=</span> <span class="n">dijkstra</span><span class="p">(</span><span class="n">Distance</span><span class="p">,</span> <span class="n">directed</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">return_predecessors</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+
+        <span class="n">tShort</span> <span class="o">=</span> <span class="n">ShortPath</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">ShortPath</span> <span class="o">=</span> <span class="n">ShortPath</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">sel</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span>
+
+        <span class="n">numV</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="p">)</span>
+
+        <span class="n">nextCar2</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ManCars</span><span class="p">)</span>
+
+        <span class="n">nextCar2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">nextCar2</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numV</span><span class="p">):</span>
+
+            <span class="n">tProb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)))</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sel</span><span class="p">):</span>                
+
+                <span class="n">tid</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+                <span class="n">nextID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">way</span><span class="p">(</span><span class="n">tid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exitV</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">ShortPath</span><span class="p">)</span>
+
+                <span class="n">tProb</span><span class="p">[</span><span class="n">tid</span><span class="p">,</span> <span class="n">nextID</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+            <span class="n">tProb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">tProb</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+            <span class="n">nextCar2</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">tProb</span> <span class="o">*</span> <span class="n">nextCar2</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">nextCar2</span>
+
+    <span class="c">#进行一次迭代 tProb[0, :]</span>
+
+    <span class="k">def</span> <span class="nf">nextGen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSpeed</span><span class="p">()</span>
+
+        <span class="n">tProb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prob2</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">speed</span><span class="p">))</span>
+
+        
+
+        <span class="n">nextCar1</span> <span class="o">=</span> <span class="n">tProb</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ManCars</span>
+
+        <span class="n">nextCar2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ManDecide</span><span class="p">()</span>
+
+        <span class="n">nextCar</span> <span class="o">=</span> <span class="n">nextCar1</span> <span class="o">+</span> <span class="n">nextCar2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ManCars</span> <span class="o">=</span> <span class="n">nextCar</span>
+
+        
+
+        <span class="n">speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSpeed</span><span class="p">(</span><span class="n">car</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">tProb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prob2</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">speed</span><span class="p">))</span>
+
+        
+
+        <span class="n">num</span> <span class="o">=</span> <span class="mi">100</span>
+
+        <span class="n">allNextCar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="p">))))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+
+            <span class="n">nextCar1</span> <span class="o">=</span> <span class="n">tProb</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">AutoCars</span> <span class="o">/</span> <span class="n">num</span><span class="p">)</span>
+
+            <span class="n">nextCar2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">AutoDecide</span><span class="p">(</span><span class="n">num</span> <span class="o">=</span> <span class="n">num</span><span class="p">)</span>
+
+            <span class="n">nextCar</span> <span class="o">=</span> <span class="n">nextCar1</span> <span class="o">+</span> <span class="n">nextCar2</span>
+
+            <span class="n">allNextCar</span> <span class="o">=</span> <span class="n">allNextCar</span> <span class="o">+</span> <span class="n">nextCar</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">jam</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">jam</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">AutoCars</span> <span class="o">/</span> <span class="n">num</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">nextCar</span> <span class="o">/</span> <span class="n">num</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">AutoCars</span> <span class="o">=</span> <span class="n">allNextCar</span>
+
+    <span class="c">#可视化</span>
+
+    <span class="k">def</span> <span class="nf">visGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">road</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">road</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+            
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">newEdge</span><span class="p">)):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">newEdge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">newEdge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">24</span><span class="p">))</span>
+
+        <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+
+        
+
+    <span class="k">def</span> <span class="nf">visHeatMap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+        <span class="kn">import</span> <span class="nn">matplotlib</span>
+
+        <span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s">'Agg'</span><span class="p">)</span>
+
+        <span class="n">matplotlib</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s">'xtick'</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+
+        <span class="n">matplotlib</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s">'ytick'</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+
+        
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">26</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span> <span class="o">+</span> <span class="mi">92</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="ow">in</span>  <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">items</span><span class="p">():</span> 
+
+            <span class="c">#print str(k) + " " + str(v)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ifCrash</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+
+                <span class="n">data</span><span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">100</span>
+
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="n">data</span><span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">85</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">jam</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+
+        
+
+        <span class="n">xlabels</span> <span class="o">=</span> <span class="p">[</span><span class="s">" "</span><span class="p">]</span> <span class="o">*</span> <span class="mi">12</span>
+
+        <span class="n">xlabels</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">"I-5"</span>
+
+        <span class="n">xlabels</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s">"I-405"</span>
+
+        <span class="n">ylabels</span> <span class="o">=</span> <span class="p">[</span><span class="s">" "</span><span class="p">]</span> <span class="o">*</span> <span class="mi">25</span>
+
+        <span class="n">ylabels</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s">"I-90"</span>
+
+        <span class="n">ylabels</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="s">"SR-520"</span>
+
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+        <span class="c">#plt.cm.Blues</span>
+
+        <span class="n">heatmap</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">"afmhot"</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span> <span class="n">vmin</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+
+        
+
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+
+        <span class="c">#plt.figure(figsize=(12,25))</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_frame_on</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">xlabels</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">ylabels</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>  
+
+        <span class="c">#ax.invert_yaxis()</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_top</span><span class="p">()</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+        
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+        
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="c">#加车子</span>
+
+    <span class="k">def</span> <span class="nf">addCar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">ID1</span><span class="p">,</span> <span class="n">ID2</span><span class="p">,</span> <span class="n">man</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span> <span class="c">#man decide what kind of cars you want to add into</span>
+
+        <span class="n">temp1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ID1</span><span class="p">)</span>
+
+        <span class="n">temp2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ID2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">man</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ManCars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">enterV</span><span class="p">[</span><span class="n">temp1</span><span class="p">],</span> <span class="n">temp2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">num</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">AutoCars</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">enterV</span><span class="p">[</span><span class="n">temp1</span><span class="p">],</span> <span class="n">temp2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">num</span>
+
+    <span class="c">#运行</span>
+
+    <span class="k">def</span> <span class="nf">addAllCars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ratio</span><span class="p">,</span> <span class="n">stre</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+
+        <span class="n">now</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">ruleOut</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+
+                    <span class="k">continue</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">addCar</span><span class="p">(</span><span class="n">addSelect</span><span class="p">[</span><span class="n">now</span><span class="p">]</span> <span class="o">*</span> <span class="n">stre</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ratio</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="bp">True</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">addCar</span><span class="p">(</span><span class="n">addSelect</span><span class="p">[</span><span class="n">now</span><span class="p">]</span> <span class="o">*</span> <span class="n">stre</span> <span class="o">*</span> <span class="n">ratio</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="bp">False</span><span class="p">)</span>
+
+                <span class="n">now</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ratio</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">strength</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">):</span>
+
+        <span class="n">traffic</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">times</span><span class="p">))</span>
+
+        <span class="c">#self.addCar(abs(stats.norm.rvs(15, 3, size = 1)), 8, 1, False)</span>
+
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c">#持续加少量车流看网络的稳定状况</span>
+
+            <span class="c">#self.addAllCars(ratio)</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">times</span><span class="p">):</span>
+
+                <span class="k">print</span> <span class="n">i</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">addAllCars</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span>
+
+                <span class="c">#self.addCar(abs(stats.norm.rvs(15, 3, size = 1)), 8, 1, True)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateJam</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">nextGen</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateJam</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateCrash</span><span class="p">()</span>
+
+                <span class="n">traffic</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">jam</span><span class="p">))</span>
+
+                <span class="n">name</span> <span class="o">=</span> <span class="s">"C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/mode0/"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">)</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">".png"</span>
+
+                <span class="c">#self.visHeatMap(name)</span>
+
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c">#一次加大量车流，看网络的承受能力</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">addAllCars</span><span class="p">(</span><span class="n">ratio</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">times</span><span class="p">):</span>
+
+                <span class="k">print</span> <span class="n">i</span>
+
+                <span class="c">#self.addCar(abs(stats.norm.rvs(10, 3, size = 1)), 0, 7, False)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateJam</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">nextGen</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateJam</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateCrash</span><span class="p">()</span>
+
+                <span class="n">traffic</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">jam</span><span class="p">))</span>
+
+                <span class="n">name</span> <span class="o">=</span> <span class="s">"C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/mode1/"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">)</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">".png"</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">visHeatMap</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> 
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">addCar</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ratio</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">addCar</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="n">ratio</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+            <span class="c">#self.addCar(20 * (ratio), 0, 7, False)</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">times</span><span class="p">):</span>                
+
+                <span class="k">print</span> <span class="n">i</span>
+
+                <span class="c">#self.addCar(abs(stats.norm.rvs(10, 3, size = 1)), 0, 7, False)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateJam</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">nextGen</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateJam</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateCrash</span><span class="p">()</span>
+
+                <span class="n">traffic</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">jam</span><span class="p">))</span>
+
+                <span class="n">name</span> <span class="o">=</span> <span class="s">"C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/easy/"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">)</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">".png"</span>
+
+                <span class="c">#print map(lambda x: x[0, 0], self.jam)                </span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">visHeatMap</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c">#在稳定状况下加冲击流</span>
+
+            <span class="n">traffic</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">times</span><span class="p">))</span>
+
+            <span class="c">#self.addAllCars(ratio)</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">times</span> <span class="o">/</span> <span class="mi">2</span><span class="p">):</span>
+
+                <span class="k">print</span> <span class="n">i</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">addAllCars</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
+
+                <span class="c">#self.addCar(abs(stats.norm.rvs(15, 3, size = 1)), 8, 1, True)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateJam</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">nextGen</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateJam</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateCrash</span><span class="p">()</span>
+
+                <span class="n">traffic</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">jam</span><span class="p">))</span>
+
+                <span class="n">name</span> <span class="o">=</span> <span class="s">"C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/mode3/"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">)</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">".png"</span>
+
+                <span class="c">#self.visHeatMap(name)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">addAllCars</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">times</span> <span class="o">/</span> <span class="mi">2</span><span class="p">):</span>
+
+                <span class="k">print</span> <span class="n">i</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">addAllCars</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)</span>
+
+                <span class="c">#self.addCar(abs(stats.norm.rvs(15, 3, size = 1)), 8, 1, True)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateJam</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">nextGen</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateJam</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateCrash</span><span class="p">()</span>
+
+                <span class="n">traffic</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">times</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">jam</span><span class="p">))</span>
+
+                <span class="n">name</span> <span class="o">=</span> <span class="s">"C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/mode3/"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">)</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">times</span><span class="p">)</span> <span class="o">+</span> <span class="s">".png"</span>
+
+                <span class="c">#self.visHeatMap(name)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span><span class="c">#结束本次模拟，清空网络</span>
+
+        <span class="k">return</span> <span class="n">traffic</span>
+
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">AutoCars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="p">))))</span> <span class="c">#车的矩阵</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ManCars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oV</span><span class="p">))))</span> <span class="c">#车的矩阵</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">jam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">Vnum</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span> <span class="c">#总车流量</span>
+
+
+
+
+<span class="n">Edge</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">11.265</span><span class="p">,</span> <span class="mi">405</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">10.805</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">8.625</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">4.985</span><span class="p">,</span> <span class="mi">405</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">4.3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">8.085</span><span class="p">,</span> <span class="mi">520</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">14.97</span><span class="p">,</span> <span class="mi">405</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mf">13.895</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">520</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+
+<span class="n">Vert</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+
+<span class="n">step</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+
+    <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Edge</span><span class="p">)):</span>
+
+    <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">Edge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">Edge</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+
+
+
+<span class="c">#ShortPath[:, self.exitV[3]]</span>
+
+<span class="n">ruleOut</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+
+
+
+
+<span class="c">#按照查询到的比例数据添加车辆</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.918192918</span><span class="p">,</span><span class="mf">1.343101343</span><span class="p">,</span><span class="mf">2.380952381</span><span class="p">,</span><span class="mf">0.610500611</span><span class="p">,</span> <span class="mf">1.587301587</span><span class="p">,</span><span class="mf">1.15995116</span><span class="p">]</span>
+
+
+
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="c">##-----看年平均的分布情况</span>
+
+<span class="c">#import pandas as pd</span>
+
+<span class="c">#name = "C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/year_mean.csv"</span>
+
+<span class="c">#aveJam = pd.read_csv(name, header = None).iloc[:, 1]</span>
+
+<span class="c">#aveJam = (np.matrix(aveJam)* 1.0).T</span>
+
+<span class="c">#test.jam = aveJam / np.sum(aveJam, 0) * 136</span>
+
+<span class="c">#test.visHeatMap("C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/year_mean.png")</span>
+
+
+
+
+
+
+
+<span class="c">#-----run model-----#</span>
+
+<span class="n">test</span> <span class="o">=</span> <span class="n">network</span><span class="p">(</span><span class="n">Vert</span><span class="p">,</span> <span class="n">Edge</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">pro</span><span class="p">)</span>
+
+<span class="n">times</span> <span class="o">=</span> <span class="mi">80</span>
+
+<span class="c">#range(7, 11)</span>
+
+<span class="k">global</span> <span class="n">addSelect</span>
+
+<span class="n">addSelect</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">0.68061821</span><span class="p">,</span>  <span class="mf">0.52767839</span><span class="p">,</span>  <span class="mf">0.26253675</span><span class="p">,</span>  <span class="mf">0.41941566</span><span class="p">,</span>  <span class="mf">0.48664519</span><span class="p">,</span>
+
+        <span class="mf">0.85725241</span><span class="p">,</span>  <span class="mf">0.56014648</span><span class="p">,</span>  <span class="mf">0.2698057</span> <span class="p">,</span>  <span class="mf">0.74186231</span><span class="p">,</span>  <span class="mf">0.46989983</span><span class="p">,</span>
+
+        <span class="mf">0.5293611</span> <span class="p">,</span>  <span class="mf">0.20850491</span><span class="p">,</span>  <span class="mf">0.58295891</span><span class="p">,</span>  <span class="mf">1.</span>        <span class="p">,</span>  <span class="mf">0.41975354</span><span class="p">,</span>
+
+        <span class="mf">0.40242187</span><span class="p">,</span>  <span class="mf">0.33511894</span><span class="p">,</span>  <span class="mf">0.69711647</span><span class="p">,</span>  <span class="mf">0.40935081</span><span class="p">,</span>  <span class="mf">0.44019206</span><span class="p">,</span>
+
+        <span class="mf">0.47423429</span><span class="p">,</span>  <span class="mf">0.34530058</span><span class="p">,</span>  <span class="mf">0.29332045</span><span class="p">,</span>  <span class="mf">0.49722945</span><span class="p">]</span>
+
+<span class="c">#ratio = [0, 0.3, 0.5, 0.7, 0.9, 1]</span>
+
+<span class="c">#ratio = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]</span>
+
+<span class="n">ratio</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+
+    <span class="k">print</span> <span class="s">"begin "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="n">traffic</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">ratio</span> <span class="o">=</span> <span class="n">ratio</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="n">traffic_col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">traffic</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="n">traffic_col</span><span class="p">)</span>
+
+    <span class="n">name0</span> <span class="o">=</span> <span class="s">"C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/mode3/"</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">name0</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="s">"traffic.png"</span><span class="p">)</span>
+
+    
+
+    <span class="n">traffic_row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">traffic</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">times</span>
+
+    <span class="n">test</span><span class="o">.</span><span class="n">jam</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">traffic_row</span><span class="p">)</span>
+
+    <span class="n">test</span><span class="o">.</span><span class="n">visHeatMap</span><span class="p">(</span><span class="n">name0</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="s">"mean.png"</span><span class="p">)</span>  
+
+    
+
+    <span class="n">traffic_last</span> <span class="o">=</span> <span class="n">traffic</span><span class="p">[:,</span> <span class="n">times</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">test</span><span class="o">.</span><span class="n">jam</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">traffic_last</span><span class="p">)</span>
+
+    <span class="n">test</span><span class="o">.</span><span class="n">visHeatMap</span><span class="p">(</span><span class="n">name0</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="s">"last.png"</span><span class="p">)</span>      
+
+    
+
+    <span class="n">test</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="n">traffic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">traffic</span><span class="p">)</span>
+
+    <span class="n">traffic</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">name0</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span> <span class="s">"traffic.csv"</span><span class="p">)</span>
+
+
+
+
+<span class="c">#</span>
+
+<span class="c">##输出两个方向的平均值</span>
+
+<span class="c">#traffic_last = traffic.iloc[:, times - 4].values</span>
+
+<span class="c">#traffic_last = (traffic_last[0:test.Vnum] + traffic_last[test.Vnum:]) / 2</span>
+
+<span class="c">#traffic_last = np.matrix(list(traffic_last) + list(traffic_last))</span>
+
+<span class="c">#traffic_last = (np.matrix(traffic_last)* 1.0).T</span>
+
+<span class="c">#test.jam = traffic_last</span>
+
+<span class="c">#test.visHeatMap("C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/mean0.png")</span>
+
+
+
+
+
+
+
+
+
+
+<span class="c">#一共有36个参数</span>
+
+<span class="c">#global network</span>
+
+<span class="c">#network = test</span>
+
+<span class="c">#aveJam = aveJam / np.sum(aveJam, 0) * 2.0 * 136</span>
+
+<span class="c">#def findBestInput(arg):</span>
+
+<span class="c">#    network.clear()</span>
+
+<span class="c">#    #stre = arg[36]</span>
+
+<span class="c">#    #arg = arg[0:36]</span>
+
+<span class="c">#    #arg = np.matrix(arg).reshape((6, 6))</span>
+
+<span class="c">#    </span>
+
+<span class="c">#    for k in range(30):</span>
+
+<span class="c">#        now = 0</span>
+
+<span class="c">#        for i in range(6):</span>
+
+<span class="c">#            for j in range(6):</span>
+
+<span class="c">#                if i != j and Vert[j] != ruleOut[i]:</span>
+
+<span class="c">#                    #print now</span>
+
+<span class="c">#                    #print str(Vert[i]) + " " + str(Vert[j])</span>
+
+<span class="c">#                    network.addCar(arg[now], Vert[i], Vert[j])</span>
+
+<span class="c">#                    now += 1</span>
+
+<span class="c">#        network.updateJam()</span>
+
+<span class="c">#        network.nextGen()</span>
+
+<span class="c">#        network.updateJam()</span>
+
+<span class="c">#        #network.updateCrash()</span>
+
+<span class="c">#    result = np.sum(abs(network.jam - aveJam), 0)</span>
+
+<span class="c">#    #print network.jam</span>
+
+<span class="c">#    #print aveJam</span>
+
+<span class="c">#    print result</span>
+
+<span class="c">#    return result</span>
+
+<span class="c">#</span>
+
+<span class="c">#</span>
+
+<span class="c">#</span>
+
+<span class="c">#</span>
+
+<span class="c">#x0 = [0.4] * 24</span>
+
+<span class="c">#findBestInput(x0)</span>
+
+<span class="c">#bns = []</span>
+
+<span class="c">#for i in range(24):</span>
+
+<span class="c">#    bns.append((0, 1))</span>
+
+<span class="c">#res = minimize(findBestInput, x0, method = "TNC", bounds = bns)</span>
+
+
+
+
+
+
+
+<span class="c">##have a look </span>
+
+<span class="c">#for i in range(test.Vnum * 2):</span>
+
+<span class="c">#    test.jam = np.matrix(np.zeros((test.Vnum*2, 1))) #总车流量</span>
+
+<span class="c">#    test.jam[i] = 10</span>
+
+<span class="c">#    test.visHeatMap("C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/" + str(i))</span>
+</code></pre></div></div>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/10/13/16_51_15/" data-toggle="tooltip" data-placement="top" title="Linux Run Code at fixed time">
+                        Previous<br>
+                        <span>Linux Run Code at fixed time</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#c/c++" title="c/c++" rel="2">
+                                    c/c++
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#latex" title="latex" rel="2">
+                                    latex
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#linux" title="linux" rel="5">
+                                    linux
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#python" title="python" rel="7">
+                                    python
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Zipingxu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Zipping 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

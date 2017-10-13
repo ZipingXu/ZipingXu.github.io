@@ -232,6 +232,8 @@
 
 <p>There is a replacement in Python3, <code class="highlighter-rouge">pymysql</code></p>
 
+<p>The following is a simple case for fetching data.</p>
+
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install pymysql
 </code></pre></div></div>
 
@@ -289,7 +291,174 @@ if __name__ == '__main__':
 
 <p>add your sql command.</p>
 
-<h2 id="create-table">Create Table</h2>
+<h2 id="create-and-insert-table">Create and Insert Table</h2>
+
+<p>It’s important that you should begin and commit a transection when you have to write.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">conn</span> <span class="o">=</span> <span class="n">MySQLdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span>
+                   <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span>
+                   <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+                   <span class="n">passwd</span><span class="o">=</span><span class="n">passwd</span><span class="p">,</span>
+                   <span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span>
+                   <span class="n">charset</span><span class="o">=</span><span class="s">'utf8'</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
+<span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">create_table</span> <span class="o">=</span> <span class="s">"""
+use alpha;
+DROP TABLE IF EXISTS xzp_alpha_id;
+CREATE TABLE xzp_alpha_id (
+    secID VARCHAR(20),
+    date VARCHAR(10),
+    value DOUBLE
+);
+
+INSERT INTO xzp_alpha_id (secID, date, value)
+VALUES ('603152', '20170921', null);
+"""</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">create_table</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="mysql-data-types">MySQL Data Types</h2>
+
+<p>In MySQL there are three main data types: text, number, and date.</p>
+
+<h3 id="text-data-types">Text data types:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CHAR(size)</td>
+      <td>Holds a fixed length string (can contain letters, numbers, and special characters). The fixed size is specified in parenthesis. Can store up to 255 characters</td>
+    </tr>
+    <tr>
+      <td>VARCHAR(size)</td>
+      <td>Holds a variable length string (can contain letters, numbers, and special characters). The maximum size is specified in parenthesis. Can store up to 255 characters. <strong>Note:</strong> If you put a greater value than 255 it will be converted to a TEXT type</td>
+    </tr>
+    <tr>
+      <td>TINYTEXT</td>
+      <td>Holds a string with a maximum length of 255 characters</td>
+    </tr>
+    <tr>
+      <td>TEXT</td>
+      <td>Holds a string with a maximum length of 65,535 characters</td>
+    </tr>
+    <tr>
+      <td>BLOB</td>
+      <td>For BLOBs (Binary Large OBjects). Holds up to 65,535 bytes of data</td>
+    </tr>
+    <tr>
+      <td>MEDIUMTEXT</td>
+      <td>Holds a string with a maximum length of 16,777,215 characters</td>
+    </tr>
+    <tr>
+      <td>MEDIUMBLOB</td>
+      <td>For BLOBs (Binary Large OBjects). Holds up to 16,777,215 bytes of data</td>
+    </tr>
+    <tr>
+      <td>LONGTEXT</td>
+      <td>Holds a string with a maximum length of 4,294,967,295 characters</td>
+    </tr>
+    <tr>
+      <td>LONGBLOB</td>
+      <td>For BLOBs (Binary Large OBjects). Holds up to 4,294,967,295 bytes of data</td>
+    </tr>
+    <tr>
+      <td>ENUM(x,y,z,etc.)</td>
+      <td>Let you enter a list of possible values. You can list up to 65535 values in an ENUM list. If a value is inserted that is not in the list, a blank value will be inserted.<strong>Note:</strong> The values are sorted in the order you enter them.You enter the possible values in this format: ENUM(‘X’,’Y’,’Z’)</td>
+    </tr>
+    <tr>
+      <td>SET</td>
+      <td>Similar to ENUM except that SET may contain up to 64 list items and can store more than one choice</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="number-data-types">Number data types:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TINYINT(size)</td>
+      <td>-128 to 127 normal. 0 to 255 UNSIGNED*. The maximum number of digits may be specified in parenthesis</td>
+    </tr>
+    <tr>
+      <td>SMALLINT(size)</td>
+      <td>-32768 to 32767 normal. 0 to 65535 UNSIGNED*. The maximum number of digits may be specified in parenthesis</td>
+    </tr>
+    <tr>
+      <td>MEDIUMINT(size)</td>
+      <td>-8388608 to 8388607 normal. 0 to 16777215 UNSIGNED*. The maximum number of digits may be specified in parenthesis</td>
+    </tr>
+    <tr>
+      <td>INT(size)</td>
+      <td>-2147483648 to 2147483647 normal. 0 to 4294967295 UNSIGNED*. The maximum number of digits may be specified in parenthesis</td>
+    </tr>
+    <tr>
+      <td>BIGINT(size)</td>
+      <td>-9223372036854775808 to 9223372036854775807 normal. 0 to 18446744073709551615 UNSIGNED*. The maximum number of digits may be specified in parenthesis</td>
+    </tr>
+    <tr>
+      <td>FLOAT(size,d)</td>
+      <td>A small number with a floating decimal point. The maximum number of digits may be specified in the size parameter. The maximum number of digits to the right of the decimal point is specified in the d parameter</td>
+    </tr>
+    <tr>
+      <td>DOUBLE(size,d)</td>
+      <td>A large number with a floating decimal point. The maximum number of digits may be specified in the size parameter. The maximum number of digits to the right of the decimal point is specified in the d parameter</td>
+    </tr>
+    <tr>
+      <td>DECIMAL(size,d)</td>
+      <td>A DOUBLE stored as a string , allowing for a fixed decimal point. The maximum number of digits may be specified in the size parameter. The maximum number of digits to the right of the decimal point is specified in the d parameter</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="date-data-types">Date data types:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>DATE()</td>
+      <td>A date. Format: YYYY-MM-DD<strong>Note:</strong> The supported range is from ‘1000-01-01’ to ‘9999-12-31’</td>
+    </tr>
+    <tr>
+      <td>DATETIME()</td>
+      <td>*A date and time combination. Format: YYYY-MM-DD HH:MI:SS<strong>Note:</strong> The supported range is from ‘1000-01-01 00:00:00’ to ‘9999-12-31 23:59:59’</td>
+    </tr>
+    <tr>
+      <td>TIMESTAMP()</td>
+      <td>*A timestamp. TIMESTAMP values are stored as the number of seconds since the Unix epoch (‘1970-01-01 00:00:00’ UTC). Format: YYYY-MM-DD HH:MI:SS<strong>Note:</strong> The supported range is from ‘1970-01-01 00:00:01’ UTC to ‘2038-01-09 03:14:07’ UTC</td>
+    </tr>
+    <tr>
+      <td>TIME()</td>
+      <td>A time. Format: HH:MI:SS<strong>Note:</strong> The supported range is from ‘-838:59:59’ to ‘838:59:59’</td>
+    </tr>
+    <tr>
+      <td>YEAR()</td>
+      <td>A year in two-digit or four-digit format.<strong>Note:</strong> Values allowed in four-digit format: 1901 to 2155. Values allowed in two-digit format: 70 to 69, representing years from 1970 to 2069</td>
+    </tr>
+  </tbody>
+</table>
 
 
 
@@ -365,7 +534,7 @@ if __name__ == '__main__':
                             
         				
                             
-                				<a href="/tags/#linux" title="linux" rel="4">
+                				<a href="/tags/#linux" title="linux" rel="5">
                                     linux
                                 </a>
                             
@@ -373,9 +542,11 @@ if __name__ == '__main__':
                             
         				
                             
-                				<a href="/tags/#python" title="python" rel="6">
+                				<a href="/tags/#python" title="python" rel="7">
                                     python
                                 </a>
+                            
+        				
                             
         				
                             

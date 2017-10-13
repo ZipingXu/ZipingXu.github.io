@@ -184,6 +184,75 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2017/10/13/18_29_11/">
+        <h2 class="post-title">
+            A simulation system for ICM
+        </h2>
+        
+        <h3 class="post-subtitle">
+            based on transfromation probability and directed graph
+        </h3>
+        
+        <div class="post-content-preview">
+            
+实现于2017年1月24日
+
+"""
+
+Created on Fri Jan 20 20:34:43 2017
+
+ICM network simulation
+
+@author: LukeXu
+
+"""
+
+
+
+
+import numpy as np
+
+import copy as cp
+
+from scipy.sparse.csgraph import dijkstra
+
+import n...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on October 13, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/10/13/16_51_15/">
+        <h2 class="post-title">
+            Linux Run Code at fixed time
+        </h2>
+        
+        <h3 class="post-subtitle">
+            life is hard. Why not make it easier
+        </h3>
+        
+        <div class="post-content-preview">
+            crontab
+
+cron是一个linux下 的定时执行工具，可以在无需人工干预的情况下运行作业。由于Cron 是Linux的内置服务，但它不自动起来，可以用以下的方法启动、关闭这个服务：
+
+/sbin/service crond start//启动服务
+/sbin/service crond stop //关闭服务
+/sbin/service crond restart  //重启服务
+/...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on October 13, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2017/10/12/14_09_54/">
         <h2 class="post-title">
             Add user into sudoer list
@@ -408,63 +477,6 @@ conda create -n new_env p...
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2017/10/07/11_19_08/">
-        <h2 class="post-title">
-            Encoding in Python
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Some Records for encoding operations in Python
-        </h3>
-        
-        <div class="post-content-preview">
-            Encoding in Python
-
-Check encoding
-
-with open("test.csv","rb") as f:
-    data = f.read()
-    print(chardet.detect(data))
-
-
-
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ziping on October 7, 2017
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2017/10/07/11_09_11/">
-        <h2 class="post-title">
-            Copy Files Across Servers
-        </h2>
-        
-        <h3 class="post-subtitle">
-            ...
-        </h3>
-        
-        <div class="post-content-preview">
-            Copy Files Across Servers
-
-以前一直是在服务器上tar打包压缩，下载到本地电脑上，再上传到另外一台服务器上，再解压。
-
-其实使用scp就可以直接对拷文件或者文件夹了。
-
-scp就是secure copy,是用来进行远程文件拷贝的.数据传输使用ssh1,并且和ssh1使用相同的认证方式,提供相同的安全保证.与rcp不同的是,scp会要求你输入密码如果需要的话.
-
-最简...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ziping on October 7, 2017
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -509,7 +521,7 @@ scp就是secure copy,是用来进行远程文件拷贝的.数据传输使用ssh1
                             
                         
                             
-                                <a href="/tags/#linux" title="linux" rel="4">
+                                <a href="/tags/#linux" title="linux" rel="5">
                                     linux
                                 </a>
                             
@@ -517,9 +529,11 @@ scp就是secure copy,是用来进行远程文件拷贝的.数据传输使用ssh1
                             
                         
                             
-                                <a href="/tags/#python" title="python" rel="6">
+                                <a href="/tags/#python" title="python" rel="7">
                                     python
                                 </a>
+                            
+                        
                             
                         
                             

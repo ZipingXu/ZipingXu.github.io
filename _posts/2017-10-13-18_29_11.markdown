@@ -1,0 +1,1326 @@
+---
+layout:     post
+title:      "A simulation system for ICM"
+subtitle:   "based on transfromation probability and directed graph"
+date:       2017-10-13
+author:     "Ziping"
+header-img: "img/ICM.jpg"
+catalog: true
+tags:
+    - ICM
+    - python
+---
+
+---
+实现于2017年1月24日
+
+```python
+"""
+
+Created on Fri Jan 20 20:34:43 2017
+
+ICM network simulation
+
+@author: LukeXu
+
+"""
+
+
+
+
+import numpy as np
+
+import copy as cp
+
+from scipy.sparse.csgraph import dijkstra
+
+import networkx as nx
+
+import scipy.stats as stats
+
+import math
+
+from scipy.optimize import minimize
+
+from matplotlib import pyplot as plt
+
+import random
+
+
+
+
+4 * 1./(1+0.05*math.pow(4,1))
+
+#plt.plot(map(lambda x : x / 1000.0, range(10000)), map(pro1, map(lambda x : x / 1000.0, range(10000))))
+
+def pro(rat,a = 0.2,b = 3):#rat= (cars' number)/(lanes' number)
+
+    temp = 1./(1+a*math.pow(rat,b))
+
+    #if rat[0, 0] >= 4 and temp < 4 / rat[0, 0]:
+
+    #    temp = 4 / rat[0, 0]
+
+    return temp
+
+
+
+
+def pro1(rat,a = 0.05,b = 1):#rat= (cars' number)/(lanes' number)
+
+    temp = 1./(1+a*math.pow(rat,b))
+
+    if rat >= 4:
+
+        temp = 4 / rat * 1./(1+a*math.pow(rat,b))
+
+    return temp
+
+
+
+
+plt.plot(map(lambda x : x / 1000.0, range(10000)), map(pro, map(lambda x : x / 1000.0, range(10000))))
+
+plt.plot(map(lambda x : x / 1000.0, range(10000)), map(pro1, map(lambda x : x / 1000.0, range(10000))))
+
+def norm(i, var = 5):
+
+    #正态随机数生成器
+
+    temp = stats.norm.rvs(start[i], var, size = 1) 
+
+    if temp < 0:
+
+        temp = 0
+
+    return temp
+
+
+
+
+class network:
+
+    def __init__ (self, Vert, Edge, step, pro):
+
+        self.oV = Vert #可能作为出口的节点列表
+
+        self.oEdge = Edge #原来的边（目前不知道有什么用） 
+
+        self.interV = []#内部结点
+
+        self.interE = []#内部边
+
+        self.crossV = []#岔路口的点
+
+        self.crossE = []#岔路口的边
+
+        self.Vnum = sum(map(lambda x: int(x[2]/step) - 1, Edge)) #网络结点个数（不考虑正负方向）
+
+        self.cumVnum = []#按边排列的累积节点数
+
+        self.newEdge = []#总的边
+
+        self.graph = np.matrix(np.zeros((self.Vnum * 2, self.Vnum * 2))) #邻接矩阵
+
+        self.interGraph = np.matrix(np.zeros((self.Vnum * 2, self.Vnum * 2))) #内部节点子图的邻接矩阵
+
+        self.prob1 = cp.deepcopy(self.graph) #转移概率矩阵完整图
+
+        self.prob2 = cp.deepcopy(self.interGraph) #转移概率矩阵内部子图
+
+        self.ManCars = np.matrix(np.zeros((self.Vnum*2, len(Vert)))) #人开的车的矩阵
+
+        self.AutoCars = np.matrix(np.zeros((self.Vnum*2, len(Vert)))) #自动驾驶车的矩阵
+
+        self.jam = np.matrix(np.zeros((self.Vnum*2, 1))) #总车流量
+
+        self.meanJam = np.matrix(np.zeros((self.Vnum*2, 1))) #道路平均车流量
+
+        self.enterV = [] #外部结点作为进入点时在序列中的id
+
+        self.exitV = [] #外部结点作为出去点时在序列中的id
+
+        self.road = [0] * self.Vnum 
+
+        self.position = {} #可视化时结点的位置
+
+        self.lanes = [0] * self.Vnum #道路数量
+
+        self.ifCrash = [0] * self.Vnum * 2 #是否发生事故
+
+        
+
+        
+
+        
+
+        #Vnum网络结点个数，Enum网络边的个数，Edge边集（包括起始，终止，长度, eg: [1, 2, 100]）
+
+        #pro转移概率函数，step一小格的长度
+
+        Enum = len(Edge)
+
+        #Vnum = len(Vert)
+
+        
+
+        #---------part1:计算cumVnum，为每个节点标记路号----------#test.Vnum
+
+        temp = map(lambda x: int(x[2]/step) - 1, Edge) #每条边上的结点总数
+
+        #累积和
+
+        self.cumVnum = []
+
+        numNow = 0
+
+        for i in range(Enum):
+
+            self.cumVnum.append(numNow)
+
+            numNow += temp[i]
+
+        self.cumVnum.append(numNow)
+
+        
+
+        for i in range(len(self.cumVnum) - 1):
+
+            self.road[self.cumVnum[i]:self.cumVnum[i + 1]] = map(lambda x: Edge[i][3], range(self.cumVnum[i], self.cumVnum[i + 1]))
+
+            self.lanes[self.cumVnum[i]:self.cumVnum[i + 1]] = map(lambda x: Edge[i][4], range(self.cumVnum[i], self.cumVnum[i + 1]))
+
+            
+
+        #self.road[self.cumVnum[len(self.cumVnum) - 1]:] = map(lambda x:Edge[len(self.cumVnum) - 1][3], range(self.cumVnum[len(self.cumVnum) - 1], len(self.Vnum)))
+
+        self.road = self.road * 2
+
+        self.lanes = self.lanes * 2
+
+        #---------part2:计算内部结点边----------#
+
+        #新图的边
+
+        newEdge = []
+
+        Enum = len(Edge)
+
+        
+
+        allnow = 0
+
+        for i in range(Enum):
+
+            for j in range(temp[i] - 1):
+
+                newEdge.append([j + allnow, j + allnow + 1])
+
+                self.interV.append(j + allnow)
+
+                #print "add1"
+
+            allnow += temp[i]
+
+        allnow = 0
+
+        for i in range(Enum):
+
+            for j in range(1, temp[i])[::-1]:
+
+                newEdge.append([j + allnow + self.Vnum, j + allnow - 1 + self.Vnum])
+
+                self.interV.append(j + allnow + self.Vnum)
+
+                #print "add2"
+
+            allnow += temp[i]
+
+        self.interE = cp.deepcopy(newEdge)
+
+        
+
+        #---------part3:计算岔路口处的边----------#test.graph[9, 26]
+
+        crossEdge = []
+
+        #添加岔路口处的边
+
+        for i in range(Enum):
+
+            for j in range(Enum):
+
+                if i == j:
+
+                    continue
+
+                if Edge[j][0] == Edge[i][1]:
+
+                    crossEdge.append([self.getID(i, 1)[1], self.getID(j, 1)[0]])
+
+                if Edge[j][1] == Edge[i][1]:
+
+                    crossEdge.append([self.getID(i, 1)[1], self.getID(j, 0)[1]])
+
+                if Edge[j][0] == Edge[i][0]:
+
+                    crossEdge.append([self.getID(i, 0)[0], self.getID(j, 1)[0]])
+
+                if Edge[j][1] == Edge[i][0]:
+
+                    crossEdge.append([self.getID(i, 0)[0], self.getID(j, 0)[1]])
+
+        
+
+        self.crossE = cp.deepcopy(crossEdge)
+
+        newEdge = newEdge + crossEdge
+
+        self.newEdge = newEdge
+
+        
+
+        #---------part4:生成图和计算转移概率矩阵----------#
+
+        tn = len(newEdge)
+
+        #print tn
+
+        for i in range(tn):
+
+            self.graph[newEdge[i][0], newEdge[i][1]] = 1
+
+        
+
+        tn = len(self.interE)
+
+        for i in range(tn):
+
+            self.interGraph[self.interE[i][0], self.interE[i][1]] = 1
+
+        
+
+        self.prob1 = cp.deepcopy(self.graph)
+
+        temp = np.sum(self.graph, 1)
+
+        temp = map(lambda x: x + (x == 0), temp.T)[0].T
+
+        self.prob1 = self.prob1 / temp
+
+        
+
+        self.prob2 = cp.deepcopy(self.interGraph)
+
+        temp = np.sum(self.interGraph, 1)
+
+        temp = map(lambda x: x + (x == 0), temp.T)[0].T
+
+        self.prob2 = self.prob2 / temp
+
+        
+
+        
+
+        def around1(tID):
+
+            for i in range(Enum):
+
+                if self.oEdge[i][0] == tID:
+
+                    addID = self.getID(i, 1)[0]
+
+                    #self.cars[addID, temp2] += num
+
+                    break
+
+                if self.oEdge[i][1] == tID:
+
+                    addID = self.getID(i, 0)[1]
+
+                    break
+
+                    #self.cars[addID, temp2] += num
+
+            return addID
+
+        def around2(tID):
+
+            for i in range(Enum):
+
+                if self.oEdge[i][1] == tID:
+
+                    addID = self.getID(i, 1)[1]
+
+                    #self.cars[addID, temp2] += num
+
+                    break
+
+                if self.oEdge[i][0] == tID:
+
+                    addID = self.getID(i, 0)[0]
+
+                    break
+
+                    #self.cars[addID, temp2] += num
+
+            return addID
+
+        self.enterV = map(around1, self.oV)
+
+        self.exitV = map(around2, self.oV)
+
+
+
+
+        self.interV = list(set(self.interV).union(set(self.exitV)))
+
+        self.interV = list(set(self.interV).union(set(self.enterV)))       
+
+        
+
+        self.crossV = list(set(range(self.Vnum * 2)).difference(set(self.interV)))
+
+        self.position = self.location()
+
+    def updateCrash(self, p = 0.001, lun = 3):
+
+        def now(x):
+
+            if x < 0:
+
+                t = 0
+
+            else:
+
+                t = x
+
+            return t
+
+        ManJam = np.sum(self.ManCars, 1)
+
+        AutoJam = np.sum(self.AutoCars, 1)
+
+        self.ifCrash = map(lambda x: x - 1, self.ifCrash)
+
+        self.ifCrash = map(lambda x: now(x), self.ifCrash)
+
+        self.ifCrash = map(lambda x: self.ifCrash[x] + int(random.random() < (p * AutoJam[x] * 10 + p * ManJam[x] + p * AutoJam[x] * ManJam[x])) * lun, range(self.Vnum * 2))
+
+        for x in self.crossV:
+
+            self.ifCrash[x] + int(random.random() < (p * AutoJam[x] * 10 + p * ManJam[x] + p * AutoJam[x] * ManJam[x])) * lun
+
+        #self.ifCrash = map(lambda x: self.ifCrash + int(random.random() < p) * 3, self.ifCrash)
+
+        self.ifCrash = map(lambda x: self.ifCrash[x] * int(self.jam[x] != 0), range(self.Vnum * 2))
+
+        
+
+    def getSpeed(self, car = 1):
+
+        self.meanJam = map(lambda i: self.jam[i, 0] / self.lanes[i], range(self.Vnum * 2))      
+
+        if car == 1:
+
+            speed = np.matrix(map(pro, self.meanJam)).T
+
+            speed = map(lambda i:  speed[i, 0]/(1 + 4 * int(self.ifCrash[i] != 0)) , range(self.Vnum * 2))
+
+            return np.matrix(speed).T
+
+        if car != 1:
+
+            speed = np.matrix(map(pro1, self.meanJam)).T
+
+            speed1 = np.matrix(map(pro, self.meanJam)).T
+
+            AutoCars = np.sum(self.AutoCars, 1)            
+
+            ManCars = np.sum(self.ManCars, 1)  
+
+            for i in range(self.Vnum * 2):
+
+                if AutoCars[i] != 0 and ManCars[i] != 0:
+
+                    speed[i, 0] = (speed1[i, 0] * ManCars[i] + speed[i, 0] * AutoCars[i]) / (ManCars[i] + AutoCars[i])
+
+            speed = map(lambda i:  speed[i, 0]/(1 + 4 * int(self.ifCrash[i] != 0)) , range(self.Vnum * 2))
+
+            return np.matrix(speed).T
+
+    def getSpeed1(self, car = 1):
+
+        self.meanJam = map(lambda i: self.jam[i, 0] / self.lanes[i], range(self.Vnum * 2))      
+
+        if car == 1:
+
+            speed = np.matrix(map(pro, self.meanJam)).T
+
+            speed = map(lambda i:  speed[i, 0]/(1 + 4 * int(self.ifCrash[i] != 0)) , range(self.Vnum * 2))
+
+            return np.matrix(speed).T
+
+        if car != 1:
+
+            speed = np.matrix(map(pro1, self.meanJam)).T
+
+            speed = map(lambda i:  speed[i, 0]/(1 + 4 * int(self.ifCrash[i] != 0)) , range(self.Vnum * 2))
+
+            return np.matrix(speed).T
+
+    def location(self):
+
+        x5 = 0
+
+        y5 = 1
+
+        
+
+        x405 = 9
+
+        y405 = 0
+
+        
+
+        x90 = 2
+
+        y90 = 9
+
+        
+
+        x520 = 2
+
+        y520 = 12
+
+        position = {}
+
+        for i in range(self.Vnum - 4):
+
+            if self.road[i] == 5:
+
+                temp1 = [x5, y5]
+
+                temp2 = [x5 + 1, y5]
+
+                position.update({i:temp1})
+
+                position.update({(i + self.Vnum):temp2})
+
+                y5 += 1
+
+            if self.road[i] == 405:
+
+                temp1 = [x405, y405]
+
+                temp2 = [x405 + 1, y405]
+
+                position.update({i:temp1})
+
+                position.update({(i + self.Vnum):temp2})
+
+                y405 += 1
+
+            if self.road[i] == 90:
+
+                temp1 = [x90, y90]
+
+                temp2 = [x90, y90 + 1]
+
+                position.update({i:temp1})
+
+                position.update({(i + self.Vnum):temp2})
+
+                x90 += 1
+
+            if self.road[i] == 520:
+
+                temp1 = [x520, y520]
+
+                temp2 = [x520, y520 + 1]
+
+                position.update({i:temp1})
+
+                position.update({(i + self.Vnum):temp2})
+
+                x520 += 1
+
+        i = 64
+
+        temp1 = [x90 + 2, y90]
+
+        temp2 = [x90 + 2, y90 + 1]
+
+        position.update({(132 - self.Vnum):temp1})
+
+        position.update({132:temp2})
+
+        x90 += 1
+
+        temp1 = [x90 + 2, y90]
+
+        temp2 = [x90 + 2, y90 + 1]
+
+        position.update({(133 - self.Vnum):temp1})
+
+        position.update({133:temp2})
+
+        
+
+        temp1 = [x520 + 2, y520]
+
+        temp2 = [x520 + 2, y520 + 1]
+
+        position.update({134 - self.Vnum:temp1})
+
+        position.update({134:temp2})
+
+        x520 += 1
+
+        temp1 = [x520 + 2, y520]
+
+        temp2 = [x520 + 2, y520 + 1]
+
+        position.update({135 - self.Vnum:temp1})
+
+        position.update({135:temp2})
+
+        
+
+        return position
+
+    def getID(self, ID, dire):
+
+        #给定边的序号返回起始点和终止点的序号
+
+        if dire == 1:#正向
+
+            return [self.cumVnum[ID], self.cumVnum[ID + 1] - 1]
+
+        if dire == 0:#负向
+
+            return [self.Vnum + self.cumVnum[ID], self.Vnum + self.cumVnum[ID + 1] - 1]
+
+    def getSum(self):
+
+        return [sum(self.jam[0:self.Vnum]), sum(self.jam[self.Vnum:])]
+
+    #def 
+
+    
+
+    #更新车流量
+
+    def updateJam(self):
+
+        self.jam = np.sum(self.ManCars, 1) + np.sum(self.AutoCars, 1)
+
+
+
+
+    #人的决策函数
+
+    def way(self, id1, id2, ShortPath):
+
+        ShortPath = ShortPath[id1, :]
+
+        now = id2
+
+        before = id2
+
+        que = []
+
+        while now != id1:
+
+            before = now
+
+            if before == -9999:
+
+                return -1
+
+            now = ShortPath[before]
+
+            que.append(before)
+
+        p = ""
+
+        for i in range(len(que)):
+
+            p = p + str(que[i]) + " "
+
+        #print p
+
+        return before
+
+    def AutoDecide(self, num = 1000):
+
+        selected = self.crossV
+
+        speed = self.getSpeed(car = 0)
+
+        tProb = np.multiply(self.graph, speed)
+
+        Distance = 1.0 / tProb
+
+        ShortPath = dijkstra(Distance, directed = True, return_predecessors = True)[1]
+
+        
+
+        sel = len(selected)
+
+        numV = len(self.oV)
+
+        nextCar2 = cp.deepcopy(self.AutoCars / num)
+
+        nextCar2 = np.matrix(nextCar2)
+
+        for j in range(numV):
+
+            tProb = np.matrix(np.zeros((self.Vnum * 2, self.Vnum * 2)))
+
+            for i in range(sel):
+
+                tid = selected[i]
+
+                nextID = self.way(tid, self.exitV[j], ShortPath)
+
+                tProb[tid, nextID] = 1
+
+            tProb = np.multiply(tProb, speed).T
+
+            nextCar2[:, j] = tProb * nextCar2[:, j]
+
+        return nextCar2
+
+    
+
+    def ManDecide(self):
+
+        selected = self.crossV
+
+        speed = self.getSpeed()
+
+        tProb = np.multiply(self.graph, speed)
+
+        Distance = 1.0 / tProb
+
+        ShortPath = dijkstra(Distance, directed = True, return_predecessors = True)
+
+        tShort = ShortPath[0]
+
+        ShortPath = ShortPath[1]
+
+        sel = len(selected)
+
+        numV = len(self.oV)
+
+        nextCar2 = cp.deepcopy(self.ManCars)
+
+        nextCar2 = np.matrix(nextCar2)
+
+        for j in range(numV):
+
+            tProb = np.matrix(np.zeros((self.Vnum * 2, self.Vnum * 2)))
+
+            for i in range(sel):                
+
+                tid = selected[i]
+
+                nextID = self.way(tid, self.exitV[j], ShortPath)
+
+                tProb[tid, nextID] = 1
+
+            tProb = np.multiply(tProb, speed).T
+
+            nextCar2[:, j] = tProb * nextCar2[:, j]
+
+        return nextCar2
+
+    #进行一次迭代 tProb[0, :]
+
+    def nextGen(self):
+
+        speed = self.getSpeed()
+
+        tProb = np.multiply(self.prob2, speed).T + np.multiply(np.eye(self.Vnum*2), (1 - speed))
+
+        
+
+        nextCar1 = tProb * self.ManCars
+
+        nextCar2 = self.ManDecide()
+
+        nextCar = nextCar1 + nextCar2
+
+        self.ManCars = nextCar
+
+        
+
+        speed = self.getSpeed(car = 0)
+
+        tProb = np.multiply(self.prob2, speed).T + np.multiply(np.eye(self.Vnum*2), (1 - speed))
+
+        
+
+        num = 100
+
+        allNextCar = np.matrix(np.zeros((self.Vnum*2, len(self.oV))))
+
+        for i in range(num):
+
+            nextCar1 = tProb * (self.AutoCars / num)
+
+            nextCar2 = self.AutoDecide(num = num)
+
+            nextCar = nextCar1 + nextCar2
+
+            allNextCar = allNextCar + nextCar
+
+            self.jam = self.jam - np.sum(self.AutoCars / num, 1) + np.sum(nextCar / num, 1)
+
+        self.AutoCars = allNextCar
+
+    #可视化
+
+    def visGraph(self):
+
+        from matplotlib import pyplot as plt
+
+        self.G = nx.DiGraph()
+
+        for i in range(self.Vnum * 2):
+
+            self.G.add_node(i, road = self.road[i])
+
+            
+
+        for i in range(len(self.newEdge)):
+
+            self.G.add_edge(self.newEdge[i][0], self.newEdge[i][1])
+
+        plt.figure(figsize=(10,24))
+
+        nx.draw(self.G, pos = self.position)
+
+        
+
+    def visHeatMap(self, name):
+
+        from matplotlib import pyplot as plt
+
+        import matplotlib
+
+        matplotlib.use('Agg')
+
+        matplotlib.rc('xtick', labelsize=40)
+
+        matplotlib.rc('ytick', labelsize=40)
+
+        
+
+        data = np.zeros((26, 13))
+
+        data = data + 92
+
+        for (k,v) in  self.position.items(): 
+
+            #print str(k) + " " + str(v)
+
+            if self.ifCrash[k] != 0:
+
+                data[v[1], v[0]] = 100
+
+            else:
+
+                data[v[1], v[0]] = 85 - self.jam[k][0] * 10
+
+        
+
+        xlabels = [" "] * 12
+
+        xlabels[1] = "I-5"
+
+        xlabels[10] = "I-405"
+
+        ylabels = [" "] * 25
+
+        ylabels[10] = "I-90"
+
+        ylabels[12] = "SR-520"
+
+        fig, ax = plt.subplots()
+
+        #plt.cm.Blues
+
+        heatmap = ax.pcolor(data, cmap="afmhot", alpha = 0.8, vmin = 50, vmax = 100)
+
+        
+
+        fig = plt.gcf()
+
+        fig.set_size_inches(14, 25)
+
+        #plt.figure(figsize=(12,25))
+
+        ax.set_frame_on(False)
+
+        ax.set_yticks(np.arange(data.shape[0]) + 0.5, minor=False)
+
+        ax.set_xticks(np.arange(data.shape[1]) + 0.5, minor=False)
+
+        ax.set_xticklabels(xlabels, minor=False)
+
+        ax.set_yticklabels(ylabels, minor=False)  
+
+        #ax.invert_yaxis()
+
+        ax.xaxis.tick_top()
+
+        plt.xticks(rotation=90)
+
+        
+
+        ax.grid(False)
+
+        ax = plt.gca()
+
+        
+
+        plt.savefig(name)
+
+    #加车子
+
+    def addCar(self, num, ID1, ID2, man = True): #man decide what kind of cars you want to add into
+
+        temp1 = self.oV.index(ID1)
+
+        temp2 = self.oV.index(ID2)
+
+        if man:
+
+            self.ManCars[self.enterV[temp1], temp2] += num
+
+        else:
+
+            self.AutoCars[self.enterV[temp1], temp2] += num
+
+    #运行
+
+    def addAllCars(self, ratio, stre = 10):
+
+        now = 0
+
+        for i in range(6):
+
+            for j in range(6):
+
+                if i == j:
+
+                    continue
+
+                if self.oV[j] == ruleOut[i]:
+
+                    continue
+
+                self.addCar(addSelect[now] * stre * (1 - ratio), self.oV[i], self.oV[j], True)
+
+                self.addCar(addSelect[now] * stre * ratio, self.oV[i], self.oV[j], False)
+
+                now += 1
+
+    def run(self, times = 10, mode = 0, ratio = 1, strength = 0.25):
+
+        traffic = np.zeros((self.Vnum * 2, times))
+
+        #self.addCar(abs(stats.norm.rvs(15, 3, size = 1)), 8, 1, False)
+
+        if mode == 0:  #持续加少量车流看网络的稳定状况
+
+            #self.addAllCars(ratio)
+
+            for i in range(times):
+
+                print i
+
+                self.addAllCars(ratio, 0.9)
+
+                #self.addCar(abs(stats.norm.rvs(15, 3, size = 1)), 8, 1, True)
+
+                self.updateJam()
+
+                self.nextGen()
+
+                self.updateJam()
+
+                self.updateCrash()
+
+                traffic[:, i] = np.array(map(lambda x: x[0, 0], self.jam))
+
+                name = "C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/mode0/" + str(ratio) + "/" + str(i) + ".png"
+
+                #self.visHeatMap(name)
+
+        if mode == 1: #一次加大量车流，看网络的承受能力
+
+            self.addAllCars(ratio)
+
+            for i in range(times):
+
+                print i
+
+                #self.addCar(abs(stats.norm.rvs(10, 3, size = 1)), 0, 7, False)
+
+                self.updateJam()
+
+                self.nextGen()
+
+                self.updateJam()
+
+                self.updateCrash()
+
+                traffic[:, i] = np.array(map(lambda x: x[0, 0], self.jam))
+
+                name = "C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/mode1/" + str(ratio) + "/" + str(i) + ".png"
+
+                self.visHeatMap(name)
+
+        if mode == 2: 
+
+            self.addCar(10 * (1 - ratio), 0, 7, True)
+
+            self.addCar(10 * (ratio), 0, 7, False)
+
+            #self.addCar(20 * (ratio), 0, 7, False)
+
+            for i in range(times):                
+
+                print i
+
+                #self.addCar(abs(stats.norm.rvs(10, 3, size = 1)), 0, 7, False)
+
+                self.updateJam()
+
+                self.nextGen()
+
+                self.updateJam()
+
+                self.updateCrash()
+
+                traffic[:, i] = np.array(map(lambda x: x[0, 0], self.jam))
+
+                name = "C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/easy/" + str(ratio) + "/" + str(i) + ".png"
+
+                #print map(lambda x: x[0, 0], self.jam)                
+
+                self.visHeatMap(name)
+
+        if mode == 3:  #在稳定状况下加冲击流
+
+            traffic = np.zeros((self.Vnum * 2, times))
+
+            #self.addAllCars(ratio)
+
+            for i in range(times / 2):
+
+                print i
+
+                self.addAllCars(ratio, 0.6)
+
+                #self.addCar(abs(stats.norm.rvs(15, 3, size = 1)), 8, 1, True)
+
+                self.updateJam()
+
+                self.nextGen()
+
+                self.updateJam()
+
+                self.updateCrash()
+
+                traffic[:, i] = np.array(map(lambda x: x[0, 0], self.jam))
+
+                name = "C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/mode3/" + str(ratio) + "/" + str(i) + ".png"
+
+                #self.visHeatMap(name)
+
+            self.addAllCars(ratio, 2)
+
+            for i in range(times / 2):
+
+                print i
+
+                self.addAllCars(ratio, 0.6)
+
+                #self.addCar(abs(stats.norm.rvs(15, 3, size = 1)), 8, 1, True)
+
+                self.updateJam()
+
+                self.nextGen()
+
+                self.updateJam()
+
+                self.updateCrash()
+
+                traffic[:, i + times / 2] = np.array(map(lambda x: x[0, 0], self.jam))
+
+                name = "C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/mode3/" + str(ratio) + "/" + str(i + times) + ".png"
+
+                #self.visHeatMap(name)
+
+        self.clear()#结束本次模拟，清空网络
+
+        return traffic
+
+    def clear(self):
+
+        self.AutoCars = np.matrix(np.zeros((self.Vnum*2, len(self.oV)))) #车的矩阵
+
+        self.ManCars = np.matrix(np.zeros((self.Vnum*2, len(self.oV)))) #车的矩阵
+
+        self.jam = np.matrix(np.zeros((self.Vnum*2, 1))).T #总车流量
+
+
+
+
+Edge = [[0, 2, 11.265, 405, 3], [1, 3, 10.805, 5, 4], [3, 2, 8.625, 90, 3], [2, 4, 4.985, 405, 3], [3, 5, 4.3, 5, 4], [5, 4, 8.085, 520, 2], [4, 6, 14.97, 405, 4], [5, 7, 13.895, 5, 4], [2, 8, 3, 90, 3], [4, 9, 3, 520, 2]]
+
+Vert = [0, 1, 6, 7, 8, 9]
+
+step = 1.0
+
+G = nx.Graph()
+
+for i in range(1, 4):
+
+    G.add_node(i)
+
+for i in range(len(Edge)):
+
+    G.add_edge(Edge[i][0], Edge[i][1])
+
+
+
+
+#ShortPath[:, self.exitV[3]]
+
+ruleOut = [1, 0, 7, 6, 9, 8]
+
+
+
+
+#按照查询到的比例数据添加车辆
+
+start = [2.918192918,1.343101343,2.380952381,0.610500611, 1.587301587,1.15995116]
+
+
+
+
+from matplotlib import pyplot as plt
+
+import pandas as pd
+
+##-----看年平均的分布情况
+
+#import pandas as pd
+
+#name = "C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/year_mean.csv"
+
+#aveJam = pd.read_csv(name, header = None).iloc[:, 1]
+
+#aveJam = (np.matrix(aveJam)* 1.0).T
+
+#test.jam = aveJam / np.sum(aveJam, 0) * 136
+
+#test.visHeatMap("C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/year_mean.png")
+
+
+
+
+
+
+
+#-----run model-----#
+
+test = network(Vert, Edge, step, pro)
+
+times = 80
+
+#range(7, 11)
+
+global addSelect
+
+addSelect = [ 0.68061821,  0.52767839,  0.26253675,  0.41941566,  0.48664519,
+
+        0.85725241,  0.56014648,  0.2698057 ,  0.74186231,  0.46989983,
+
+        0.5293611 ,  0.20850491,  0.58295891,  1.        ,  0.41975354,
+
+        0.40242187,  0.33511894,  0.69711647,  0.40935081,  0.44019206,
+
+        0.47423429,  0.34530058,  0.29332045,  0.49722945]
+
+#ratio = [0, 0.3, 0.5, 0.7, 0.9, 1]
+
+#ratio = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+
+ratio = [0.4]
+
+for i in range(1):
+
+    print "begin " + str(i)
+
+    traffic = test.run(times, mode = 3, ratio = ratio[i])
+
+    traffic_col = np.sum(traffic, 0)
+
+    plt.figure(figsize = (40, 20))
+
+    plt.plot(range(times), traffic_col)
+
+    name0 = "C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/mode3/"
+
+    plt.savefig(name0 + str(ratio[i]) + "/" + "traffic.png")
+
+    
+
+    traffic_row = np.sum(traffic, 1) / times
+
+    test.jam = map(lambda x: np.matrix(x), traffic_row)
+
+    test.visHeatMap(name0 + str(ratio[i]) + "/" + "mean.png")  
+
+    
+
+    traffic_last = traffic[:, times - 1]
+
+    test.jam = map(lambda x: np.matrix(x), traffic_last)
+
+    test.visHeatMap(name0 + str(ratio[i]) + "/" + "last.png")      
+
+    
+
+    test.clear()
+
+    traffic = pd.DataFrame(traffic)
+
+    traffic.to_csv(name0 + str(ratio[i]) + "/" + "traffic.csv")
+
+
+
+
+#
+
+##输出两个方向的平均值
+
+#traffic_last = traffic.iloc[:, times - 4].values
+
+#traffic_last = (traffic_last[0:test.Vnum] + traffic_last[test.Vnum:]) / 2
+
+#traffic_last = np.matrix(list(traffic_last) + list(traffic_last))
+
+#traffic_last = (np.matrix(traffic_last)* 1.0).T
+
+#test.jam = traffic_last
+
+#test.visHeatMap("C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/mean0.png")
+
+
+
+
+
+
+
+
+
+
+#一共有36个参数
+
+#global network
+
+#network = test
+
+#aveJam = aveJam / np.sum(aveJam, 0) * 2.0 * 136
+
+#def findBestInput(arg):
+
+#    network.clear()
+
+#    #stre = arg[36]
+
+#    #arg = arg[0:36]
+
+#    #arg = np.matrix(arg).reshape((6, 6))
+
+#    
+
+#    for k in range(30):
+
+#        now = 0
+
+#        for i in range(6):
+
+#            for j in range(6):
+
+#                if i != j and Vert[j] != ruleOut[i]:
+
+#                    #print now
+
+#                    #print str(Vert[i]) + " " + str(Vert[j])
+
+#                    network.addCar(arg[now], Vert[i], Vert[j])
+
+#                    now += 1
+
+#        network.updateJam()
+
+#        network.nextGen()
+
+#        network.updateJam()
+
+#        #network.updateCrash()
+
+#    result = np.sum(abs(network.jam - aveJam), 0)
+
+#    #print network.jam
+
+#    #print aveJam
+
+#    print result
+
+#    return result
+
+#
+
+#
+
+#
+
+#
+
+#x0 = [0.4] * 24
+
+#findBestInput(x0)
+
+#bns = []
+
+#for i in range(24):
+
+#    bns.append((0, 1))
+
+#res = minimize(findBestInput, x0, method = "TNC", bounds = bns)
+
+
+
+
+
+
+
+##have a look 
+
+#for i in range(test.Vnum * 2):
+
+#    test.jam = np.matrix(np.zeros((test.Vnum*2, 1))) #总车流量
+
+#    test.jam[i] = 10
+
+#    test.visHeatMap("C:/Users/LukeXu/Desktop/2017_MCM-ICM_Problems/C/pic/" + str(i))
+```
