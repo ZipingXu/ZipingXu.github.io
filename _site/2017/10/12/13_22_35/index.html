@@ -10,7 +10,7 @@
     <meta name="keywords"  content="Data Science; Statistics; Unity">
     <meta name="theme-color" content="#000000">
     
-    <title>C/C++ file system - 子平 | Zipping</title>
+    <title>How to connect sql database in python - 子平 | Zipping</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zipingxu.github.io/2017/10/07/10_23_57/">
+    <link rel="canonical" href="https://zipingxu.github.io/2017/10/12/13_22_35/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -155,13 +155,13 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/c.jpg" width="0" height="0"> -->
+<!-- <img src="/img/python.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/c.jpg')
+        background-image: url('/img/python.jpg')
     }
 
     
@@ -174,15 +174,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#c/c++" title="c/c++">c/c++</a>
+                        <a class="tag" href="/tags/#python" title="python">python</a>
+                        
+                        <a class="tag" href="/tags/#mysql" title="mysql">mysql</a>
                         
                     </div>
-                    <h1>C/C++ file system</h1>
+                    <h1>How to connect sql database in python</h1>
                     
                     
-                    <h2 class="subheading">An record of structure for file system in C/C++</h2>
+                    <h2 class="subheading">use mysql and xxx</h2>
                     
-                    <span class="meta">Posted by Ziping on October 7, 2017</span>
+                    <span class="meta">Posted by Ziping on October 12, 2017</span>
                 </div>
             </div>
         </div>
@@ -200,131 +202,94 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h1 id="cc-file-system">C/C++ file system</h1>
+				<p>This blog is to record my process to connect mysql database in python.</p>
 
-<p>This is simple demo for file system operation.</p>
+<p>I choose MySQLdb as my tool because it is said that MySQLdb is the most stable way to connect to a MySQL database.</p>
 
-<p>In Unix/Linix system, <code class="highlighter-rouge">direct.h</code> defines some structures.</p>
+<p>MySQLdb doesnot support Python3 because I got an error:</p>
 
-<h2 id="data-structure">Data Structure</h2>
-
-<p><strong>DIR:</strong> structure for directory stream.</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">__dirstream</span>
-<span class="p">{</span>
-	<span class="kt">void</span> <span class="o">*</span><span class="n">__fd</span><span class="p">;</span> <span class="cm">/* 'struct hurd_fd' pointer for descriptor.*/</span>
-	<span class="kt">char</span> <span class="o">*</span><span class="n">__data</span><span class="p">;</span> <span class="cm">/* Directory block. */</span>
-	<span class="kt">int</span> <span class="n">__entry_data</span><span class="p">;</span> <span class="cm">/* Entry number `__data' corresponds to.*/</span>
-	<span class="kt">char</span> <span class="o">*</span><span class="n">__ptr</span><span class="p">;</span> <span class="cm">/* Current pointer into the block.*/</span>
-	<span class="kt">int</span> <span class="n">__entry_ptr</span><span class="p">;</span> <span class="cm">/* Entry number `__ptr' corresponds to.*/</span>
- 	<span class="kt">size_t</span> <span class="n">__allocation</span><span class="p">;</span> <span class="cm">/* Space allocated for the block.*/</span>
- 	<span class="kt">size_t</span> <span class="n">__size</span><span class="p">;</span> <span class="cm">/* Total valid data in the block.*/</span>
- 	<span class="n">__libc_lock_define</span> <span class="p">(,</span> <span class="n">__lock</span><span class="p">)</span> <span class="cm">/* Mutex lock for this structure.*/</span>
-<span class="p">};</span>
-<span class="n">typedefstruct</span> <span class="n">__dirstream</span> <span class="kt">DIR</span><span class="p">;</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">MySQL</span><span class="o">-</span><span class="n">python</span>
+<span class="n">Collecting</span> <span class="n">MySQL</span><span class="o">-</span><span class="n">python</span>
+  <span class="n">Downloading</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">aliyun</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pypi</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">a5</span><span class="o">/</span><span class="n">e9</span><span class="o">/</span><span class="mi">51</span><span class="n">b544da85a36a68debe7a7091f068d802fc515a3a202652828c73453cad</span><span class="o">/</span><span class="n">MySQL</span><span class="o">-</span><span class="n">python</span><span class="o">-</span><span class="mf">1.2</span><span class="o">.</span><span class="mf">5.</span><span class="nb">zip</span> <span class="p">(</span><span class="mi">108</span><span class="n">kB</span><span class="p">)</span>
+    <span class="mi">100</span><span class="o">%</span> <span class="o">|</span><span class="err">████████████████████████████████</span><span class="o">|</span> <span class="mi">112</span><span class="n">kB</span> <span class="mi">637</span><span class="n">kB</span><span class="o">/</span><span class="n">s</span> 
+    <span class="n">Complete</span> <span class="n">output</span> <span class="k">from</span> <span class="n">command</span> <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">egg_info</span><span class="p">:</span>
+    <span class="n">sh</span><span class="p">:</span> <span class="n">mysql_config</span><span class="p">:</span> <span class="n">command</span> <span class="ow">not</span> <span class="n">found</span>
+    <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+      <span class="n">File</span> <span class="s">"&lt;string&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+      <span class="n">File</span> <span class="s">"/tmp/pip-build-TmLXPF/MySQL-python/setup.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">17</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+        <span class="n">metadata</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
+      <span class="n">File</span> <span class="s">"setup_posix.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">43</span><span class="p">,</span> <span class="ow">in</span> <span class="n">get_config</span>
+        <span class="n">libs</span> <span class="o">=</span> <span class="n">mysql_config</span><span class="p">(</span><span class="s">"libs_r"</span><span class="p">)</span>
+      <span class="n">File</span> <span class="s">"setup_posix.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">25</span><span class="p">,</span> <span class="ow">in</span> <span class="n">mysql_config</span>
+        <span class="k">raise</span> <span class="nb">EnvironmentError</span><span class="p">(</span><span class="s">"</span><span class="si">%</span><span class="s">s not found"</span> <span class="o">%</span> <span class="p">(</span><span class="n">mysql_config</span><span class="o">.</span><span class="n">path</span><span class="p">,))</span>
+    <span class="nb">EnvironmentError</span><span class="p">:</span> <span class="n">mysql_config</span> <span class="ow">not</span> <span class="n">found</span>
+    
+    <span class="o">----------------------------------------</span>
+<span class="n">Command</span> <span class="s">"python setup.py egg_info"</span> <span class="n">failed</span> <span class="k">with</span> <span class="n">error</span> <span class="n">code</span> <span class="mi">1</span> <span class="ow">in</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">pip</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">TmLXPF</span><span class="o">/</span><span class="n">MySQL</span><span class="o">-</span><span class="n">python</span><span class="o">/</span>
 </code></pre></div></div>
 
-<p>**struct dirent: ** file and directory information</p>
+<p>The config file missing here is cause by <code class="highlighter-rouge">ConfigParser</code> that has changed in python3.</p>
 
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">dirent</span>
-<span class="p">{</span>
-	<span class="kt">long</span> <span class="n">d_ino</span><span class="p">;</span> <span class="cm">/* inode number 索引节点号 */</span>
- 	<span class="kt">off_t</span> <span class="n">d_off</span><span class="p">;</span> <span class="cm">/* offset to this dirent 在目录文件中的偏移 */</span>
-	<span class="n">unsignedshort</span> <span class="n">d_reclen</span><span class="p">;</span> <span class="cm">/* length of this d_name 文件名长 */</span>
-	<span class="n">unsignedchar</span> <span class="n">d_type</span><span class="p">;</span> <span class="cm">/* the type of d_name 文件类型 */</span>
-	<span class="kt">char</span> <span class="n">d_name</span> <span class="p">[</span><span class="n">NAME_MAX</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span> <span class="cm">/* file name 文件名，最长255字符 */</span>
-<span class="p">}</span>
+<p>There is a replacement in Python3, <code class="highlighter-rouge">pymysql</code></p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install pymysql
 </code></pre></div></div>
 
-<h2 id="funtions">Funtions</h2>
+<pre><code class="language-Python">#coding=utf-8
+ 
+import pymysql as MySQLdb
 
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">DIR</span><span class="o">*</span> <span class="n">opendir</span><span class="p">(</span><span class="n">constchar</span><span class="o">*</span> <span class="n">dirname</span><span class="p">);</span>
-<span class="cm">/* Open a directory
- success - return pointer to DIR
- fail - return NULL */</span>
-<span class="n">intclosedir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">);</span>
-<span class="cm">/* Close a directory stream
- success - return 0
- fail - return -1 */</span>
-<span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">readdir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">);</span>
-<span class="cm">/* Read a directory stream
- success - return a pointer to struct dirent object
- fail - return NULL */</span>
-<span class="n">intreaddir_r</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">entry</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dirent</span> <span class="o">**</span><span class="n">result</span><span class="p">);</span>
-<span class="cm">/* Read a directory stream: initialize entry with dirp, result is a pointer to entry
- success - return 0
- fail - return error number */</span>
-<span class="n">voidrewinddir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">);</span>
-<span class="cm">/* reset to the head */</span>
-<span class="n">voidseekdir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">,</span> <span class="n">longint</span> <span class="n">loc</span><span class="p">);</span>
-<span class="cm">/* reset the location of dirp */</span>
-<span class="n">longinttelldir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">);</span>
-<span class="cm">/* return the current location */</span>
-</code></pre></div></div>
+host 	= "xxxx"
+db 		= "xxxx"
+user 	= "xxxx"
+port 	= "xxxx"
+passwd 	= "xxxx"
 
-<h2 id="demo">Demo</h2>
 
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;direct.h&gt;
-</span><span class="n">using</span> <span class="n">name</span> <span class="n">space</span> <span class="n">std</span><span class="p">;</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">string</span> <span class="n">dirname</span><span class="p">;</span>
-  <span class="kt">DIR</span> <span class="o">*</span><span class="n">dp</span><span class="p">;</span>
-  <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">dirp</span><span class="p">;</span>
-  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Please input a directory: "</span><span class="p">;</span>
-  <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">dirname</span><span class="p">;</span>
-  <span class="k">if</span><span class="p">((</span><span class="n">dp</span> <span class="o">=</span> <span class="n">opendir</span><span class="p">(</span><span class="n">dirname</span><span class="p">.</span><span class="n">c_str</span><span class="p">()))</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Can't open "</span> <span class="o">&lt;&lt;</span> <span class="n">dirname</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-  <span class="k">while</span><span class="p">((</span><span class="n">dirp</span> <span class="o">=</span> <span class="n">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
-  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-  <span class="n">closedir</span><span class="p">(</span><span class="n">dp</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
+class SelectMySQL(object):
+    def select_data(self,sql):
+        result = []
+        try:
+            conn = MySQLdb.connect(host=host,
+                               port=port,
+                               user=user,
+                               passwd=passwd,
+                               db=db,
+                               charset='utf8', )
+            cur = conn.cursor()
+            cur.execute(sql)
+            alldata = cur.fetchall()
+            # print(alldata)
+            for rec in alldata:
+                result.append(rec[0])
+        except Exception as e:
+            print('Error msg: ' + e)
+        finally:
+            cur.close()
+            conn.close()
+  
+        return result
 
-<p>Find the specific file type</p>
+    def get_result(self, sql, filename):
+        print(sql)
+        results = self.select_data(sql)
+        print('The amount of datas: %d' % (len(results)))
+        with open(filename, 'w') as f:
+            for result in results:
+                f.write(str(result) + '\n')
+        print('Data write is over!')
+        return results
 
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;regex.h&gt;
-</span><span class="n">regex</span> <span class="n">reg_obj</span><span class="p">(</span><span class="s">".*\.doc"</span><span class="p">,</span> <span class="n">regex</span><span class="o">::</span><span class="n">icase</span><span class="p">);</span>
-<span class="k">while</span><span class="p">((</span><span class="n">dirp</span> <span class="o">=</span> <span class="n">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
-<span class="k">if</span><span class="p">(</span><span class="n">regex_match</span><span class="p">(</span><span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">,</span> <span class="n">reg_obj</span><span class="p">))</span> <span class="c1">// regex_match()匹配
-</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</code></pre></div></div>
+if __name__ == '__main__':
+    sql = "select name from user"
+    select = SelectMySQL()
+    result1 = select.get_result(sql,'namemsg.txt')
+    print(result1)
+</code></pre>
 
-<h2 id="read-csv-in-cc">Read .csv in C/C++</h2>
+<p>add your sql command.</p>
 
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">string</span> <span class="nf">Trim</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>  
-<span class="p">{</span>
-    <span class="c1">//str.find_first_not_of(" \t\r\n"),在字符串str中从索引0开始，返回首次不匹配"\t\r\n"的位置  
-</span>    <span class="n">str</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">str</span><span class="p">.</span><span class="n">find_first_not_of</span><span class="p">(</span><span class="s">" </span><span class="se">\t\r\n</span><span class="s">"</span><span class="p">));</span>  
-    <span class="n">str</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">find_last_not_of</span><span class="p">(</span><span class="s">" </span><span class="se">\t\r\n</span><span class="s">"</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>  
-    <span class="k">return</span> <span class="n">str</span><span class="p">;</span>  
-<span class="p">}</span>  
-<span class="kt">int</span> <span class="n">readSingleFile</span><span class="p">(</span><span class="kt">double</span><span class="o">*</span> <span class="n">pnl</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dim</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">file_name</span><span class="p">){</span>
-	<span class="c1">//cout &lt;&lt; file_name &lt;&lt; endl;
-</span>	<span class="n">ifstream</span> <span class="n">fin</span><span class="p">(</span><span class="n">file_name</span><span class="p">);</span> <span class="c1">//打开文件流操作
-</span>    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="k">while</span> <span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">fin</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>   <span class="c1">//整行读取，换行符“\n”区分，遇到文件尾标志eof终止读取  
-</span>    <span class="p">{</span>   
-        <span class="n">istringstream</span> <span class="n">sin</span><span class="p">(</span><span class="n">line</span><span class="p">);</span> <span class="c1">//将整行字符串line读入到字符串流istringstream中  
-</span>        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">fields</span><span class="p">;</span> <span class="c1">//声明一个字符串向量  
-</span>        <span class="n">string</span> <span class="n">field</span><span class="p">;</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">sin</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="sc">','</span><span class="p">))</span> <span class="c1">//将字符串流sin中的字符读入到field字符串中，以逗号为分隔符  
-</span>        <span class="p">{</span>  
-            <span class="n">fields</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">field</span><span class="p">);</span> <span class="c1">//将刚刚读取的字符串添加到向量fields中  
-</span>        <span class="p">}</span>
-        <span class="n">string</span> <span class="n">t_pnl</span> <span class="o">=</span> <span class="n">Trim</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="c1">//清除掉向量fields中第二个元素的无效字符，并赋值给变量age  
-</span>        <span class="n">pnl</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">=</span> <span class="n">stod</span><span class="p">(</span><span class="n">t_pnl</span><span class="p">);</span>
-        <span class="c1">//cout &lt;&lt; pnl[count] &lt;&lt; ", ";
-</span>        <span class="n">count</span><span class="o">++</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
-    <span class="c1">//cout &lt;&lt; endl;
-</span><span class="p">}</span>
-</code></pre></div></div>
+<h2 id="create-table">Create Table</h2>
 
 
 
@@ -332,11 +297,18 @@
 
                 <ul class="pager">
                     
+                    <li class="previous">
+                        <a href="/2017/10/09/16_55_28/" data-toggle="tooltip" data-placement="top" title="A collection of ggplot2 functions">
+                        Previous<br>
+                        <span>A collection of ggplot2 functions</span>
+                        </a>
+                    </li>
+                    
                     
                     <li class="next">
-                        <a href="/2017/10/07/10_51_14/" data-toggle="tooltip" data-placement="top" title="A C++ implement for KD-tree">
+                        <a href="/2017/10/12/14_09_54/" data-toggle="tooltip" data-placement="top" title="Add user into sudoer list">
                         Next<br>
-                        <span>A C++ implement for KD-tree</span>
+                        <span>Add user into sudoer list</span>
                         </a>
                     </li>
                     

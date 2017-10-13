@@ -5,9 +5,131 @@
     <description>In Data We Trust</description>
     <link>https://zipingxu.github.io/</link>
     <atom:link href="https://zipingxu.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 11 Oct 2017 19:57:08 +0800</pubDate>
-    <lastBuildDate>Wed, 11 Oct 2017 19:57:08 +0800</lastBuildDate>
+    <pubDate>Fri, 13 Oct 2017 09:58:36 +0800</pubDate>
+    <lastBuildDate>Fri, 13 Oct 2017 09:58:36 +0800</lastBuildDate>
     <generator>Jekyll v3.6.0</generator>
+    
+      <item>
+        <title>Add user into sudoer list</title>
+        <description>&lt;ol&gt;
+  &lt;li&gt;su root or login with root&lt;/li&gt;
+  &lt;li&gt;get permission to write sudoer list: &lt;strong&gt;chmod u+w /etc/sudoers&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;vim /etc/sudoers&lt;/strong&gt; find root ALL=(ALL) ALL and add **yourname ALL=(ALL) ALL **&lt;/li&gt;
+  &lt;li&gt;remove sudoers write permission： &lt;strong&gt;chmod u-w /etc/sudoers&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+        <pubDate>Thu, 12 Oct 2017 00:00:00 +0800</pubDate>
+        <link>https://zipingxu.github.io/2017/10/12/14_09_54/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/12/14_09_54/</guid>
+        
+        <category>linux</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>How to connect sql database in python</title>
+        <description>&lt;p&gt;This blog is to record my process to connect mysql database in python.&lt;/p&gt;
+
+&lt;p&gt;I choose MySQLdb as my tool because it is said that MySQLdb is the most stable way to connect to a MySQL database.&lt;/p&gt;
+
+&lt;p&gt;MySQLdb doesnot support Python3 because I got an error:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pip&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MySQL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;python&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Collecting&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MySQL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;python&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Downloading&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mirrors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aliyun&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pypi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;packages&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e9&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b544da85a36a68debe7a7091f068d802fc515a3a202652828c73453cad&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MySQL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;python&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;5.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;108&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;████████████████████████████████&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;112&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kB&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;637&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;Complete&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;output&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;python&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;egg_info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mysql_config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;found&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Traceback&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;most&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;recent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;File&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;string&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;File&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/tmp/pip-build-TmLXPF/MySQL-python/setup.py&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;File&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;setup_posix.py&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;43&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_config&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;libs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mysql_config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;libs_r&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;File&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;setup_posix.py&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mysql_config&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;EnvironmentError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s not found&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mysql_config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,))&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;EnvironmentError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mysql_config&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;found&lt;/span&gt;
+    
+    &lt;span class=&quot;o&quot;&gt;----------------------------------------&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Command&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;python setup.py egg_info&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failed&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TmLXPF&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MySQL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;python&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The config file missing here is cause by &lt;code class=&quot;highlighter-rouge&quot;&gt;ConfigParser&lt;/code&gt; that has changed in python3.&lt;/p&gt;
+
+&lt;p&gt;There is a replacement in Python3, &lt;code class=&quot;highlighter-rouge&quot;&gt;pymysql&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install pymysql
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;#coding=utf-8
+ 
+import pymysql as MySQLdb
+
+host 	= &quot;xxxx&quot;
+db 		= &quot;xxxx&quot;
+user 	= &quot;xxxx&quot;
+port 	= &quot;xxxx&quot;
+passwd 	= &quot;xxxx&quot;
+
+
+class SelectMySQL(object):
+    def select_data(self,sql):
+        result = []
+        try:
+            conn = MySQLdb.connect(host=host,
+                               port=port,
+                               user=user,
+                               passwd=passwd,
+                               db=db,
+                               charset='utf8', )
+            cur = conn.cursor()
+            cur.execute(sql)
+            alldata = cur.fetchall()
+            # print(alldata)
+            for rec in alldata:
+                result.append(rec[0])
+        except Exception as e:
+            print('Error msg: ' + e)
+        finally:
+            cur.close()
+            conn.close()
+  
+        return result
+
+    def get_result(self, sql, filename):
+        print(sql)
+        results = self.select_data(sql)
+        print('The amount of datas: %d' % (len(results)))
+        with open(filename, 'w') as f:
+            for result in results:
+                f.write(str(result) + '\n')
+        print('Data write is over!')
+        return results
+
+if __name__ == '__main__':
+    sql = &quot;select name from user&quot;
+    select = SelectMySQL()
+    result1 = select.get_result(sql,'namemsg.txt')
+    print(result1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;add your sql command.&lt;/p&gt;
+
+&lt;h2 id=&quot;create-table&quot;&gt;Create Table&lt;/h2&gt;
+
+</description>
+        <pubDate>Thu, 12 Oct 2017 00:00:00 +0800</pubDate>
+        <link>https://zipingxu.github.io/2017/10/12/13_22_35/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/12/13_22_35/</guid>
+        
+        <category>python</category>
+        
+        <category>mysql</category>
+        
+        
+      </item>
     
       <item>
         <title>A collection of ggplot2 functions</title>
@@ -500,157 +622,6 @@ scp &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ~/file yourUserName@60.205.
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
         <link>https://zipingxu.github.io/2017/10/07/11_09_11/</link>
         <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_09_11/</guid>
-        
-        <category>linux</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Shell</title>
-        <description>&lt;h1 id=&quot;shell&quot;&gt;Shell&lt;/h1&gt;
-
-&lt;p&gt;Shell支持自定义变量。&lt;/p&gt;
-
-&lt;h2 id=&quot;定义变量&quot;&gt;定义变量&lt;/h2&gt;
-
-&lt;p&gt;定义变量时，变量名不加美元符号（$），如：&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;variableName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。&lt;/p&gt;
-
-&lt;p&gt;同时，变量名的命名须遵循如下规则：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;首个字符必须为字母（a-z，A-Z）。&lt;/li&gt;
-  &lt;li&gt;中间不能有空格，可以使用下划线（_）。&lt;/li&gt;
-  &lt;li&gt;不能使用标点符号。&lt;/li&gt;
-  &lt;li&gt;不能使用bash里的关键字（可用help命令查看保留关键字）。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;变量定义举例：&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;myUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://see.xidian.edu.cn/cpp/linux/&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;myNum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;使用变量&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mozhiyan&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$your_name&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;skill &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;Ada Coffe Action Java 
-&lt;span class=&quot;k&quot;&gt;do
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;I am good at &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;skill&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Script&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;只读变量&quot;&gt;只读变量&lt;/h2&gt;
-
-&lt;p&gt;使用 readonly命令可以将变量定义为只读变量，只读变量的值不能被改变。&lt;/p&gt;
-
-&lt;p&gt;下面的例子尝试更改只读变量，结果报错：&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;myUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://see.xidian.edu.cn/cpp/shell/&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;readonly &lt;/span&gt;myUrl
-&lt;span class=&quot;nv&quot;&gt;myUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://see.xidian.edu.cn/cpp/danpianji/&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;变量类型&quot;&gt;变量类型&lt;/h2&gt;
-
-&lt;p&gt;运行shell时，会同时存在三种变量：&lt;/p&gt;
-
-&lt;h4 id=&quot;1-局部变量&quot;&gt;1) 局部变量&lt;/h4&gt;
-
-&lt;p&gt;局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。&lt;/p&gt;
-
-&lt;h4 id=&quot;2-环境变量&quot;&gt;2) 环境变量&lt;/h4&gt;
-
-&lt;p&gt;所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。&lt;/p&gt;
-
-&lt;h4 id=&quot;3-shell变量&quot;&gt;3) shell变量&lt;/h4&gt;
-
-&lt;p&gt;shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行&lt;/p&gt;
-
-&lt;h1 id=&quot;运行&quot;&gt;运行&lt;/h1&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
-.....
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/bin/sh run.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/07/11_08_22/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_08_22/</guid>
-        
-        <category>linux</category>
-        
-        <category>shell</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Vim Command</title>
-        <description>&lt;h1 id=&quot;vim-command&quot;&gt;Vim Command&lt;/h1&gt;
-
-&lt;h1 id=&quot;move&quot;&gt;Move&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;w: move the cursor to the start of next word.&lt;/li&gt;
-  &lt;li&gt;e: move to the end of the next word&lt;/li&gt;
-  &lt;li&gt;b: move to the start of current word, or to the start of prior word&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;insert&quot;&gt;Insert&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;o: insert a new line below&lt;/li&gt;
-  &lt;li&gt;shift + o: insert a new line above&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;delete&quot;&gt;Delete&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;dd: delete the current line and copy it to clipboard&lt;/li&gt;
-  &lt;li&gt;dw: delete the current word and copy it to clipboard&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;copy-and-paste&quot;&gt;Copy and Paste&lt;/h1&gt;
-&lt;p&gt;Use &lt;em&gt;v&lt;/em&gt; to enter visual mode, move the cursor to select some words&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;y: copy what you selected&lt;/li&gt;
-  &lt;li&gt;yy: copy the whole line&lt;/li&gt;
-  &lt;li&gt;d: clip what you selected&lt;/li&gt;
-  &lt;li&gt;dd: clip the whole line&lt;/li&gt;
-  &lt;li&gt;p: paste&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;find-and-replace&quot;&gt;Find and Replace&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;f + &lt;em&gt;word&lt;/em&gt;: find word after the cursor&lt;/li&gt;
-  &lt;li&gt;F + &lt;em&gt;word&lt;/em&gt;: find word before the cursor&lt;/li&gt;
-  &lt;li&gt;:/&lt;em&gt;word&lt;/em&gt;: find the word in the file and you can use  regular expression&lt;/li&gt;
-  &lt;li&gt;:%s/&lt;em&gt;from&lt;/em&gt;/&lt;em&gt;to&lt;/em&gt;/: replace &lt;em&gt;from&lt;/em&gt; to &lt;em&gt;to&lt;/em&gt;&lt;/li&gt;
-  &lt;li&gt;:%s/&lt;em&gt;from&lt;/em&gt;/&lt;em&gt;to&lt;/em&gt;/gc: consult you before replace&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;command-for-shell&quot;&gt;Command for Shell&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;:!command&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/07/11_05_26/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_05_26/</guid>
         
         <category>linux</category>
         
