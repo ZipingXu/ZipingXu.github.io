@@ -3,10 +3,10 @@
   <channel>
     <title>Zipping</title>
     <description>In Data We Trust</description>
-    <link>https://zipingxu.github.io/</link>
-    <atom:link href="https://zipingxu.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 14 Oct 2017 12:00:03 +0800</pubDate>
-    <lastBuildDate>Sat, 14 Oct 2017 12:00:03 +0800</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sat, 14 Oct 2017 12:45:41 +0800</pubDate>
+    <lastBuildDate>Sat, 14 Oct 2017 12:45:41 +0800</lastBuildDate>
     <generator>Jekyll v3.6.0</generator>
     
       <item>
@@ -28,8 +28,8 @@
 &lt;p&gt;今敏作为一个艺术家一直在成长与探索。《妄想代理人》中不仅有今敏过去手法的纯属运运用，还可以看到他对于新的表现手法的尝试。警察妻子面对棒球少年时候的坚强无畏令人印象深刻。从11话开始的三话更像是实验性的作品是独立的故事。自杀未遂的三人组最为有趣，用诙谐幽默的手法描述了三个完全不同的人的自杀经历，实际上他们在第一次就已经成功了。今敏还是在讽刺通过自杀逃避责任的人，但是这次的表现手法让人眼前一亮。可惜今敏过早地离去了，不然真的很期待他在今天会拿出怎样的作品。&lt;/p&gt;
 </description>
         <pubDate>Sat, 14 Oct 2017 00:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/14/11_45_51/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/14/11_45_51/</guid>
+        <link>http://localhost:4000/2017/10/14/11_45_51/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/14/11_45_51/</guid>
         
         <category>电影</category>
         
@@ -321,8 +321,8 @@ sudo chmod 765 filename
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Fri, 13 Oct 2017 00:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/13/22_38_36/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/13/22_38_36/</guid>
+        <link>http://localhost:4000/2017/10/13/22_38_36/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/13/22_38_36/</guid>
         
         <category>linux</category>
         
@@ -1645,8 +1645,8 @@ ICM network simulation
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Fri, 13 Oct 2017 00:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/13/18_29_11/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/13/18_29_11/</guid>
+        <link>http://localhost:4000/2017/10/13/18_29_11/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/13/18_29_11/</guid>
         
         <category>ICM</category>
         
@@ -1670,8 +1670,8 @@ ICM network simulation
 
 </description>
         <pubDate>Fri, 13 Oct 2017 00:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/13/16_51_15/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/13/16_51_15/</guid>
+        <link>http://localhost:4000/2017/10/13/16_51_15/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/13/16_51_15/</guid>
         
         <category>linux</category>
         
@@ -1689,8 +1689,8 @@ ICM network simulation
 
 </description>
         <pubDate>Thu, 12 Oct 2017 00:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/12/14_09_54/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/12/14_09_54/</guid>
+        <link>http://localhost:4000/2017/10/12/14_09_54/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/12/14_09_54/</guid>
         
         <category>linux</category>
         
@@ -1959,8 +1959,8 @@ VALUES ('603152', '20170921', null);
 
 </description>
         <pubDate>Thu, 12 Oct 2017 00:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/12/13_22_35/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/12/13_22_35/</guid>
+        <link>http://localhost:4000/2017/10/12/13_22_35/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/12/13_22_35/</guid>
         
         <category>python</category>
         
@@ -2177,8 +2177,8 @@ VALUES ('603152', '20170921', null);
 
 </description>
         <pubDate>Mon, 09 Oct 2017 00:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/09/16_55_28/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/09/16_55_28/</guid>
+        <link>http://localhost:4000/2017/10/09/16_55_28/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/09/16_55_28/</guid>
         
         <category>R</category>
         
@@ -2200,8 +2200,8 @@ VALUES ('603152', '20170921', null);
 &lt;p&gt;Zipping is based on &lt;code class=&quot;highlighter-rouge&quot;&gt;Github Page&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;. Template is from &lt;a href=&quot;http://huangxuan.me&quot;&gt;Hux&lt;/a&gt;. It’s a wonderful template with tags and categories.&lt;/p&gt;
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/07/14_06_20/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/14_06_20/</guid>
+        <link>http://localhost:4000/2017/10/07/14_06_20/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/14_06_20/</guid>
         
         <category>life</category>
         
@@ -2247,8 +2247,8 @@ VALUES ('603152', '20170921', null);
 
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/07/11_38_15/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_38_15/</guid>
+        <link>http://localhost:4000/2017/10/07/11_38_15/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_38_15/</guid>
         
         <category>python</category>
         
@@ -2281,8 +2281,8 @@ VALUES ('603152', '20170921', null);
    /usr/lib/python2.7/site-packages&lt;/p&gt;
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>https://zipingxu.github.io/2017/10/07/11_34_33/</link>
-        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_34_33/</guid>
+        <link>http://localhost:4000/2017/10/07/11_34_33/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_34_33/</guid>
         
         <category>python</category>
         
