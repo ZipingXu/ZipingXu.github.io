@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/">
+    <link rel="canonical" href="https://zipingxu.github.io/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -184,6 +184,28 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2017/10/14/18_01_58/">
+        <h2 class="post-title">
+            Apply a function to each element in a dataframe in R
+        </h2>
+        
+        <h3 class="post-subtitle">
+            I just can't believe we donnot have a simple way to do this!
+        </h3>
+        
+        <div class="post-content-preview">
+            df &lt;- as.data.frame(lapply(df, FUN = function(x) {sapply(x, FUN = my.fun)}))
+
+
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on October 14, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2017/10/14/11_45_51/">
         <h2 class="post-title">
             今敏
@@ -271,57 +293,6 @@ import n...
     </a>
     <p class="post-meta">
         Posted by Ziping on October 13, 2017
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2017/10/13/16_51_15/">
-        <h2 class="post-title">
-            Linux Run Code at fixed time
-        </h2>
-        
-        <h3 class="post-subtitle">
-            life is hard. Why not make it easier
-        </h3>
-        
-        <div class="post-content-preview">
-            crontab
-
-cron是一个linux下 的定时执行工具，可以在无需人工干预的情况下运行作业。由于Cron 是Linux的内置服务，但它不自动起来，可以用以下的方法启动、关闭这个服务：
-
-/sbin/service crond start//启动服务
-/sbin/service crond stop //关闭服务
-/sbin/service crond restart  //重启服务
-/...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ziping on October 13, 2017
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2017/10/12/14_09_54/">
-        <h2 class="post-title">
-            Add user into sudoer list
-        </h2>
-        
-        <h3 class="post-subtitle">
-            sudoer
-        </h3>
-        
-        <div class="post-content-preview">
-            
-  su root or login with root
-  get permission to write sudoer list: chmod u+w /etc/sudoers
-  vim /etc/sudoers find root ALL=(ALL) ALL and add **yourname ALL=(ALL) ALL **
-  remove sudoers write per...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ziping on October 12, 2017
     </p>
 </div>
 <hr>
@@ -465,6 +436,35 @@ Add a .pth file in site-packages and write the path of the modul...
 </div>
 <hr>
 
+<div class="post-preview">
+    <a href="/2017/10/07/11_33_33/">
+        <h2 class="post-title">
+            Efficient Rolling in Python
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Use numpy arrays for rolling
+        </h3>
+        
+        <div class="post-content-preview">
+            As far as I know, there are two ways for rolling apply.
+
+Pandas
+For pandas DataFrame object
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({"a":[1, 2, 3, 4], "b":[1, 2, 3, 4]})
+
+df.rolli...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on October 7, 2017
+    </p>
+</div>
+<hr>
+
 
 <!-- Pager -->
 
@@ -509,14 +509,6 @@ Add a .pth file in site-packages and write the path of the modul...
                             
                         
                             
-                                <a href="/tags/#linux" title="linux" rel="6">
-                                    linux
-                                </a>
-                            
-                        
-                            
-                        
-                            
                                 <a href="/tags/#python" title="python" rel="7">
                                     python
                                 </a>
@@ -526,6 +518,12 @@ Add a .pth file in site-packages and write the path of the modul...
                         
                             
                         
+                            
+                        
+                            
+                                <a href="/tags/#R" title="R" rel="2">
+                                    R
+                                </a>
                             
                         
                             

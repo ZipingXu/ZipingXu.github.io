@@ -10,7 +10,7 @@
     <meta name="keywords"  content="Data Science; Statistics; Unity">
     <meta name="theme-color" content="#000000">
     
-    <title>Copy Files Across Servers - 子平 | Zipping</title>
+    <title>Apply a function to each element in a dataframe in R - 子平 | Zipping</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2017/10/07/11_09_11/">
+    <link rel="canonical" href="https://zipingxu.github.io/2017/10/14/18_01_58/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -155,13 +155,13 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/linux.jpg" width="0" height="0"> -->
+<!-- <img src="/img/R.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/linux.jpg')
+        background-image: url('/img/R.jpg')
     }
 
     
@@ -174,15 +174,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#linux" title="linux">linux</a>
+                        <a class="tag" href="/tags/#R" title="R">R</a>
                         
                     </div>
-                    <h1>Copy Files Across Servers</h1>
+                    <h1>Apply a function to each element in a dataframe in R</h1>
                     
                     
-                    <h2 class="subheading">...</h2>
+                    <h2 class="subheading">I just can't believe we donnot have a simple way to do this!</h2>
                     
-                    <span class="meta">Posted by Ziping on October 7, 2017</span>
+                    <span class="meta">Posted by Ziping on October 14, 2017</span>
                 </div>
             </div>
         </div>
@@ -200,50 +200,7 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h1 id="copy-files-across-servers">Copy Files Across Servers</h1>
-
-<p>以前一直是在服务器上tar打包压缩，下载到本地电脑上，再上传到另外一台服务器上，再解压。</p>
-
-<p>其实使用scp就可以直接对拷文件或者文件夹了。</p>
-
-<p>scp就是secure copy,是用来进行远程文件拷贝的.数据传输使用ssh1,并且和ssh1使用相同的认证方式,提供相同的安全保证.与rcp不同的是,scp会要求你输入密码如果需要的话.</p>
-
-<p>最简单的应用如下:</p>
-
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp local_user@IP1:name1 remote_user@IP2:name2 
-</code></pre></div></div>
-
-<p>意思是将本地的文件名1拷贝到，远程的文件名2内。</p>
-
-<p>[本地用户名@IP地址:]可以不输入,可能需要输入远程用户名所对应的密码.</p>
-
-<p>可能有用的几个参数: 
--v 和大多数Linux命令中的-v意思一样,用来显示进度.可以用来查看连接,认证,或是配置错误. 
--C 使能压缩选项. 
--P 选择端口.注意-p已经被rcp使用. 
--4 强行使用IPV4地址. 
--6 强行使用IPV6地址. 
-scp中很多参数都和ssh1有关,需要的话在看.</p>
-
-<p>例如拷贝单个文件命令：</p>
-
-<p>scp file username@ip:filepath</p>
-
-<p>说明：file是要拷贝的文件名</p>
-
-<p>username:远程登录的用户名，</p>
-
-<p>ip：远程服务器ip</p>
-
-<p>filepath：远程文件路径</p>
-
-<p>拷贝文件夹命令如下：scp -r file username@ip:filepath</p>
-
-<p>多加上一个-r参数即可。</p>
-
-<h1 id="example">example</h1>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh ziping@60.205.205.xx
-scp <span class="nt">-r</span> ~/file yourUserName@60.205.205.xx:~/file/
+				<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df &lt;- as.data.frame(lapply(df, FUN = function(x) {sapply(x, FUN = my.fun)}))
 </code></pre></div></div>
 
 
@@ -252,19 +209,12 @@ scp <span class="nt">-r</span> ~/file yourUserName@60.205.205.xx:~/file/
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/10/07/11_08_22/" data-toggle="tooltip" data-placement="top" title="Shell">
+                        <a href="/2017/10/14/11_45_51/" data-toggle="tooltip" data-placement="top" title="今敏">
                         Previous<br>
-                        <span>Shell</span>
+                        <span>今敏</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2017/10/07/11_19_08/" data-toggle="tooltip" data-placement="top" title="Encoding in Python">
-                        Next<br>
-                        <span>Encoding in Python</span>
-                        </a>
-                    </li>
                     
                 </ul>
 
@@ -319,14 +269,6 @@ scp <span class="nt">-r</span> ~/file yourUserName@60.205.205.xx:~/file/
                             
         				
                             
-                				<a href="/tags/#linux" title="linux" rel="6">
-                                    linux
-                                </a>
-                            
-        				
-                            
-        				
-                            
                 				<a href="/tags/#python" title="python" rel="7">
                                     python
                                 </a>
@@ -336,6 +278,12 @@ scp <span class="nt">-r</span> ~/file yourUserName@60.205.205.xx:~/file/
         				
                             
         				
+                            
+        				
+                            
+                				<a href="/tags/#R" title="R" rel="2">
+                                    R
+                                </a>
                             
         				
                             

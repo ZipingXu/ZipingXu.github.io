@@ -183,8 +183,46 @@ sudo apt-get upgrade
 sudo alien abc.rpm
 ```
 
-
 ## **vim使用**
+
+Move
+
+- w: move the cursor to the start of next word.
+- e: move to the end of the next word
+- b: move to the start of current word, or to the start of prior word
+
+Insert
+
+- o: insert a new line below
+- shift + o: insert a new line above
+
+Delete
+
+- dd: delete the current line and copy it to clipboard
+- dw: delete the current word and copy it to clipboard
+
+Copy and Paste
+
+Use *v* to enter visual mode, move the cursor to select some words
+
+- y: copy what you selected
+- yy: copy the whole line
+- d: clip what you selected
+- dd: clip the whole line
+- p: paste
+
+Find and Replace
+
+- f + *word*: find word after the cursor
+- F + *word*: find word before the cursor
+- :/*word*: find the word in the file and you can use  regular expression
+- :%s/*from*/*to*/: replace *from* to *to*
+- :%s/*from*/*to*/gc: consult you before replace
+
+Command for Shell
+
+- :!command
+
 ```
 vim三种模式：命令模式、插入模式、编辑模式。使用ESC或i或：来切换模式。
 
@@ -209,7 +247,7 @@ h(左移一个字符←)、j(下一行↓)、k(上一行↑)、l(右移一个字
 
 
 ## **用户及用户组管理**
-```
+```Shell
 
 /etc/passwd    存储用户账号
 
@@ -254,6 +292,16 @@ sudo chown [-R] owner[:group] {File|Directory}
 要想切换此文件所属的用户及组。可以使用命令。
 
 sudo chown root:root jdk-7u21-linux-i586.tar.gz
+
+# add sudoer
+su root or login with root
+#get permission to write sudoer list: 
+chmod u+w /etc/sudoers
+vim /etc/sudoers
+#find root ALL=(ALL) ALL and add yourname ALL=(ALL) ALL  
+#remove sudoers write permission： 
+chmod u-w /etc/sudoers
+
 ```
 
 
@@ -297,4 +345,150 @@ sudo chmod u+x g+w o+r  filename
 上面的例子可以用数值表示
 
 sudo chmod 765 filename
+```
+# Shell
+
+Shell支持自定义变量。
+
+
+
+#### 定义变量
+
+定义变量时，变量名不加美元符号（$），如：
+
+```shell
+variableName="value"
+```
+
+注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。
+
+同时，变量名的命名须遵循如下规则：
+
+- 首个字符必须为字母（a-z，A-Z）。
+- 中间不能有空格，可以使用下划线（_）。
+- 不能使用标点符号。
+- 不能使用bash里的关键字（可用help命令查看保留关键字）。
+
+变量定义举例：
+
+```shell
+myUrl="http://see.xidian.edu.cn/cpp/linux/"
+myNum=100
+```
+
+使用变量
+
+```shell
+your_name="mozhiyan"
+echo $your_name
+echo ${your_name}
+```
+
+变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：
+
+```shell
+for skill in Ada Coffe Action Java 
+do
+    echo "I am good at ${skill}Script"
+done
+```
+
+#### 只读变量
+
+使用 readonly命令可以将变量定义为只读变量，只读变量的值不能被改变。
+
+下面的例子尝试更改只读变量，结果报错：
+
+```shell
+#!/bin/sh
+myUrl="http://see.xidian.edu.cn/cpp/shell/"
+readonly myUrl
+myUrl="http://see.xidian.edu.cn/cpp/danpianji/"
+```
+
+#### 变量类型
+
+运行shell时，会同时存在三种变量：
+
+#### 1) 局部变量
+
+局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。
+
+#### 2) 环境变量
+
+所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。
+
+#### 3) shell变量
+
+shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行
+
+#### 运行
+
+```shell
+#!/bin/sh
+.....
+```
+
+```shell
+/bin/sh run.sh
+```
+#### crontab
+
+cron是一个linux下 的定时执行工具，可以在无需人工干预的情况下运行作业。由于Cron 是Linux的内置服务，但它不自动起来，可以用以下的方法启动、关闭这个服务：
+
+```
+/sbin/service crond start//启动服务
+/sbin/service crond stop //关闭服务
+/sbin/service crond restart  //重启服务
+/sbin/service crond reload//重新载入配置
+/sbin/service crond status//查看服务状态
+```
+
+# Copy Files Across Servers
+
+以前一直是在服务器上tar打包压缩，下载到本地电脑上，再上传到另外一台服务器上，再解压。
+
+其实使用scp就可以直接对拷文件或者文件夹了。
+
+scp就是secure copy,是用来进行远程文件拷贝的.数据传输使用ssh1,并且和ssh1使用相同的认证方式,提供相同的安全保证.与rcp不同的是,scp会要求你输入密码如果需要的话. 
+
+最简单的应用如下: 
+
+```shell
+scp local_user@IP1:name1 remote_user@IP2:name2 
+```
+
+意思是将本地的文件名1拷贝到，远程的文件名2内。
+
+[本地用户名@IP地址:]可以不输入,可能需要输入远程用户名所对应的密码. 
+
+可能有用的几个参数: 
+-v 和大多数Linux命令中的-v意思一样,用来显示进度.可以用来查看连接,认证,或是配置错误. 
+-C 使能压缩选项. 
+-P 选择端口.注意-p已经被rcp使用. 
+-4 强行使用IPV4地址. 
+-6 强行使用IPV6地址. 
+scp中很多参数都和ssh1有关,需要的话在看.
+
+例如拷贝单个文件命令：
+
+scp file username@ip:filepath
+
+说明：file是要拷贝的文件名   
+
+username:远程登录的用户名，
+
+ip：远程服务器ip
+
+filepath：远程文件路径
+
+拷贝文件夹命令如下：scp -r file username@ip:filepath
+
+多加上一个-r参数即可。
+
+# example
+
+```shell
+ssh ziping@60.205.205.xx
+scp -r ~/file yourUserName@60.205.205.xx:~/file/
 ```

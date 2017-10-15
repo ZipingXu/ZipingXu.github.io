@@ -3,11 +3,25 @@
   <channel>
     <title>Zipping</title>
     <description>In Data We Trust</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 14 Oct 2017 12:51:34 +0800</pubDate>
-    <lastBuildDate>Sat, 14 Oct 2017 12:51:34 +0800</lastBuildDate>
+    <link>https://zipingxu.github.io/</link>
+    <atom:link href="https://zipingxu.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 15 Oct 2017 15:11:45 +0800</pubDate>
+    <lastBuildDate>Sun, 15 Oct 2017 15:11:45 +0800</lastBuildDate>
     <generator>Jekyll v3.6.0</generator>
+    
+      <item>
+        <title>Apply a function to each element in a dataframe in R</title>
+        <description>&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;df &amp;lt;- as.data.frame(lapply(df, FUN = function(x) {sapply(x, FUN = my.fun)}))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 14 Oct 2017 00:00:00 +0800</pubDate>
+        <link>https://zipingxu.github.io/2017/10/14/18_01_58/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/14/18_01_58/</guid>
+        
+        <category>R</category>
+        
+        
+      </item>
     
       <item>
         <title>今敏</title>
@@ -28,8 +42,8 @@
 &lt;p&gt;今敏作为一个艺术家一直在成长与探索。《妄想代理人》中不仅有今敏过去手法的纯属运运用，还可以看到他对于新的表现手法的尝试。警察妻子面对棒球少年时候的坚强无畏令人印象深刻。从11话开始的三话更像是实验性的作品是独立的故事。自杀未遂的三人组最为有趣，用诙谐幽默的手法描述了三个完全不同的人的自杀经历，实际上他们在第一次就已经成功了。今敏还是在讽刺通过自杀逃避责任的人，但是这次的表现手法让人眼前一亮。可惜今敏过早地离去了，不然真的很期待他在今天会拿出怎样的作品。&lt;/p&gt;
 </description>
         <pubDate>Sat, 14 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/14/11_45_51/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/14/11_45_51/</guid>
+        <link>https://zipingxu.github.io/2017/10/14/11_45_51/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/14/11_45_51/</guid>
         
         <category>电影</category>
         
@@ -212,6 +226,57 @@ sudo alien abc.rpm
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;vim使用&quot;&gt;&lt;strong&gt;vim使用&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Move&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;w: move the cursor to the start of next word.&lt;/li&gt;
+  &lt;li&gt;e: move to the end of the next word&lt;/li&gt;
+  &lt;li&gt;b: move to the start of current word, or to the start of prior word&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Insert&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;o: insert a new line below&lt;/li&gt;
+  &lt;li&gt;shift + o: insert a new line above&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Delete&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;dd: delete the current line and copy it to clipboard&lt;/li&gt;
+  &lt;li&gt;dw: delete the current word and copy it to clipboard&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Copy and Paste&lt;/p&gt;
+
+&lt;p&gt;Use &lt;em&gt;v&lt;/em&gt; to enter visual mode, move the cursor to select some words&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;y: copy what you selected&lt;/li&gt;
+  &lt;li&gt;yy: copy the whole line&lt;/li&gt;
+  &lt;li&gt;d: clip what you selected&lt;/li&gt;
+  &lt;li&gt;dd: clip the whole line&lt;/li&gt;
+  &lt;li&gt;p: paste&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Find and Replace&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;f + &lt;em&gt;word&lt;/em&gt;: find word after the cursor&lt;/li&gt;
+  &lt;li&gt;F + &lt;em&gt;word&lt;/em&gt;: find word before the cursor&lt;/li&gt;
+  &lt;li&gt;:/&lt;em&gt;word&lt;/em&gt;: find the word in the file and you can use  regular expression&lt;/li&gt;
+  &lt;li&gt;:%s/&lt;em&gt;from&lt;/em&gt;/&lt;em&gt;to&lt;/em&gt;/: replace &lt;em&gt;from&lt;/em&gt; to &lt;em&gt;to&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;:%s/&lt;em&gt;from&lt;/em&gt;/&lt;em&gt;to&lt;/em&gt;/gc: consult you before replace&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Command for Shell&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;:!command&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vim三种模式：命令模式、插入模式、编辑模式。使用ESC或i或：来切换模式。
 
 命令模式下：
@@ -234,7 +299,7 @@ h(左移一个字符←)、j(下一行↓)、k(上一行↑)、l(右移一个字
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;用户及用户组管理&quot;&gt;&lt;strong&gt;用户及用户组管理&lt;/strong&gt;&lt;/h2&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;pre&gt;&lt;code class=&quot;language-Shell&quot;&gt;
 /etc/passwd    存储用户账号
 
 /etc/group       存储组账号
@@ -278,7 +343,17 @@ sudo chown [-R] owner[:group] {File|Directory}
 要想切换此文件所属的用户及组。可以使用命令。
 
 sudo chown root:root jdk-7u21-linux-i586.tar.gz
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+# add sudoer
+su root or login with root
+#get permission to write sudoer list: 
+chmod u+w /etc/sudoers
+vim /etc/sudoers
+#find root ALL=(ALL) ALL and add yourname ALL=(ALL) ALL  
+#remove sudoers write permission： 
+chmod u-w /etc/sudoers
+
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&quot;文件权限管理&quot;&gt;&lt;strong&gt;文件权限管理&lt;/strong&gt;&lt;/h2&gt;
 
@@ -319,10 +394,146 @@ sudo chmod u+x g+w o+r  filename
 
 sudo chmod 765 filename
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h1 id=&quot;shell&quot;&gt;Shell&lt;/h1&gt;
+
+&lt;p&gt;Shell支持自定义变量。&lt;/p&gt;
+
+&lt;h4 id=&quot;定义变量&quot;&gt;定义变量&lt;/h4&gt;
+
+&lt;p&gt;定义变量时，变量名不加美元符号（$），如：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;variableName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。&lt;/p&gt;
+
+&lt;p&gt;同时，变量名的命名须遵循如下规则：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;首个字符必须为字母（a-z，A-Z）。&lt;/li&gt;
+  &lt;li&gt;中间不能有空格，可以使用下划线（_）。&lt;/li&gt;
+  &lt;li&gt;不能使用标点符号。&lt;/li&gt;
+  &lt;li&gt;不能使用bash里的关键字（可用help命令查看保留关键字）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;变量定义举例：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;myUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://see.xidian.edu.cn/cpp/linux/&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;myNum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;使用变量&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mozhiyan&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$your_name&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;your_name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;skill &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;Ada Coffe Action Java 
+&lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;I am good at &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;skill&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Script&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;只读变量&quot;&gt;只读变量&lt;/h4&gt;
+
+&lt;p&gt;使用 readonly命令可以将变量定义为只读变量，只读变量的值不能被改变。&lt;/p&gt;
+
+&lt;p&gt;下面的例子尝试更改只读变量，结果报错：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;myUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://see.xidian.edu.cn/cpp/shell/&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;readonly &lt;/span&gt;myUrl
+&lt;span class=&quot;nv&quot;&gt;myUrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://see.xidian.edu.cn/cpp/danpianji/&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;变量类型&quot;&gt;变量类型&lt;/h4&gt;
+
+&lt;p&gt;运行shell时，会同时存在三种变量：&lt;/p&gt;
+
+&lt;h4 id=&quot;1-局部变量&quot;&gt;1) 局部变量&lt;/h4&gt;
+
+&lt;p&gt;局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。&lt;/p&gt;
+
+&lt;h4 id=&quot;2-环境变量&quot;&gt;2) 环境变量&lt;/h4&gt;
+
+&lt;p&gt;所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。&lt;/p&gt;
+
+&lt;h4 id=&quot;3-shell变量&quot;&gt;3) shell变量&lt;/h4&gt;
+
+&lt;p&gt;shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行&lt;/p&gt;
+
+&lt;h4 id=&quot;运行&quot;&gt;运行&lt;/h4&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+.....
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/bin/sh run.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h4 id=&quot;crontab&quot;&gt;crontab&lt;/h4&gt;
+
+&lt;p&gt;cron是一个linux下 的定时执行工具，可以在无需人工干预的情况下运行作业。由于Cron 是Linux的内置服务，但它不自动起来，可以用以下的方法启动、关闭这个服务：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/sbin/service crond start//启动服务
+/sbin/service crond stop //关闭服务
+/sbin/service crond restart  //重启服务
+/sbin/service crond reload//重新载入配置
+/sbin/service crond status//查看服务状态
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;copy-files-across-servers&quot;&gt;Copy Files Across Servers&lt;/h1&gt;
+
+&lt;p&gt;以前一直是在服务器上tar打包压缩，下载到本地电脑上，再上传到另外一台服务器上，再解压。&lt;/p&gt;
+
+&lt;p&gt;其实使用scp就可以直接对拷文件或者文件夹了。&lt;/p&gt;
+
+&lt;p&gt;scp就是secure copy,是用来进行远程文件拷贝的.数据传输使用ssh1,并且和ssh1使用相同的认证方式,提供相同的安全保证.与rcp不同的是,scp会要求你输入密码如果需要的话.&lt;/p&gt;
+
+&lt;p&gt;最简单的应用如下:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scp local_user@IP1:name1 remote_user@IP2:name2 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;意思是将本地的文件名1拷贝到，远程的文件名2内。&lt;/p&gt;
+
+&lt;p&gt;[本地用户名@IP地址:]可以不输入,可能需要输入远程用户名所对应的密码.&lt;/p&gt;
+
+&lt;p&gt;可能有用的几个参数: 
+-v 和大多数Linux命令中的-v意思一样,用来显示进度.可以用来查看连接,认证,或是配置错误. 
+-C 使能压缩选项. 
+-P 选择端口.注意-p已经被rcp使用. 
+-4 强行使用IPV4地址. 
+-6 强行使用IPV6地址. 
+scp中很多参数都和ssh1有关,需要的话在看.&lt;/p&gt;
+
+&lt;p&gt;例如拷贝单个文件命令：&lt;/p&gt;
+
+&lt;p&gt;scp file username@ip:filepath&lt;/p&gt;
+
+&lt;p&gt;说明：file是要拷贝的文件名&lt;/p&gt;
+
+&lt;p&gt;username:远程登录的用户名，&lt;/p&gt;
+
+&lt;p&gt;ip：远程服务器ip&lt;/p&gt;
+
+&lt;p&gt;filepath：远程文件路径&lt;/p&gt;
+
+&lt;p&gt;拷贝文件夹命令如下：scp -r file username@ip:filepath&lt;/p&gt;
+
+&lt;p&gt;多加上一个-r参数即可。&lt;/p&gt;
+
+&lt;h1 id=&quot;example&quot;&gt;example&lt;/h1&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh ziping@60.205.205.xx
+scp &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ~/file yourUserName@60.205.205.xx:~/file/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Fri, 13 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/13/22_38_36/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/13/22_38_36/</guid>
+        <link>https://zipingxu.github.io/2017/10/13/22_38_36/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/13/22_38_36/</guid>
         
         <category>linux</category>
         
@@ -1645,54 +1856,12 @@ ICM network simulation
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Fri, 13 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/13/18_29_11/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/13/18_29_11/</guid>
+        <link>https://zipingxu.github.io/2017/10/13/18_29_11/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/13/18_29_11/</guid>
         
         <category>ICM</category>
         
         <category>python</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Linux Run Code at fixed time</title>
-        <description>&lt;h2 id=&quot;crontab&quot;&gt;crontab&lt;/h2&gt;
-
-&lt;p&gt;cron是一个linux下 的定时执行工具，可以在无需人工干预的情况下运行作业。由于Cron 是Linux的内置服务，但它不自动起来，可以用以下的方法启动、关闭这个服务：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/sbin/service crond start//启动服务
-/sbin/service crond stop //关闭服务
-/sbin/service crond restart  //重启服务
-/sbin/service crond reload//重新载入配置
-/sbin/service crond status//查看服务状态
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-</description>
-        <pubDate>Fri, 13 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/13/16_51_15/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/13/16_51_15/</guid>
-        
-        <category>linux</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Add user into sudoer list</title>
-        <description>&lt;ol&gt;
-  &lt;li&gt;su root or login with root&lt;/li&gt;
-  &lt;li&gt;get permission to write sudoer list: &lt;strong&gt;chmod u+w /etc/sudoers&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;vim /etc/sudoers&lt;/strong&gt; find root ALL=(ALL) ALL and add **yourname ALL=(ALL) ALL **&lt;/li&gt;
-  &lt;li&gt;remove sudoers write permission： &lt;strong&gt;chmod u-w /etc/sudoers&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-</description>
-        <pubDate>Thu, 12 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/12/14_09_54/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/12/14_09_54/</guid>
-        
-        <category>linux</category>
         
         
       </item>
@@ -1959,8 +2128,8 @@ VALUES ('603152', '20170921', null);
 
 </description>
         <pubDate>Thu, 12 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/12/13_22_35/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/12/13_22_35/</guid>
+        <link>https://zipingxu.github.io/2017/10/12/13_22_35/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/12/13_22_35/</guid>
         
         <category>python</category>
         
@@ -2177,8 +2346,8 @@ VALUES ('603152', '20170921', null);
 
 </description>
         <pubDate>Mon, 09 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/09/16_55_28/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/09/16_55_28/</guid>
+        <link>https://zipingxu.github.io/2017/10/09/16_55_28/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/09/16_55_28/</guid>
         
         <category>R</category>
         
@@ -2200,8 +2369,8 @@ VALUES ('603152', '20170921', null);
 &lt;p&gt;Zipping is based on &lt;code class=&quot;highlighter-rouge&quot;&gt;Github Page&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Jekyll&lt;/code&gt;. Template is from &lt;a href=&quot;http://huangxuan.me&quot;&gt;Hux&lt;/a&gt;. It’s a wonderful template with tags and categories.&lt;/p&gt;
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/14_06_20/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/14_06_20/</guid>
+        <link>https://zipingxu.github.io/2017/10/07/14_06_20/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/14_06_20/</guid>
         
         <category>life</category>
         
@@ -2247,8 +2416,8 @@ VALUES ('603152', '20170921', null);
 
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/11_38_15/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_38_15/</guid>
+        <link>https://zipingxu.github.io/2017/10/07/11_38_15/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_38_15/</guid>
         
         <category>python</category>
         
@@ -2281,8 +2450,45 @@ VALUES ('603152', '20170921', null);
    /usr/lib/python2.7/site-packages&lt;/p&gt;
 </description>
         <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2017/10/07/11_34_33/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/10/07/11_34_33/</guid>
+        <link>https://zipingxu.github.io/2017/10/07/11_34_33/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_34_33/</guid>
+        
+        <category>python</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Efficient Rolling in Python</title>
+        <description>&lt;p&gt;As far as I know, there are two ways for rolling apply.&lt;/p&gt;
+
+&lt;h2 id=&quot;pandas&quot;&gt;Pandas&lt;/h2&gt;
+&lt;p&gt;For pandas DataFrame object&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;b&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]})&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rolling&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nanmean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;numpy&quot;&gt;Numpy&lt;/h2&gt;
+&lt;p&gt;We can define a rolling window to acheive rolling apply,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-pyhton&quot;&gt;def rolling_window(a, window):
+    shape = a.shape[:-1] + (a.shape[-1] - window + 1, window)
+    strides = a.strides + (a.strides[-1],)
+    return np.lib.stride_tricks.as_strided(a, shape=shape, strides=strides)
+
+x=np.arange(10).reshape((2,5))
+rolling_window(x, 3)
+    
+np.mean(rolling_window(x, 3), -1)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Sat, 07 Oct 2017 00:00:00 +0800</pubDate>
+        <link>https://zipingxu.github.io/2017/10/07/11_33_33/</link>
+        <guid isPermaLink="true">https://zipingxu.github.io/2017/10/07/11_33_33/</guid>
         
         <category>python</category>
         
