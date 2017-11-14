@@ -4,7 +4,7 @@ title:      "Optimization with gurobi"
 subtitle:   "A simple test for opt with gurobi in Python"
 date:       2017-10-29
 author:     "Ziping"
-header-img: "img/gurobi.jpg"
+header-img: "img/python.jpg"
 catalog: true
 tags:
     - gurobi
