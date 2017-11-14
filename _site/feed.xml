@@ -5,12 +5,12 @@
     <description>In Data We Trust</description>
     <link>https://zipingxu.github.io/</link>
     <atom:link href="https://zipingxu.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 15 Nov 2017 00:06:15 +0800</pubDate>
-    <lastBuildDate>Wed, 15 Nov 2017 00:06:15 +0800</lastBuildDate>
+    <pubDate>Wed, 15 Nov 2017 00:08:37 +0800</pubDate>
+    <lastBuildDate>Wed, 15 Nov 2017 00:08:37 +0800</lastBuildDate>
     <generator>Jekyll v3.6.0</generator>
     
       <item>
-        <title>my_title</title>
+        <title>Optimization with gurobi</title>
         <description>&lt;p&gt;This article is about how to setup gurobi on mac os x and how to use it in Python.&lt;/p&gt;
 &lt;h1 id=&quot;installation&quot;&gt;Installation&lt;/h1&gt;
 
