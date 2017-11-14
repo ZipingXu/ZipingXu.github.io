@@ -36,6 +36,9 @@ Collecting MySQL-python
     
     ----------------------------------------
 Command "python setup.py egg_info" failed with error code 1 in /tmp/pip-build-TmLXPF/MySQL-python/
+
+# use this
+conda install mysql-connector-python
 ```
 
 The config file missing here is cause by ``ConfigParser`` that has changed in python3.

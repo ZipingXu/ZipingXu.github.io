@@ -15,9 +15,20 @@ tags:
 ## Steps
 
 1. Copy the Google scholar cite text into a file with a suffix called ``.bib``.
-2. In your ``.tex`` file, cite the reference and configure the file, which will generate a ``.aux`` file.
-3. Open terminal in the directory and enter  ``bibtex + file_name``, which will generate ``.bbl`` file.
-4. Configure ``.tex`` file again, you will get the final output.
+
+2. In your ``.tex`` file, cite the reference.
+
+3. ```Tex
+   \medskip
+   \bibliographystyle{unsrt}
+   \bibliography{your_file_name}
+   ```
+
+4. configure the file, which will generate a ``.aux`` file.
+
+5. Open terminal in the directory and enter  ``bibtex + file_name``, which will generate ``.bbl`` file.
+
+6. Configure ``.tex`` file again, you will get the final output.
 
 ## Reference tables, figures or sections
 

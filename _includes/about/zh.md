@@ -1,20 +1,20 @@
-> Data, Machine learning, Statistics, Deep Learning
+> 数据科学 机器学习 统计学 深度学习 可视化
 
-Hey, I am Ziping Xu, student in Peking University major in Data Science. 
-
-
-
-I am interested in techniques of data science including deep learning, statistics and visualization. Willing to try all the excting and challenging things and love computer technologies. I have done some research in Air Pollution and some projects in Visualization and Generative Adversarial Nets.  
+我是许子平，北京大学数据科学专业的本科生。
 
 
 
-My brief is that with data we could better and deeper understand the world. I want to devote myself in developing models and softwares for processing and analysing data.
+研究兴趣主要在数据科学的相关技术，包括深度学习、统计学、数据可视化。热爱计算技术和统计学模型。之前的研究只要在空气污染数据分析、数据可视化和生成对抗网络。
 
 
 
-Graphic design and baseball are also my hobbies. You can find some of my works in [PROJECTS](https://zipingxu.github.io/projects/).
+坚信通过数据人们能够更好地理解这个世界。梦想是开发更好的数据分析模型和工具。
 
 
 
-Open for everyone who wants to communicate with me! My email is [pkuluke@gmail.com](pkuluke@gmail.com).
+同样热爱平面设计和棒垒球。大家可以在[PROJECTS](https://zipingxu.github.io/projects/)中找到我的一些工作。
+
+
+
+希望和所有感兴趣或者想和我交流的朋友一起聊聊天。我的邮箱是[pkuluke@gmail.com](pkuluke@gmail.com)。
 

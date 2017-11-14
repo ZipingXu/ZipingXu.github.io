@@ -10,7 +10,7 @@
     <meta name="keywords"  content="Data Science; Statistics; Unity">
     <meta name="theme-color" content="#000000">
     
-    <title>C/C++ file system - 子平 | Zipping</title>
+    <title>Test for ggmap - 子平 | Zipping</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zipingxu.github.io/2017/10/07/10_23_57/">
+    <link rel="canonical" href="https://zipingxu.github.io/2017/10/23/22_02_41/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -155,13 +155,13 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/c.jpg" width="0" height="0"> -->
+<!-- <img src="/img/R.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/c.jpg')
+        background-image: url('/img/R.jpg')
     }
 
     
@@ -174,15 +174,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#c/c++" title="c/c++">c/c++</a>
+                        <a class="tag" href="/tags/#R" title="R">R</a>
                         
                     </div>
-                    <h1>C/C++ file system</h1>
+                    <h1>Test for ggmap</h1>
                     
                     
-                    <h2 class="subheading">An record of structure for file system in C/C++</h2>
+                    <h2 class="subheading">Easy access ro Google Map</h2>
                     
-                    <span class="meta">Posted by Ziping on October 7, 2017</span>
+                    <span class="meta">Posted by Ziping on October 23, 2017</span>
                 </div>
             </div>
         </div>
@@ -200,131 +200,20 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h1 id="cc-file-system">C/C++ file system</h1>
+				<p>There is a brilliant pacakge call <code class="highlighter-rouge">ggmap</code> which can download maps from R.</p>
 
-<p>This is simple demo for file system operation.</p>
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">get_map</span><span class="p">(</span><span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">lon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-95.3632715</span><span class="p">,</span><span class="w"> </span><span class="n">lat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">29.7632836</span><span class="p">),</span><span class="w"> </span><span class="n">zoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span><span class="w">
+  </span><span class="n">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"auto"</span><span class="p">,</span><span class="w"> </span><span class="n">maptype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"terrain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"terrain-background"</span><span class="p">,</span><span class="w"> </span><span class="s2">"satellite"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"roadmap"</span><span class="p">,</span><span class="w"> </span><span class="s2">"hybrid"</span><span class="p">,</span><span class="w"> </span><span class="s2">"toner"</span><span class="p">,</span><span class="w"> </span><span class="s2">"watercolor"</span><span class="p">,</span><span class="w"> </span><span class="s2">"terrain-labels"</span><span class="p">,</span><span class="w"> </span><span class="s2">"terrain-lines"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"toner-2010"</span><span class="p">,</span><span class="w"> </span><span class="s2">"toner-2011"</span><span class="p">,</span><span class="w"> </span><span class="s2">"toner-background"</span><span class="p">,</span><span class="w"> </span><span class="s2">"toner-hybrid"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"toner-labels"</span><span class="p">,</span><span class="w"> </span><span class="s2">"toner-lines"</span><span class="p">,</span><span class="w"> </span><span class="s2">"toner-lite"</span><span class="p">),</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"google"</span><span class="p">,</span><span class="w"> </span><span class="s2">"osm"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"stamen"</span><span class="p">,</span><span class="w"> </span><span class="s2">"cloudmade"</span><span class="p">),</span><span class="w"> </span><span class="n">force</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ifelse</span><span class="p">(</span><span class="n">source</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"google"</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">),</span><span class="w">
+  </span><span class="n">messaging</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">urlonly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ggmapTemp"</span><span class="p">,</span><span class="w">
+  </span><span class="n">crop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"color"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bw"</span><span class="p">),</span><span class="w"> </span><span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"en-EN"</span><span class="p">,</span><span class="w"> </span><span class="n">api_key</span><span class="p">)</span><span class="w">
 
-<p>In Unix/Linix system, <code class="highlighter-rouge">direct.h</code> defines some structures.</p>
+</span></code></pre></div></div>
 
-<h2 id="data-structure">Data Structure</h2>
-
-<p><strong>DIR:</strong> structure for directory stream.</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">__dirstream</span>
-<span class="p">{</span>
-	<span class="kt">void</span> <span class="o">*</span><span class="n">__fd</span><span class="p">;</span> <span class="cm">/* 'struct hurd_fd' pointer for descriptor.*/</span>
-	<span class="kt">char</span> <span class="o">*</span><span class="n">__data</span><span class="p">;</span> <span class="cm">/* Directory block. */</span>
-	<span class="kt">int</span> <span class="n">__entry_data</span><span class="p">;</span> <span class="cm">/* Entry number `__data' corresponds to.*/</span>
-	<span class="kt">char</span> <span class="o">*</span><span class="n">__ptr</span><span class="p">;</span> <span class="cm">/* Current pointer into the block.*/</span>
-	<span class="kt">int</span> <span class="n">__entry_ptr</span><span class="p">;</span> <span class="cm">/* Entry number `__ptr' corresponds to.*/</span>
- 	<span class="kt">size_t</span> <span class="n">__allocation</span><span class="p">;</span> <span class="cm">/* Space allocated for the block.*/</span>
- 	<span class="kt">size_t</span> <span class="n">__size</span><span class="p">;</span> <span class="cm">/* Total valid data in the block.*/</span>
- 	<span class="n">__libc_lock_define</span> <span class="p">(,</span> <span class="n">__lock</span><span class="p">)</span> <span class="cm">/* Mutex lock for this structure.*/</span>
-<span class="p">};</span>
-<span class="n">typedefstruct</span> <span class="n">__dirstream</span> <span class="kt">DIR</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>**struct dirent: ** file and directory information</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">dirent</span>
-<span class="p">{</span>
-	<span class="kt">long</span> <span class="n">d_ino</span><span class="p">;</span> <span class="cm">/* inode number 索引节点号 */</span>
- 	<span class="kt">off_t</span> <span class="n">d_off</span><span class="p">;</span> <span class="cm">/* offset to this dirent 在目录文件中的偏移 */</span>
-	<span class="n">unsignedshort</span> <span class="n">d_reclen</span><span class="p">;</span> <span class="cm">/* length of this d_name 文件名长 */</span>
-	<span class="n">unsignedchar</span> <span class="n">d_type</span><span class="p">;</span> <span class="cm">/* the type of d_name 文件类型 */</span>
-	<span class="kt">char</span> <span class="n">d_name</span> <span class="p">[</span><span class="n">NAME_MAX</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span> <span class="cm">/* file name 文件名，最长255字符 */</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="funtions">Funtions</h2>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">DIR</span><span class="o">*</span> <span class="n">opendir</span><span class="p">(</span><span class="n">constchar</span><span class="o">*</span> <span class="n">dirname</span><span class="p">);</span>
-<span class="cm">/* Open a directory
- success - return pointer to DIR
- fail - return NULL */</span>
-<span class="n">intclosedir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">);</span>
-<span class="cm">/* Close a directory stream
- success - return 0
- fail - return -1 */</span>
-<span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">readdir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">);</span>
-<span class="cm">/* Read a directory stream
- success - return a pointer to struct dirent object
- fail - return NULL */</span>
-<span class="n">intreaddir_r</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">entry</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dirent</span> <span class="o">**</span><span class="n">result</span><span class="p">);</span>
-<span class="cm">/* Read a directory stream: initialize entry with dirp, result is a pointer to entry
- success - return 0
- fail - return error number */</span>
-<span class="n">voidrewinddir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">);</span>
-<span class="cm">/* reset to the head */</span>
-<span class="n">voidseekdir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">,</span> <span class="n">longint</span> <span class="n">loc</span><span class="p">);</span>
-<span class="cm">/* reset the location of dirp */</span>
-<span class="n">longinttelldir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">);</span>
-<span class="cm">/* return the current location */</span>
-</code></pre></div></div>
-
-<h2 id="demo">Demo</h2>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
-#include &lt;direct.h&gt;
-</span><span class="n">using</span> <span class="n">name</span> <span class="n">space</span> <span class="n">std</span><span class="p">;</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">string</span> <span class="n">dirname</span><span class="p">;</span>
-  <span class="kt">DIR</span> <span class="o">*</span><span class="n">dp</span><span class="p">;</span>
-  <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">dirp</span><span class="p">;</span>
-  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Please input a directory: "</span><span class="p">;</span>
-  <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">dirname</span><span class="p">;</span>
-  <span class="k">if</span><span class="p">((</span><span class="n">dp</span> <span class="o">=</span> <span class="n">opendir</span><span class="p">(</span><span class="n">dirname</span><span class="p">.</span><span class="n">c_str</span><span class="p">()))</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Can't open "</span> <span class="o">&lt;&lt;</span> <span class="n">dirname</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-  <span class="k">while</span><span class="p">((</span><span class="n">dirp</span> <span class="o">=</span> <span class="n">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
-  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-  <span class="n">closedir</span><span class="p">(</span><span class="n">dp</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>Find the specific file type</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;regex.h&gt;
-</span><span class="n">regex</span> <span class="n">reg_obj</span><span class="p">(</span><span class="s">".*\.doc"</span><span class="p">,</span> <span class="n">regex</span><span class="o">::</span><span class="n">icase</span><span class="p">);</span>
-<span class="k">while</span><span class="p">((</span><span class="n">dirp</span> <span class="o">=</span> <span class="n">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
-<span class="k">if</span><span class="p">(</span><span class="n">regex_match</span><span class="p">(</span><span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">,</span> <span class="n">reg_obj</span><span class="p">))</span> <span class="c1">// regex_match()匹配
-</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</code></pre></div></div>
-
-<h2 id="read-csv-in-cc">Read .csv in C/C++</h2>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">string</span> <span class="nf">Trim</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>  
-<span class="p">{</span>
-    <span class="c1">//str.find_first_not_of(" \t\r\n"),在字符串str中从索引0开始，返回首次不匹配"\t\r\n"的位置  
-</span>    <span class="n">str</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">str</span><span class="p">.</span><span class="n">find_first_not_of</span><span class="p">(</span><span class="s">" </span><span class="se">\t\r\n</span><span class="s">"</span><span class="p">));</span>  
-    <span class="n">str</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">find_last_not_of</span><span class="p">(</span><span class="s">" </span><span class="se">\t\r\n</span><span class="s">"</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>  
-    <span class="k">return</span> <span class="n">str</span><span class="p">;</span>  
-<span class="p">}</span>  
-<span class="kt">int</span> <span class="n">readSingleFile</span><span class="p">(</span><span class="kt">double</span><span class="o">*</span> <span class="n">pnl</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dim</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">file_name</span><span class="p">){</span>
-	<span class="c1">//cout &lt;&lt; file_name &lt;&lt; endl;
-</span>	<span class="n">ifstream</span> <span class="n">fin</span><span class="p">(</span><span class="n">file_name</span><span class="p">);</span> <span class="c1">//打开文件流操作
-</span>    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="k">while</span> <span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">fin</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>   <span class="c1">//整行读取，换行符“\n”区分，遇到文件尾标志eof终止读取  
-</span>    <span class="p">{</span>   
-        <span class="n">istringstream</span> <span class="n">sin</span><span class="p">(</span><span class="n">line</span><span class="p">);</span> <span class="c1">//将整行字符串line读入到字符串流istringstream中  
-</span>        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">fields</span><span class="p">;</span> <span class="c1">//声明一个字符串向量  
-</span>        <span class="n">string</span> <span class="n">field</span><span class="p">;</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">sin</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="sc">','</span><span class="p">))</span> <span class="c1">//将字符串流sin中的字符读入到field字符串中，以逗号为分隔符  
-</span>        <span class="p">{</span>  
-            <span class="n">fields</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">field</span><span class="p">);</span> <span class="c1">//将刚刚读取的字符串添加到向量fields中  
-</span>        <span class="p">}</span>
-        <span class="n">string</span> <span class="n">t_pnl</span> <span class="o">=</span> <span class="n">Trim</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="c1">//清除掉向量fields中第二个元素的无效字符，并赋值给变量age  
-</span>        <span class="n">pnl</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">=</span> <span class="n">stod</span><span class="p">(</span><span class="n">t_pnl</span><span class="p">);</span>
-        <span class="c1">//cout &lt;&lt; pnl[count] &lt;&lt; ", ";
-</span>        <span class="n">count</span><span class="o">++</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
-    <span class="c1">//cout &lt;&lt; endl;
-</span><span class="p">}</span>
-</code></pre></div></div>
+<p>Maptype is quite interesting.</p>
 
 
 
@@ -332,11 +221,18 @@
 
                 <ul class="pager">
                     
+                    <li class="previous">
+                        <a href="/2017/10/21/12_46_39/" data-toggle="tooltip" data-placement="top" title=".profile when login">
+                        Previous<br>
+                        <span>.profile when login</span>
+                        </a>
+                    </li>
+                    
                     
                     <li class="next">
-                        <a href="/2017/10/07/10_51_14/" data-toggle="tooltip" data-placement="top" title="A C++ implement for KD-tree">
+                        <a href="/2017/10/29/17_56_48/" data-toggle="tooltip" data-placement="top" title="my_title">
                         Next<br>
-                        <span>A C++ implement for KD-tree</span>
+                        <span>my_title</span>
                         </a>
                     </li>
                     

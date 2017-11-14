@@ -1,0 +1,144 @@
+---
+layout:     post
+title:      "Python @property"
+subtitle:   "magic python"
+date:       2017-10-20
+author:     "Ziping"
+header-img: "img/python.jpg"
+catalog: true
+tags:
+    - python
+---
+
+
+
+Before we learn property, we have to understand decorator in Python.
+
+## Decorator
+
+We use ``@dec_function`` before we assign a ``new_function`` to decorate it.
+
+Then ``new_function`` is passed as a parameter to ``dec_function``.
+
+```python
+def smart_divide(func):
+   def inner(a,b):
+      print("I am going to divide",a,"and",b)
+      if b == 0:
+         print("Whoops! cannot divide")
+         return
+
+      return func(a,b)
+   return inner
+
+@smart_divide
+def divide(a,b):
+    return a/b
+```
+
+In Python, this magic is done as `function(*args, **kwargs)`. In this way, `args` will be the [tuple](https://www.programiz.com/python-programming/tuple) of positional arguments and `kwargs` will be the [dictionary](https://www.programiz.com/python-programming/dictionary) of keyword arguments. An example of such decorator will be.
+
+```python
+def star(func):
+    def inner(*args, **kwargs):
+        print("*" * 30)
+        func(*args, **kwargs)
+        print("*" * 30)
+    return inner
+
+def percent(func):
+    def inner(*args, **kwargs):
+        print("%" * 30)
+        func(*args, **kwargs)
+        print("%" * 30)
+    return inner
+
+@star
+@percent
+def printer(msg):
+    print(msg)
+printer("Hello")
+```
+
+
+
+## Property
+
+In Python, `property()` is a built-in function that creates and returns a property object. The signature of this function is
+
+```python
+property(fget=None, fset=None, fdel=None, doc=None)
+```
+
+where, `fget` is function to get value of the attribute, `fset` is function to set value of the attribute, `fdel` is function to delete the attribute and `doc` is a string (like a comment). As seen from the implementation, these function arguments are optional. So, a property object can simply be created as follows.
+
+```python
+class Celsius:
+    def __init__(self, temperature = 0):
+        self.temperature = temperature
+
+    def to_fahrenheit(self):
+        return (self.temperature * 1.8) + 32
+
+    def get_temperature(self):
+        print("Getting value")
+        return self._temperature
+
+    def set_temperature(self, value):
+        if value < -273:
+            raise ValueError("Temperature below -273 is not possible")
+        print("Setting value")
+        self._temperature = value
+
+    temperature = property(get_temperature,set_temperature)
+
+c = Celsius()
+# print "Setting value"
+```
+
+When we call ``c.temperture``,  it will also print "Getting value".
+
+The following code is equivalent:
+
+```python
+# code1
+temperature = property(get_temperature,set_temperature)
+
+# code2
+# make empty property
+temperature = property()
+# assign fget
+temperature = temperature.getter(get_temperature)
+# assign fset
+temperature = temperature.setter(set_temperature)
+```
+
+We can also decorate the function
+
+```python
+class Celsius:
+    def __init__(self, temperature = 0):
+        self._temperature = temperature
+
+    def to_fahrenheit(self):
+        return (self.temperature * 1.8) + 32
+
+    @property
+    def temperature(self):
+        print("Getting value")
+        return self._temperature
+
+    @temperature.setter
+    def temperature(self, value):
+        if value < -273:
+            raise ValueError("Temperature below -273 is not possible")
+        print("Setting value")
+        self._temperature = value
+```
+
+
+
+
+
+An underscore (_) at the beginning is used to denote private variables in Python.
+
