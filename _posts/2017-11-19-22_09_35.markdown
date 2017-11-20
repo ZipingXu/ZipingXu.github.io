@@ -1,0 +1,48 @@
+---
+layout:     post
+title:      "Convert pdf into jpg in Mac"
+subtitle:   "for efficiency"
+date:       2017-11-19
+author:     "Ziping"
+header-img: "img/python.jpg"
+catalog: true
+tags:
+    - python
+---
+
+install ``imagemagick`` and ``gs`` first. 
+
+```shell
+brew install imagemagick;
+brew install gs;
+```
+
+a example
+
+```shell
+convert 1.pdf 1.jpg
+```
+
+## a script for converting massively
+
+```python
+import os
+
+path = "my path"
+
+def gci (path):
+    """this is a statement"""
+    parents = os.listdir(path)
+    for parent in parents:
+        child = os.path.join(path,parent)
+        print(child)
+        if os.path.isdir(child):
+            gci(child)
+            print(child)
+        else:
+            if child.split(".")[1] == "pdf":
+                os.system("convert " + child + " " + child.split(".")[0] + ".jpg")
+
+gci(path)
+```
+
