@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Convert pdf into jpg in Mac"
+title:      "Convert pdf into jpg in Mac and optimize or resize it"
 subtitle:   "for efficiency"
 date:       2017-11-19
 author:     "Ziping"
@@ -23,7 +23,7 @@ a example
 convert 1.pdf 1.jpg
 ```
 
-## a script for converting massively
+### a script for converting massively
 
 ```python
 import os
@@ -44,5 +44,58 @@ def gci (path):
                 os.system("convert " + child + " " + child.split(".")[0] + ".jpg")
 
 gci(path)
+```
+
+## optimize jpg pictures
+
+Target:
+
+- resize picture
+- optimize the size
+
+
+
+### Install packages
+
+```shell
+brew install imagemagick;
+brew install jpegoptim;
+```
+
+### Basic Command
+
+```shell
+# three types of reshape
+convert -resize 85%x85% $img $img-resized;
+convert -resize 1024x800 $img $img-resized;
+convert -resize 1024x $img $img-resized;
+```
+
+```shell
+# optimize the size
+jpegoptim --size=400 $img
+jpegoptim --max=80 $img
+```
+
+### Massive manipulation
+
+```shell
+PHOTODIR=$1
+PHOTOFORMAT=$2
+
+IFS_OLD=$IFS # 先保存 IFS 变量
+IFS=$'\n' # 将 IFS 改为换行符
+
+if [ ! -d "$PHOTODIR"/new ]; then
+    mkdir "$PHOTODIR"/new
+fi
+
+cd $PHOTODIR;
+
+for img in `find ./ -name "*.$PHOTOFORMAT"`; do 
+    convert -resize 40%x40% $img new/$img;
+    jpegoptim --max=95 new/$img
+done
+IFS=IFS_OLD
 ```
 
