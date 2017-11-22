@@ -10,7 +10,7 @@
     <meta name="keywords"  content="Data Science; Statistics; Unity">
     <meta name="theme-color" content="#000000">
     
-    <title>How to install multi-version python in anaconda - 子平 | Zipping</title>
+    <title>Convert pdf into jpg in Mac and optimize or resize it - 子平 | Zipping</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zipingxu.github.io/2017/10/07/11_21_51/">
+    <link rel="canonical" href="https://zipingxu.github.io/2017/11/19/22_09_35/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -176,15 +176,13 @@
                         
                         <a class="tag" href="/tags/#python" title="python">python</a>
                         
-                        <a class="tag" href="/tags/#anaconda" title="anaconda">anaconda</a>
-                        
                     </div>
-                    <h1>How to install multi-version python in anaconda</h1>
+                    <h1>Convert pdf into jpg in Mac and optimize or resize it</h1>
                     
                     
-                    <h2 class="subheading">Multi-version python</h2>
+                    <h2 class="subheading">for efficiency</h2>
                     
-                    <span class="meta">Posted by Ziping on October 7, 2017</span>
+                    <span class="meta">Posted by Ziping on November 19, 2017</span>
                 </div>
             </div>
         </div>
@@ -202,52 +200,86 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h1 id="anaconda-multi-version-python">Anaconda Multi-version Python</h1>
+				<p>install <code class="highlighter-rouge">imagemagick</code> and <code class="highlighter-rouge">gs</code> first.</p>
 
-<h2 id="manage-python">Manage Python</h2>
-
-<p>Check the available versions for Python</p>
-
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda search <span class="nt">--full</span> <span class="nt">--name</span> python
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install imagemagick<span class="p">;</span>
+brew install gs<span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="create-a-second-environment">Create a second environment</h2>
+<p>a example</p>
 
-<p>we call it <code class="highlighter-rouge">new_env</code></p>
-
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create <span class="nt">-n</span> new_env <span class="nv">python</span><span class="o">=</span>3
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>convert 1.pdf 1.jpg
 </code></pre></div></div>
 
-<p>New version is installed in <code class="highlighter-rouge">/envs/bunnies</code></p>
+<h3 id="a-script-for-converting-massively">a script for converting massively</h3>
 
-<h2 id="list-all-the-environments-in-your-system">List all the environments in your system:</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda info <span class="nt">--envs</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s">"my path"</span>
+
+<span class="k">def</span> <span class="nf">gci</span> <span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="s">"""this is a statement"""</span>
+    <span class="n">parents</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span>
+        <span class="n">child</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">parent</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">child</span><span class="p">):</span>
+            <span class="n">gci</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">"."</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s">"pdf"</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">"convert "</span> <span class="o">+</span> <span class="n">child</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">child</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">".jpg"</span><span class="p">)</span>
+
+<span class="n">gci</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </code></pre></div></div>
 
-<h2 id="check-the-current-environment">Check the current environment:</h2>
+<h2 id="optimize-jpg-pictures">optimize jpg pictures</h2>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda info <span class="nt">-envis</span>
+<p>Target:</p>
+
+<ul>
+  <li>resize picture</li>
+  <li>optimize the size</li>
+</ul>
+
+<h3 id="install-packages">Install packages</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install imagemagick<span class="p">;</span>
+brew install jpegoptim<span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="change-environment-activatedeactivate">Change environment (activate/deactivate)</h2>
+<h3 id="basic-command">Basic Command</h3>
 
-<p>Linux, OS X:</p>
-
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source </span>activate new_env
-<span class="nb">source </span>deactivate
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># three types of reshape</span>
+convert <span class="nt">-resize</span> 85%x85% <span class="nv">$img</span> <span class="nv">$img</span><span class="nt">-resized</span><span class="p">;</span>
+convert <span class="nt">-resize</span> 1024x800 <span class="nv">$img</span> <span class="nv">$img</span><span class="nt">-resized</span><span class="p">;</span>
+convert <span class="nt">-resize</span> 1024x <span class="nv">$img</span> <span class="nv">$img</span><span class="nt">-resized</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="copy-an-environment">Copy an environment</h2>
-
-<p>Clone a environment. Here we clone <code class="highlighter-rouge">old_env</code> as <code class="highlighter-rouge">new_env</code></p>
-
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create <span class="nt">-n</span> new_env <span class="nt">--clone</span> old_env
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># optimize the size</span>
+jpegoptim <span class="nt">--size</span><span class="o">=</span>400 <span class="nv">$img</span>
+jpegoptim <span class="nt">--max</span><span class="o">=</span>80 <span class="nv">$img</span>
 </code></pre></div></div>
 
-<h2 id="delete-an-environment">Delete an environment</h2>
+<h3 id="massive-manipulation">Massive manipulation</h3>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda remove <span class="nt">-n</span> old_env <span class="nt">--all</span>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">PHOTODIR</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">PHOTOFORMAT</span><span class="o">=</span><span class="nv">$2</span>
+
+<span class="nv">IFS_OLD</span><span class="o">=</span><span class="nv">$IFS</span> <span class="c"># 先保存 IFS 变量</span>
+<span class="nv">IFS</span><span class="o">=</span><span class="s1">$'</span><span class="se">\n</span><span class="s1">'</span> <span class="c"># 将 IFS 改为换行符</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="o">!</span> <span class="nt">-d</span> <span class="s2">"</span><span class="nv">$PHOTODIR</span><span class="s2">"</span>/new <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span>mkdir <span class="s2">"</span><span class="nv">$PHOTODIR</span><span class="s2">"</span>/new
+<span class="k">fi
+
+</span><span class="nb">cd</span> <span class="nv">$PHOTODIR</span><span class="p">;</span>
+
+<span class="k">for </span>img <span class="k">in</span> <span class="sb">`</span>find ./ <span class="nt">-name</span> <span class="s2">"*.</span><span class="nv">$PHOTOFORMAT</span><span class="s2">"</span><span class="sb">`</span><span class="p">;</span> <span class="k">do 
+    </span>convert <span class="nt">-resize</span> 40%x40% <span class="nv">$img</span> new/<span class="nv">$img</span><span class="p">;</span>
+    jpegoptim <span class="nt">--max</span><span class="o">=</span>95 new/<span class="nv">$img</span>
+<span class="k">done
+</span><span class="nv">IFS</span><span class="o">=</span>IFS_OLD
 </code></pre></div></div>
 
 
@@ -257,19 +289,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/10/07/11_19_08/" data-toggle="tooltip" data-placement="top" title="Encoding in Python">
+                        <a href="/2017/10/29/17_56_48/" data-toggle="tooltip" data-placement="top" title="Optimization with gurobi">
                         Previous<br>
-                        <span>Encoding in Python</span>
+                        <span>Optimization with gurobi</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2017/10/07/11_33_33/" data-toggle="tooltip" data-placement="top" title="Efficient Rolling in Python">
-                        Next<br>
-                        <span>Efficient Rolling in Python</span>
-                        </a>
-                    </li>
                     
                 </ul>
 
