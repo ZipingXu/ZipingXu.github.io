@@ -10,8 +10,6 @@ tags:
     - python
 ---
 
-
-
 Before we learn property, we have to understand decorator in Python.
 
 ## Decorator
@@ -135,10 +133,6 @@ class Celsius:
         print("Setting value")
         self._temperature = value
 ```
-
-
-
-
 
 An underscore (_) at the beginning is used to denote private variables in Python.
 

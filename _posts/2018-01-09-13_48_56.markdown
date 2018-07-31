@@ -1,0 +1,38 @@
+---
+layout:     post
+title:      "Send e-mail via commond line"
+subtitle:   "Monitoring the system"
+date:       2018-01-09
+author:     "Ziping"
+header-img: "img/linux.jpg"
+catalog: true
+tags:
+    - linux
+---
+
+For Ubuntu
+
+```shell
+apt-get install mutt
+apt-get install swaks
+apt-get install mailx
+apt-get install sharutils
+```
+
+For CentOS
+
+```shell
+yum install mutt
+yum install swaks
+yum install mailx
+yum install sharutils
+```
+
+
+
+Usage:
+
+```
+mail -s -a user@example.com
+```
+

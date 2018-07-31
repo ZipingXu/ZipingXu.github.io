@@ -13,7 +13,9 @@ tags:
 
 # A C++ implement for KD-tree
 
-I just list the header file and some implement for KD-tree.
+KD-tree is a very efficient way to search similar samples. In my porject on stock market, I want to measure the similarity between a new strategy and all the strategies in my strategy library. If the distance is larger enough I would accept the new one and add it into the library. If you compare all the samples, it will cost a lot of time. KD tree is a solution. 
+
+The following is the header file and some implement for KD-tree in C++.
 
 The distance here is the correlation of two series.
 

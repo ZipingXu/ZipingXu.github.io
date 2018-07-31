@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "How to connect sql database in python"
+title:      "SQL database in python"
 subtitle:   "use mysql and xxx"
 date:       2017-10-12
 author:     "Ziping"

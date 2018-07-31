@@ -13,6 +13,11 @@ tags:
 
 # Anaconda Multi-version Python
 
+We have two motivations to do this. 
+
+- As Python 3 is becoming better, some softwares only support Python 2.7.
+- We want to define different environment to avoid violation.
+
 ## Manage Python
 
 Check the available versions for Python

@@ -1,0 +1,27 @@
+---
+layout:     post
+title:      "How to write a discussion"
+subtitle:   "A nature paper example"
+date:       2018-04-15
+author:     "Ziping"
+header-img: "img/paper.jpg"
+catalog: true
+tags:
+    - paper
+---
+
+# An Example 
+
+
+
+>(State the Major Findings of the Study)
+>
+>We show here that the magnitude of low-frequency unforcedGMST variability is substantially reduced in the GFDL CM3 climatemodel after a doubling of CO2 from pre-industrial levels and thatthe mechanisms responsible for that variability are fundamentallyaltered. In particular, the modes of variability primarily responsible for generating GMST variability are shifted in space, and the netflow of energy associated with unforced warming events changesfrom being into the climate system to out of the climate system (viceversa for unforced cooling events). We find that a primary reason for this shift is the reduction in high-latitude surface albedo variability that results from a climatological reduction in albedo. Finally, we find that local variability over many tropical and subtropicalland areas increases with global warming despite the reduction inGMST variability.
+>
+>A number of caveats should be stressed with regard to this study. Reasons for caution include the attribute that the GFDL CM3 model has unusually large GMST variability in its pre-industrialcontrol run5 as well as a 2 × CO2 climate sensitivity towards theupper range of the CMIP5 ensemble range 49. Taken together, thesefeatures may indicate that the reduction of GMST variability with a doubling of CO2 may be exaggerated in GFDL CM3 comparedwith reality. As discussed above, the CMIP5 models investigated here show a smaller mean change in unforced GMST variability between their pre-industrial control and RCP8.5 runs (∼3% perkelvin of climatological GMST warming on average compared with∼9% per kelvin of climatological GMST warming in GFDL CM3). Also, climate models differ substantially in the geographic originand generating mechanisms of their unforced GMST variability5,and thus changes in the generating mechanisms of GMST variabilityare likely to vary substantially from model to model.
+>
+>(Make Suggestions for Further Research)
+>
+>Thus, we emphasize that the results from the GFDL CM3model should not necessarily be interpreted as a robust quantitativeforecast of future variability change. Instead the results of thisstudy serve to demonstrate that the magnitude and mechanismsof unforced GMST variability may depend critically on the climatological GMST. This finding indicates that some traditional means of studying GMST variability (for example, investigating pre-industrial control runs or palaeo-reconstructions of past variability) may be of limited utility for surmising information on the behaviour of unforced GMST variability in a warmer climate.
+>
+>**Change in the magnitude and mechanisms of global temperature variability with warming**
