@@ -1,26 +1,24 @@
 # Ziping Xu
 
-PhD student in Statistics
+PhD student, department of Statistics at University of Michigan, Ann Arbor
 
-Department of Statistics
-
-University of Michigan
-
-Email: zipingxu at umich dot edu
-
-Phone: (734) 276-8463
+> Email: zipingxu at umich dot edu
+>
+> Phone: (734) 276-8463
 
 ## Biography [[CV](https://github.com/ZipingXu/ZipingXu.github.io/blob/master/ZipingXu.pdf)]
 
 > Machine learning; Hypothesis testing; Visualization; Deep learning
 
-I just finished my undergraduate study in Yuanpei College at Peiking University. My major is data science advised by [Prof. Chen Songxi](http://songxichen.gsm.pku.edu.cn/index.php/Index/User) at Peking University and Iowa State University.
+I just finished my undergraduate study in Data Science in Yuanpei College at Peking University. My advisor is [Prof. Chen Songxi](http://songxichen.gsm.pku.edu.cn/index.php/Index/User) at Peking University and Iowa State University.
 
 During my undergraduate study, I worked on application of data science and statistics on environmental problems. My past work involves in non-parametric model for air quality diagnose and high dimensional testing for climate change on grided data. I am also interested in data viualization and interpretation of machine learning algorithms. Details of my project could be find at [PROJECT](https://zipingxu.github.io/projects/).
 
 My another project was on health effect of air pollution in China, collaborating with Tianan Yang in Beijing Institute of Technology. 
 
 I am currently working on the application of reinforcement learning on medical treatment.
+
+Feel free to reach me if you are interested in my research.
 
 ## Publications
 
