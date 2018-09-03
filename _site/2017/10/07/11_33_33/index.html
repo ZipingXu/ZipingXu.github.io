@@ -10,7 +10,7 @@
     <meta name="keywords"  content="Data Science; Statistics; Unity">
     <meta name="theme-color" content="#000000">
     
-    <title>Tags - 子平 | Zipping</title>
+    <title>Efficient Rolling in Python - 子平 | Zipping</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zipingxu.github.io/tags/">
+    <link rel="canonical" href="https://zipingxu.github.io/2017/10/07/11_33_33/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -153,248 +153,200 @@
 </script>
 
 
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/tag-bg.jpg')">
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/python.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/python.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading" id="tag-heading">
-                    <h1>Tags</h1>
-                    <span class="subheading">keep hungry keep foolish</span>
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#python" title="python">python</a>
+                        
+                    </div>
+                    <h1>Efficient Rolling in Python</h1>
+                    
+                    
+                    <h2 class="subheading">Use numpy arrays for rolling</h2>
+                    
+                    <span class="meta">Posted by Ziping on October 7, 2017</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- 标签云 -->
-			<div id='tag_cloud' class="tags">
-				
-				<a href="#python" title="python" rel="6">python</a>
-				
-				<a href="#mysql" title="mysql" rel="1">mysql</a>
-				
-				<a href="#linux" title="linux" rel="1">linux</a>
-				
-				<a href="#gurobi" title="gurobi" rel="1">gurobi</a>
-				
-			</div>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-            <!--<blockquote class="tag-comments">
-                标签命名规范：
-                    <li>行业观察、职位、公司优先使用中文</li>
-                    <li>外国产品、术语优先使用英文</li>
-            </blockquote>-->
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-            <!-- 标签列表 -->
-			
-			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="python">
-                    <span class="tag-text">python</span>
-                </span>
-				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-12-28">2017-12-28</time>
-				  <a href="/2017/12/28/13_46_58/" title="Python Read Parameters from Commandline">Python Read Parameters from Commandline</a>
-				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/12/28/13_46_58/">
-				        <h2 class="post-title">
-                            Python Read Parameters from Commandline
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            Old fashion?
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-12-28</p> -->
-				</div>
-				<hr>
-				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-11-19">2017-11-19</time>
-				  <a href="/2017/11/19/22_09_35/" title="Convert pdf into jpg in Mac and optimize or resize it">Convert pdf into jpg in Mac and optimize or resize it</a>
-				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/11/19/22_09_35/">
-				        <h2 class="post-title">
-                            Convert pdf into jpg in Mac and optimize or resize it
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            for efficiency
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-11-19</p> -->
-				</div>
-				<hr>
-				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-10-29">2017-10-29</time>
-				  <a href="/2017/10/29/17_56_48/" title="Optimization with gurobi">Optimization with gurobi</a>
-				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/10/29/17_56_48/">
-				        <h2 class="post-title">
-                            Optimization with gurobi
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            A simple test for opt with gurobi in Python
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-10-29</p> -->
-				</div>
-				<hr>
-				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-10-20">2017-10-20</time>
-				  <a href="/2017/10/20/09_47_44/" title="Python @property">Python @property</a>
-				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/10/20/09_47_44/">
-				        <h2 class="post-title">
-                            Python @property
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            magic python
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-10-20</p> -->
-				</div>
-				<hr>
-				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-10-12">2017-10-12</time>
-				  <a href="/2017/10/12/13_22_35/" title="SQL database in python">SQL database in python</a>
-				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/10/12/13_22_35/">
-				        <h2 class="post-title">
-                            SQL database in python
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            use mysql and xxx
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-10-12</p> -->
-				</div>
-				<hr>
-				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-10-07">2017-10-07</time>
-				  <a href="/2017/10/07/11_33_33/" title="Efficient Rolling in Python">Efficient Rolling in Python</a>
-				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/10/07/11_33_33/">
-				        <h2 class="post-title">
-                            Efficient Rolling in Python
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            Use numpy arrays for rolling
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-10-07</p> -->
-				</div>
-				<hr>
-				
-			</div>
-			
-			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="mysql">
-                    <span class="tag-text">mysql</span>
-                </span>
-				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-10-12">2017-10-12</time>
-				  <a href="/2017/10/12/13_22_35/" title="SQL database in python">SQL database in python</a>
-				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/10/12/13_22_35/">
-				        <h2 class="post-title">
-                            SQL database in python
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            use mysql and xxx
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-10-12</p> -->
-				</div>
-				<hr>
-				
-			</div>
-			
-			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="linux">
-                    <span class="tag-text">linux</span>
-                </span>
-				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-10-21">2017-10-21</time>
-				  <a href="/2017/10/21/12_46_39/" title=".profile when login">.profile when login</a>
-				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/10/21/12_46_39/">
-				        <h2 class="post-title">
-                            .profile when login
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            Configuration file
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-10-21</p> -->
-				</div>
-				<hr>
-				
-			</div>
-			
-			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="gurobi">
-                    <span class="tag-text">gurobi</span>
-                </span>
-				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-10-29">2017-10-29</time>
-				  <a href="/2017/10/29/17_56_48/" title="Optimization with gurobi">Optimization with gurobi</a>
-				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/10/29/17_56_48/">
-				        <h2 class="post-title">
-                            Optimization with gurobi
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            A simple test for opt with gurobi in Python
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-10-29</p> -->
-				</div>
-				<hr>
-				
-			</div>
-			
+				<p>As far as I know, there are two ways for rolling apply.</p>
 
-		</div>
-	</div>
-</div>
+<h2 id="pandas">Pandas</h2>
+<p>For pandas DataFrame object</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">"a"</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s">"b"</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]})</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="numpy">Numpy</h2>
+<p>We can define a rolling window to acheive rolling apply,</p>
+
+<pre><code class="language-pyhton">def rolling_window(a, window):
+    shape = a.shape[:-1] + (a.shape[-1] - window + 1, window)
+    strides = a.strides + (a.strides[-1],)
+    return np.lib.stride_tricks.as_strided(a, shape=shape, strides=strides)
+
+x=np.arange(10).reshape((2,5))
+rolling_window(x, 3)
+    
+np.mean(rolling_window(x, 3), -1)
+</code></pre>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/10/12/13_22_35/" data-toggle="tooltip" data-placement="top" title="SQL database in python">
+                        Next<br>
+                        <span>SQL database in python</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#python" title="python" rel="6">
+                                    python
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
 
     <!-- Footer -->
@@ -520,6 +472,50 @@
 
 
 <!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
 
 
 

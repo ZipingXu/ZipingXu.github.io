@@ -183,6 +183,197 @@
                 postlist-container
             ">
     			
+<div class="post-preview">
+    <a href="/2017/12/28/13_46_58/">
+        <h2 class="post-title">
+            Python Read Parameters from Commandline
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Old fashion?
+        </h3>
+        
+        <div class="post-content-preview">
+            The simplest way to do this is to use sys module.
+
+python test.py hello world
+
+import sys
+print "File name：", sys.argv[0]
+for i in range(1, len(sys.argv)):
+    print "Para", i, sys.argv[i]
+
+# File ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on December 28, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/11/19/22_09_35/">
+        <h2 class="post-title">
+            Convert pdf into jpg in Mac and optimize or resize it
+        </h2>
+        
+        <h3 class="post-subtitle">
+            for efficiency
+        </h3>
+        
+        <div class="post-content-preview">
+            install imagemagick and gs first.
+
+brew install imagemagick;
+brew install gs;
+
+
+a example
+
+convert 1.pdf 1.jpg
+
+
+a script for converting massively
+
+import os
+
+path = "my path"
+
+def gci (path):
+    ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on November 19, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/10/29/17_56_48/">
+        <h2 class="post-title">
+            Optimization with gurobi
+        </h2>
+        
+        <h3 class="post-subtitle">
+            A simple test for opt with gurobi in Python
+        </h3>
+        
+        <div class="post-content-preview">
+            This article is about how to setup gurobi on mac os x and how to use it in Python.
+Installation
+
+For acadamic users, we can just register in gurobi’s website and apply for an acadamic lisence.
+
+Fol...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on October 29, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/10/21/12_46_39/">
+        <h2 class="post-title">
+            .profile when login
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Configuration file
+        </h3>
+        
+        <div class="post-content-preview">
+            When Bash is invoked as an interactive login shell, or as a non-interactive shell with the –login option, it first reads and executes commands from the file /etc/profile, if that file exists. After...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on October 21, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/10/20/09_47_44/">
+        <h2 class="post-title">
+            Python @property
+        </h2>
+        
+        <h3 class="post-subtitle">
+            magic python
+        </h3>
+        
+        <div class="post-content-preview">
+            Before we learn property, we have to understand decorator in Python.
+
+Decorator
+
+We use @dec_function before we assign a new_function to decorate it.
+
+Then new_function is passed as a parameter to ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on October 20, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/10/12/13_22_35/">
+        <h2 class="post-title">
+            SQL database in python
+        </h2>
+        
+        <h3 class="post-subtitle">
+            use mysql and xxx
+        </h3>
+        
+        <div class="post-content-preview">
+            This blog is to record my process to connect mysql database in python.
+
+I choose MySQLdb as my tool because it is said that MySQLdb is the most stable way to connect to a MySQL database.
+
+MySQLdb d...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on October 12, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/10/07/11_33_33/">
+        <h2 class="post-title">
+            Efficient Rolling in Python
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Use numpy arrays for rolling
+        </h3>
+        
+        <div class="post-content-preview">
+            As far as I know, there are two ways for rolling apply.
+
+Pandas
+For pandas DataFrame object
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({"a":[1, 2, 3, 4], "b":[1, 2, 3, 4]})
+
+df.rolli...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ziping on October 7, 2017
+    </p>
+</div>
+<hr>
+
 
 <!-- Pager -->
 
@@ -202,6 +393,18 @@
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+                        
+                            
+                                <a href="/tags/#python" title="python" rel="6">
+                                    python
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
                         
                     </div>
                 </section>
