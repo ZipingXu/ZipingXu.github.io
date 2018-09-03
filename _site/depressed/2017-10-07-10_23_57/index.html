@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="In Data We Trust">
+    <meta name="keywords"  content="Data Science; Statistics; Unity">
+    <meta name="theme-color" content="#000000">
+    
+    <title>C/C++ file system - 子平 | Zipping</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zipingxu.github.io/depressed/2017-10-07-10_23_57/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Zipping</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-07-10_23_57/">C/C++ file system</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-07-10_51_14/">A C++ implement for KD-tree</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-07-11_21_51/">How to install multi-version python in anaconda</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-07-11_33_33/">Efficient Rolling in Python</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-09-16_55_28/">A collection of ggplot2 functions</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-12-13_22_35/">SQL database in python</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-13-18_29_11/">A simulation system for ICM</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-13-22_38_36/">Linux Command</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-14-11_45_51/">今敏</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-20-09_47_44/">Python @property</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-21-12_46_39/">.profile when login</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-23-22_02_41/">Test for ggmap</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-29-17_56_48/">Optimization with gurobi</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-11-19-22_09_35/">Convert pdf into jpg in Mac and optimize or resize it</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-12-28-13_46_58/">Python Read Parameters from Commandline</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2018-01-09-13_48_56/">Send e-mail via commond line</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2018-02-02-11_51_27/">Confige Jupyter Notebook</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2018-04-15-19_47_34/">How to write a discussion</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/projects/">Projects</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/c.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/c.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#c/c++" title="c/c++">c/c++</a>
+                        
+                    </div>
+                    <h1>C/C++ file system</h1>
+                    
+                    
+                    <h2 class="subheading">A brief introduction to file system in C/C++</h2>
+                    
+                    <span class="meta">Posted by Ziping on October 7, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h1 id="cc-file-system">C/C++ file system</h1>
+
+<p>This is simple demo for file system operation.</p>
+
+<p>In Unix/Linix system, <code class="highlighter-rouge">direct.h</code> defines some structures.</p>
+
+<h2 id="data-structure">Data Structure</h2>
+
+<p><strong>DIR:</strong> structure for directory stream.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">__dirstream</span>
+<span class="p">{</span>
+	<span class="kt">void</span> <span class="o">*</span><span class="n">__fd</span><span class="p">;</span> <span class="cm">/* 'struct hurd_fd' pointer for descriptor.*/</span>
+	<span class="kt">char</span> <span class="o">*</span><span class="n">__data</span><span class="p">;</span> <span class="cm">/* Directory block. */</span>
+	<span class="kt">int</span> <span class="n">__entry_data</span><span class="p">;</span> <span class="cm">/* Entry number `__data' corresponds to.*/</span>
+	<span class="kt">char</span> <span class="o">*</span><span class="n">__ptr</span><span class="p">;</span> <span class="cm">/* Current pointer into the block.*/</span>
+	<span class="kt">int</span> <span class="n">__entry_ptr</span><span class="p">;</span> <span class="cm">/* Entry number `__ptr' corresponds to.*/</span>
+ 	<span class="kt">size_t</span> <span class="n">__allocation</span><span class="p">;</span> <span class="cm">/* Space allocated for the block.*/</span>
+ 	<span class="kt">size_t</span> <span class="n">__size</span><span class="p">;</span> <span class="cm">/* Total valid data in the block.*/</span>
+ 	<span class="n">__libc_lock_define</span> <span class="p">(,</span> <span class="n">__lock</span><span class="p">)</span> <span class="cm">/* Mutex lock for this structure.*/</span>
+<span class="p">};</span>
+<span class="n">typedefstruct</span> <span class="n">__dirstream</span> <span class="kt">DIR</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>**struct dirent: ** file and directory information</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">dirent</span>
+<span class="p">{</span>
+	<span class="kt">long</span> <span class="n">d_ino</span><span class="p">;</span> <span class="cm">/* inode number 索引节点号 */</span>
+ 	<span class="kt">off_t</span> <span class="n">d_off</span><span class="p">;</span> <span class="cm">/* offset to this dirent 在目录文件中的偏移 */</span>
+	<span class="n">unsignedshort</span> <span class="n">d_reclen</span><span class="p">;</span> <span class="cm">/* length of this d_name 文件名长 */</span>
+	<span class="n">unsignedchar</span> <span class="n">d_type</span><span class="p">;</span> <span class="cm">/* the type of d_name 文件类型 */</span>
+	<span class="kt">char</span> <span class="n">d_name</span> <span class="p">[</span><span class="n">NAME_MAX</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span> <span class="cm">/* file name 文件名，最长255字符 */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="funtions">Funtions</h2>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">DIR</span><span class="o">*</span> <span class="n">opendir</span><span class="p">(</span><span class="n">constchar</span><span class="o">*</span> <span class="n">dirname</span><span class="p">);</span>
+<span class="cm">/* Open a directory
+ success - return pointer to DIR
+ fail - return NULL */</span>
+<span class="n">intclosedir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">);</span>
+<span class="cm">/* Close a directory stream
+ success - return 0
+ fail - return -1 */</span>
+<span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">readdir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">);</span>
+<span class="cm">/* Read a directory stream
+ success - return a pointer to struct dirent object
+ fail - return NULL */</span>
+<span class="n">intreaddir_r</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">entry</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dirent</span> <span class="o">**</span><span class="n">result</span><span class="p">);</span>
+<span class="cm">/* Read a directory stream: initialize entry with dirp, result is a pointer to entry
+ success - return 0
+ fail - return error number */</span>
+<span class="n">voidrewinddir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">);</span>
+<span class="cm">/* reset to the head */</span>
+<span class="n">voidseekdir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">,</span> <span class="n">longint</span> <span class="n">loc</span><span class="p">);</span>
+<span class="cm">/* reset the location of dirp */</span>
+<span class="n">longinttelldir</span><span class="p">(</span><span class="kt">DIR</span> <span class="o">*</span><span class="n">dirp</span><span class="p">);</span>
+<span class="cm">/* return the current location */</span>
+</code></pre></div></div>
+
+<h2 id="demo">Demo</h2>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;direct.h&gt;
+</span><span class="n">using</span> <span class="n">name</span> <span class="n">space</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">string</span> <span class="n">dirname</span><span class="p">;</span>
+  <span class="kt">DIR</span> <span class="o">*</span><span class="n">dp</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">dirp</span><span class="p">;</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Please input a directory: "</span><span class="p">;</span>
+  <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">dirname</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">((</span><span class="n">dp</span> <span class="o">=</span> <span class="n">opendir</span><span class="p">(</span><span class="n">dirname</span><span class="p">.</span><span class="n">c_str</span><span class="p">()))</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Can't open "</span> <span class="o">&lt;&lt;</span> <span class="n">dirname</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="k">while</span><span class="p">((</span><span class="n">dirp</span> <span class="o">=</span> <span class="n">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="n">closedir</span><span class="p">(</span><span class="n">dp</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Find the specific file type</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;regex.h&gt;
+</span><span class="n">regex</span> <span class="n">reg_obj</span><span class="p">(</span><span class="s">".*\.doc"</span><span class="p">,</span> <span class="n">regex</span><span class="o">::</span><span class="n">icase</span><span class="p">);</span>
+<span class="k">while</span><span class="p">((</span><span class="n">dirp</span> <span class="o">=</span> <span class="n">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+<span class="k">if</span><span class="p">(</span><span class="n">regex_match</span><span class="p">(</span><span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">,</span> <span class="n">reg_obj</span><span class="p">))</span> <span class="c1">// regex_match()匹配
+</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="read-csv-in-cc">Read .csv in C/C++</h2>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">string</span> <span class="nf">Trim</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span>  
+<span class="p">{</span>
+    <span class="c1">//str.find_first_not_of(" \t\r\n"),在字符串str中从索引0开始，返回首次不匹配"\t\r\n"的位置  
+</span>    <span class="n">str</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">str</span><span class="p">.</span><span class="n">find_first_not_of</span><span class="p">(</span><span class="s">" </span><span class="se">\t\r\n</span><span class="s">"</span><span class="p">));</span>  
+    <span class="n">str</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">find_last_not_of</span><span class="p">(</span><span class="s">" </span><span class="se">\t\r\n</span><span class="s">"</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>  
+    <span class="k">return</span> <span class="n">str</span><span class="p">;</span>  
+<span class="p">}</span>  
+<span class="kt">int</span> <span class="n">readSingleFile</span><span class="p">(</span><span class="kt">double</span><span class="o">*</span> <span class="n">pnl</span><span class="p">,</span> <span class="kt">int</span> <span class="n">dim</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">file_name</span><span class="p">){</span>
+	<span class="c1">//cout &lt;&lt; file_name &lt;&lt; endl;
+</span>	<span class="n">ifstream</span> <span class="n">fin</span><span class="p">(</span><span class="n">file_name</span><span class="p">);</span> <span class="c1">//打开文件流操作
+</span>    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">fin</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>   <span class="c1">//整行读取，换行符“\n”区分，遇到文件尾标志eof终止读取  
+</span>    <span class="p">{</span>   
+        <span class="n">istringstream</span> <span class="n">sin</span><span class="p">(</span><span class="n">line</span><span class="p">);</span> <span class="c1">//将整行字符串line读入到字符串流istringstream中  
+</span>        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">fields</span><span class="p">;</span> <span class="c1">//声明一个字符串向量  
+</span>        <span class="n">string</span> <span class="n">field</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">sin</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="sc">','</span><span class="p">))</span> <span class="c1">//将字符串流sin中的字符读入到field字符串中，以逗号为分隔符  
+</span>        <span class="p">{</span>  
+            <span class="n">fields</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">field</span><span class="p">);</span> <span class="c1">//将刚刚读取的字符串添加到向量fields中  
+</span>        <span class="p">}</span>
+        <span class="n">string</span> <span class="n">t_pnl</span> <span class="o">=</span> <span class="n">Trim</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="c1">//清除掉向量fields中第二个元素的无效字符，并赋值给变量age  
+</span>        <span class="n">pnl</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">=</span> <span class="n">stod</span><span class="p">(</span><span class="n">t_pnl</span><span class="p">);</span>
+        <span class="c1">//cout &lt;&lt; pnl[count] &lt;&lt; ", ";
+</span>        <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+    <span class="c1">//cout &lt;&lt; endl;
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    
+                </ul>
+
+
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Zipingxu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Zipping 2018
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="In Data We Trust">
+    <meta name="keywords"  content="Data Science; Statistics; Unity">
+    <meta name="theme-color" content="#000000">
+    
+    <title>SQL database in python - 子平 | Zipping</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zipingxu.github.io/depressed/2017-10-12-13_22_35/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Zipping</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-07-10_23_57/">C/C++ file system</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-07-10_51_14/">A C++ implement for KD-tree</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-07-11_21_51/">How to install multi-version python in anaconda</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-07-11_33_33/">Efficient Rolling in Python</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-09-16_55_28/">A collection of ggplot2 functions</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-12-13_22_35/">SQL database in python</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-13-18_29_11/">A simulation system for ICM</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-13-22_38_36/">Linux Command</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-14-11_45_51/">今敏</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-20-09_47_44/">Python @property</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-21-12_46_39/">.profile when login</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-23-22_02_41/">Test for ggmap</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-29-17_56_48/">Optimization with gurobi</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-11-19-22_09_35/">Convert pdf into jpg in Mac and optimize or resize it</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-12-28-13_46_58/">Python Read Parameters from Commandline</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2018-01-09-13_48_56/">Send e-mail via commond line</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2018-02-02-11_51_27/">Confige Jupyter Notebook</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2018-04-15-19_47_34/">How to write a discussion</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/projects/">Projects</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/python.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/python.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#python" title="python">python</a>
+                        
+                        <a class="tag" href="/tags/#mysql" title="mysql">mysql</a>
+                        
+                    </div>
+                    <h1>SQL database in python</h1>
+                    
+                    
+                    <h2 class="subheading">use mysql and xxx</h2>
+                    
+                    <span class="meta">Posted by Ziping on October 12, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<p>This blog is to record my process to connect mysql database in python.</p>
+
+<p>I choose MySQLdb as my tool because it is said that MySQLdb is the most stable way to connect to a MySQL database.</p>
+
+<p>MySQLdb doesnot support Python3 because I got an error:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">MySQL</span><span class="o">-</span><span class="n">python</span>
+<span class="n">Collecting</span> <span class="n">MySQL</span><span class="o">-</span><span class="n">python</span>
+  <span class="n">Downloading</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">aliyun</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pypi</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">a5</span><span class="o">/</span><span class="n">e9</span><span class="o">/</span><span class="mi">51</span><span class="n">b544da85a36a68debe7a7091f068d802fc515a3a202652828c73453cad</span><span class="o">/</span><span class="n">MySQL</span><span class="o">-</span><span class="n">python</span><span class="o">-</span><span class="mf">1.2</span><span class="o">.</span><span class="mf">5.</span><span class="nb">zip</span> <span class="p">(</span><span class="mi">108</span><span class="n">kB</span><span class="p">)</span>
+    <span class="mi">100</span><span class="o">%</span> <span class="o">|</span><span class="err">████████████████████████████████</span><span class="o">|</span> <span class="mi">112</span><span class="n">kB</span> <span class="mi">637</span><span class="n">kB</span><span class="o">/</span><span class="n">s</span> 
+    <span class="n">Complete</span> <span class="n">output</span> <span class="k">from</span> <span class="n">command</span> <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">egg_info</span><span class="p">:</span>
+    <span class="n">sh</span><span class="p">:</span> <span class="n">mysql_config</span><span class="p">:</span> <span class="n">command</span> <span class="ow">not</span> <span class="n">found</span>
+    <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+      <span class="n">File</span> <span class="s">"&lt;string&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+      <span class="n">File</span> <span class="s">"/tmp/pip-build-TmLXPF/MySQL-python/setup.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">17</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+        <span class="n">metadata</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
+      <span class="n">File</span> <span class="s">"setup_posix.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">43</span><span class="p">,</span> <span class="ow">in</span> <span class="n">get_config</span>
+        <span class="n">libs</span> <span class="o">=</span> <span class="n">mysql_config</span><span class="p">(</span><span class="s">"libs_r"</span><span class="p">)</span>
+      <span class="n">File</span> <span class="s">"setup_posix.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">25</span><span class="p">,</span> <span class="ow">in</span> <span class="n">mysql_config</span>
+        <span class="k">raise</span> <span class="nb">EnvironmentError</span><span class="p">(</span><span class="s">"</span><span class="si">%</span><span class="s">s not found"</span> <span class="o">%</span> <span class="p">(</span><span class="n">mysql_config</span><span class="o">.</span><span class="n">path</span><span class="p">,))</span>
+    <span class="nb">EnvironmentError</span><span class="p">:</span> <span class="n">mysql_config</span> <span class="ow">not</span> <span class="n">found</span>
+    
+    <span class="o">----------------------------------------</span>
+<span class="n">Command</span> <span class="s">"python setup.py egg_info"</span> <span class="n">failed</span> <span class="k">with</span> <span class="n">error</span> <span class="n">code</span> <span class="mi">1</span> <span class="ow">in</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">pip</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">TmLXPF</span><span class="o">/</span><span class="n">MySQL</span><span class="o">-</span><span class="n">python</span><span class="o">/</span>
+
+<span class="c"># use this</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">mysql</span><span class="o">-</span><span class="n">connector</span><span class="o">-</span><span class="n">python</span>
+</code></pre></div></div>
+
+<p>The config file missing here is cause by <code class="highlighter-rouge">ConfigParser</code> that has changed in python3.</p>
+
+<p>There is a replacement in Python3, <code class="highlighter-rouge">pymysql</code></p>
+
+<p>The following is a simple case for fetching data.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install pymysql
+</code></pre></div></div>
+
+<pre><code class="language-Python">#coding=utf-8
+ 
+import pymysql as MySQLdb
+
+host 	= "xxxx"
+db 		= "xxxx"
+user 	= "xxxx"
+port 	= "xxxx"
+passwd 	= "xxxx"
+
+
+class SelectMySQL(object):
+    def select_data(self,sql):
+        result = []
+        try:
+            conn = MySQLdb.connect(host=host,
+                               port=port,
+                               user=user,
+                               passwd=passwd,
+                               db=db,
+                               charset='utf8', )
+            cur = conn.cursor()
+            cur.execute(sql)
+            alldata = cur.fetchall()
+            # print(alldata)
+            for rec in alldata:
+                result.append(rec[0])
+        except Exception as e:
+            print('Error msg: ' + e)
+        finally:
+            cur.close()
+            conn.close()
+  
+        return result
+
+    def get_result(self, sql, filename):
+        print(sql)
+        results = self.select_data(sql)
+        print('The amount of datas: %d' % (len(results)))
+        with open(filename, 'w') as f:
+            for result in results:
+                f.write(str(result) + '\n')
+        print('Data write is over!')
+        return results
+
+if __name__ == '__main__':
+    sql = "select name from user"
+    select = SelectMySQL()
+    result1 = select.get_result(sql,'namemsg.txt')
+    print(result1)
+</code></pre>
+
+<p>add your sql command.</p>
+
+<h2 id="create-and-insert-table">Create and Insert Table</h2>
+
+<p>It’s important that you should begin and commit a transection when you have to write.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">conn</span> <span class="o">=</span> <span class="n">MySQLdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span>
+                   <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span>
+                   <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+                   <span class="n">passwd</span><span class="o">=</span><span class="n">passwd</span><span class="p">,</span>
+                   <span class="n">db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span>
+                   <span class="n">charset</span><span class="o">=</span><span class="s">'utf8'</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
+<span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">create_table</span> <span class="o">=</span> <span class="s">"""
+use alpha;
+DROP TABLE IF EXISTS xzp_alpha_id;
+CREATE TABLE xzp_alpha_id (
+    secID VARCHAR(20),
+    date VARCHAR(10),
+    value DOUBLE
+);
+
+INSERT INTO xzp_alpha_id (secID, date, value)
+VALUES ('603152', '20170921', null);
+"""</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">create_table</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="mysql-data-types">MySQL Data Types</h2>
+
+<p>In MySQL there are three main data types: text, number, and date.</p>
+
+<h3 id="text-data-types">Text data types:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CHAR(size)</td>
+      <td>Holds a fixed length string (can contain letters, numbers, and special characters). The fixed size is specified in parenthesis. Can store up to 255 characters</td>
+    </tr>
+    <tr>
+      <td>VARCHAR(size)</td>
+      <td>Holds a variable length string (can contain letters, numbers, and special characters). The maximum size is specified in parenthesis. Can store up to 255 characters. <strong>Note:</strong> If you put a greater value than 255 it will be converted to a TEXT type</td>
+    </tr>
+    <tr>
+      <td>TINYTEXT</td>
+      <td>Holds a string with a maximum length of 255 characters</td>
+    </tr>
+    <tr>
+      <td>TEXT</td>
+      <td>Holds a string with a maximum length of 65,535 characters</td>
+    </tr>
+    <tr>
+      <td>BLOB</td>
+      <td>For BLOBs (Binary Large OBjects). Holds up to 65,535 bytes of data</td>
+    </tr>
+    <tr>
+      <td>MEDIUMTEXT</td>
+      <td>Holds a string with a maximum length of 16,777,215 characters</td>
+    </tr>
+    <tr>
+      <td>MEDIUMBLOB</td>
+      <td>For BLOBs (Binary Large OBjects). Holds up to 16,777,215 bytes of data</td>
+    </tr>
+    <tr>
+      <td>LONGTEXT</td>
+      <td>Holds a string with a maximum length of 4,294,967,295 characters</td>
+    </tr>
+    <tr>
+      <td>LONGBLOB</td>
+      <td>For BLOBs (Binary Large OBjects). Holds up to 4,294,967,295 bytes of data</td>
+    </tr>
+    <tr>
+      <td>ENUM(x,y,z,etc.)</td>
+      <td>Let you enter a list of possible values. You can list up to 65535 values in an ENUM list. If a value is inserted that is not in the list, a blank value will be inserted.<strong>Note:</strong> The values are sorted in the order you enter them.You enter the possible values in this format: ENUM(‘X’,’Y’,’Z’)</td>
+    </tr>
+    <tr>
+      <td>SET</td>
+      <td>Similar to ENUM except that SET may contain up to 64 list items and can store more than one choice</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="number-data-types">Number data types:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TINYINT(size)</td>
+      <td>-128 to 127 normal. 0 to 255 UNSIGNED*. The maximum number of digits may be specified in parenthesis</td>
+    </tr>
+    <tr>
+      <td>SMALLINT(size)</td>
+      <td>-32768 to 32767 normal. 0 to 65535 UNSIGNED*. The maximum number of digits may be specified in parenthesis</td>
+    </tr>
+    <tr>
+      <td>MEDIUMINT(size)</td>
+      <td>-8388608 to 8388607 normal. 0 to 16777215 UNSIGNED*. The maximum number of digits may be specified in parenthesis</td>
+    </tr>
+    <tr>
+      <td>INT(size)</td>
+      <td>-2147483648 to 2147483647 normal. 0 to 4294967295 UNSIGNED*. The maximum number of digits may be specified in parenthesis</td>
+    </tr>
+    <tr>
+      <td>BIGINT(size)</td>
+      <td>-9223372036854775808 to 9223372036854775807 normal. 0 to 18446744073709551615 UNSIGNED*. The maximum number of digits may be specified in parenthesis</td>
+    </tr>
+    <tr>
+      <td>FLOAT(size,d)</td>
+      <td>A small number with a floating decimal point. The maximum number of digits may be specified in the size parameter. The maximum number of digits to the right of the decimal point is specified in the d parameter</td>
+    </tr>
+    <tr>
+      <td>DOUBLE(size,d)</td>
+      <td>A large number with a floating decimal point. The maximum number of digits may be specified in the size parameter. The maximum number of digits to the right of the decimal point is specified in the d parameter</td>
+    </tr>
+    <tr>
+      <td>DECIMAL(size,d)</td>
+      <td>A DOUBLE stored as a string , allowing for a fixed decimal point. The maximum number of digits may be specified in the size parameter. The maximum number of digits to the right of the decimal point is specified in the d parameter</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="date-data-types">Date data types:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>DATE()</td>
+      <td>A date. Format: YYYY-MM-DD<strong>Note:</strong> The supported range is from ‘1000-01-01’ to ‘9999-12-31’</td>
+    </tr>
+    <tr>
+      <td>DATETIME()</td>
+      <td>*A date and time combination. Format: YYYY-MM-DD HH:MI:SS<strong>Note:</strong> The supported range is from ‘1000-01-01 00:00:00’ to ‘9999-12-31 23:59:59’</td>
+    </tr>
+    <tr>
+      <td>TIMESTAMP()</td>
+      <td>*A timestamp. TIMESTAMP values are stored as the number of seconds since the Unix epoch (‘1970-01-01 00:00:00’ UTC). Format: YYYY-MM-DD HH:MI:SS<strong>Note:</strong> The supported range is from ‘1970-01-01 00:00:01’ UTC to ‘2038-01-09 03:14:07’ UTC</td>
+    </tr>
+    <tr>
+      <td>TIME()</td>
+      <td>A time. Format: HH:MI:SS<strong>Note:</strong> The supported range is from ‘-838:59:59’ to ‘838:59:59’</td>
+    </tr>
+    <tr>
+      <td>YEAR()</td>
+      <td>A year in two-digit or four-digit format.<strong>Note:</strong> Values allowed in four-digit format: 1901 to 2155. Values allowed in two-digit format: 70 to 69, representing years from 1970 to 2069</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    
+                </ul>
+
+
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Zipingxu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Zipping 2018
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

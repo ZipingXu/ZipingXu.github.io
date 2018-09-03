@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="In Data We Trust">
+    <meta name="keywords"  content="Data Science; Statistics; Unity">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Linux Command - 子平 | Zipping</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zipingxu.github.io/depressed/2017-10-13-22_38_36/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Zipping</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-07-10_23_57/">C/C++ file system</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-07-10_51_14/">A C++ implement for KD-tree</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-07-11_21_51/">How to install multi-version python in anaconda</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-07-11_33_33/">Efficient Rolling in Python</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-09-16_55_28/">A collection of ggplot2 functions</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-12-13_22_35/">SQL database in python</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-13-18_29_11/">A simulation system for ICM</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-13-22_38_36/">Linux Command</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-14-11_45_51/">今敏</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-20-09_47_44/">Python @property</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-21-12_46_39/">.profile when login</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-23-22_02_41/">Test for ggmap</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-10-29-17_56_48/">Optimization with gurobi</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-11-19-22_09_35/">Convert pdf into jpg in Mac and optimize or resize it</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2017-12-28-13_46_58/">Python Read Parameters from Commandline</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2018-01-09-13_48_56/">Send e-mail via commond line</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2018-02-02-11_51_27/">Confige Jupyter Notebook</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/depressed/2018-04-15-19_47_34/">How to write a discussion</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/projects/">Projects</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/linux.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/linux.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#linux" title="linux">linux</a>
+                        
+                    </div>
+                    <h1>Linux Command</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by Ziping on October 13, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h2 id="常用指令"><strong>常用指令</strong></h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls　　        显示文件或目录
+     -l           列出文件详细信息l(list)
+     -a          列出当前目录下所有文件及目录，包括隐藏的a(all)
+     
+mkdir         创建目录
+     -p           创建目录，若无父目录，则创建p(parent)
+     
+cd               切换目录
+touch          创建空文件
+echo            创建带有内容的文件。
+cat              查看文件内容
+cp                拷贝
+mv               移动或重命名
+rm               删除文件
+     -r            递归删除，可删除子目录及文件
+     -f            强制删除
+     
+find              在文件系统中搜索某文件
+wc                统计文本中行数、字数、字符数
+grep             在文本文件中查找某个字符串
+rmdir           删除空目录
+tree             树形结构显示目录，需要安装tree包
+pwd              显示当前目录
+ln                  创建链接文件
+more、less  分页显示文本文件内容
+head、tail    显示文件头、尾内容
+ctrl+alt+F1  命令行全屏模式
+</code></pre></div></div>
+<h2 id="系统管理命令"><strong>系统管理命令</strong></h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stat              显示指定文件的详细信息，比ls更详细
+who               显示在线登陆用户
+whoami          显示当前操作用户
+hostname      显示主机名
+uname           显示系统信息
+top                动态显示当前耗费资源最多进程信息
+ps                  显示瞬间进程状态 ps -aux
+du                  查看目录大小 du -h /home带有单位显示目录信息
+df                  查看磁盘大小 df -h 带有单位显示磁盘信息
+ifconfig          查看网络情况
+ping                测试网络连通
+netstat          显示网络状态信息
+man                命令不会用了，找男人  如：man ls
+clear              清屏
+alias               对命令重命名 如：alias showmeit="ps -aux" ，另外解除使用unaliax showmeit
+kill                 杀死进程，可以先用ps 或 top命令查看进程的id，然后再用kill命令杀死进程。
+</code></pre></div></div>
+<h2 id="打包压缩相关命令"><strong>打包压缩相关命令</strong></h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gzip：
+bzip2：
+tar:                打包压缩
+     -c              归档文件
+     -x              压缩文件
+     -z              gzip压缩文件
+     -j              bzip2压缩文件
+     -v              显示压缩或解压缩过程 v(view)
+     -f              使用档名
+例：
+tar -cvf /home/abc.tar /home/abc              只打包，不压缩
+tar -zcvf /home/abc.tar.gz /home/abc        打包，并用gzip压缩
+tar -jcvf /home/abc.tar.bz2 /home/abc      打包，并用bzip2压缩
+当然，如果想解压缩，就直接替换上面的命令  tar -cvf  / tar -zcvf  / tar -jcvf 中的“c” 换成“x” 就可以了。
+</code></pre></div></div>
+<h2 id="关机重启机器"><strong>关机/重启机器</strong></h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shutdown
+     -r             关机重启
+     -h             关机不重启
+     now          立刻关机
+halt               关机
+reboot          重启
+</code></pre></div></div>
+<h2 id="linux管道"><strong>Linux管道</strong></h2>
+<p>将一个命令的标准输出作为另一个命令的标准输入。也就是把几个命令组合起来使用，后一个命令除以前一个命令的结果。
+例：grep -r “close” /home/* | more       在home目录下所有文件中查找，包括close的文件，并分页输出。</p>
+
+<h2 id="linux软件包管理"><strong>Linux软件包管理</strong></h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg (Debian Package)管理工具，软件包名以.deb后缀。这种方法适合系统不能联网的情况下。
+比如安装tree命令的安装包，先将tree.deb传到Linux系统中。再使用如下命令安装。
+sudo dpkg -i tree_1.5.3-1_i386.deb         安装软件
+sudo dpkg -r tree                                     卸载软件
+ 
+注：将tree.deb传到Linux系统中，有多种方式。VMwareTool，使用挂载方式；使用winSCP工具等；
+APT（Advanced Packaging Tool）高级软件工具。这种方法适合系统能够连接互联网的情况。
+依然以tree为例
+sudo apt-get install tree                         安装tree
+sudo apt-get remove tree                       卸载tree
+sudo apt-get update                                 更新软件
+sudo apt-get upgrade        
+ 
+将.rpm文件转为.deb文件
+.rpm为RedHat使用的软件格式。在Ubuntu下不能直接使用，所以需要转换一下。
+sudo alien abc.rpm
+</code></pre></div></div>
+<h2 id="vim使用"><strong>vim使用</strong></h2>
+<p>Move</p>
+<ul>
+  <li>w: move the cursor to the start of next word.</li>
+  <li>e: move to the end of the next word</li>
+  <li>b: move to the start of current word, or to the start of prior word
+Insert</li>
+  <li>o: insert a new line below</li>
+  <li>shift + o: insert a new line above
+Delete</li>
+  <li>dd: delete the current line and copy it to clipboard</li>
+  <li>dw: delete the current word and copy it to clipboard
+Copy and Paste
+Use <em>v</em> to enter visual mode, move the cursor to select some words</li>
+  <li>y: copy what you selected</li>
+  <li>yy: copy the whole line</li>
+  <li>d: clip what you selected</li>
+  <li>dd: clip the whole line</li>
+  <li>p: paste
+Find and Replace</li>
+  <li>f + <em>word</em>: find word after the cursor</li>
+  <li>F + <em>word</em>: find word before the cursor</li>
+  <li>:/<em>word</em>: find the word in the file and you can use  regular expression</li>
+  <li>:%s/<em>from</em>/<em>to</em>/: replace <em>from</em> to <em>to</em></li>
+  <li>:%s/<em>from</em>/<em>to</em>/gc: consult you before replace
+Command for Shell</li>
+  <li>:!command
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim三种模式：命令模式、插入模式、编辑模式。使用ESC或i或：来切换模式。
+命令模式下：
+:q                      退出
+:q!                     强制退出
+:wq                   保存并退出
+:set number     显示行号
+:set nonumber  隐藏行号
+/apache            在文档中查找apache 按n跳到下一个，shift+n上一个
+yyp                   复制光标所在行，并粘贴
+h(左移一个字符←)、j(下一行↓)、k(上一行↑)、l(右移一个字符→)
+</code></pre></div>    </div>
+    <h2 id="用户及用户组管理"><strong>用户及用户组管理</strong></h2>
+    <pre><code class="language-Shell">/etc/passwd    存储用户账号
+/etc/group       存储组账号
+/etc/shadow    存储用户账号的密码
+/etc/gshadow  存储用户组账号的密码
+useradd 用户名
+userdel 用户名
+adduser 用户名
+groupadd 组名
+groupdel 组名
+passwd root     给root设置密码
+su root
+su - root 
+/etc/profile     系统环境变量
+bash_profile     用户环境变量
+.bashrc              用户环境变量
+su user              切换用户，加载配置文件.bashrc
+su - user            切换用户，加载配置文件/etc/profile ，加载bash_profile
+更改文件的用户及用户组
+sudo chown [-R] owner[:group] {File|Directory}
+例如：还以jdk-7u21-linux-i586.tar.gz为例。属于用户hadoop，组hadoop
+要想切换此文件所属的用户及组。可以使用命令。
+sudo chown root:root jdk-7u21-linux-i586.tar.gz
+# add sudoer
+su root or login with root
+#get permission to write sudoer list: 
+chmod u+w /etc/sudoers
+vim /etc/sudoers
+#find root ALL=(ALL) ALL and add yourname ALL=(ALL) ALL  
+#remove sudoers write permission： 
+chmod u-w /etc/sudoers
+</code></pre>
+    <h2 id="文件权限管理"><strong>文件权限管理</strong></h2>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>三种基本权限
+R           读         数值表示为4
+W          写         数值表示为2
+X           可执行  数值表示为1
+如图所示，jdk-7u21-linux-i586.tar.gz文件的权限为-rw-rw-r--
+-rw-rw-r--一共十个字符，分成四段。
+第一个字符“-”表示普通文件；这个位置还可能会出现“l”链接；“d”表示目录
+第二三四个字符“rw-”表示当前所属用户的权限。   所以用数值表示为4+2=6
+第五六七个字符“rw-”表示当前所属组的权限。      所以用数值表示为4+2=6
+第八九十个字符“r--”表示其他用户权限。              所以用数值表示为2
+所以操作此文件的权限用数值表示为662 
+</code></pre></div>    </div>
+    <h2 id="更改权限"><strong>更改权限</strong></h2>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chmod [u所属用户  g所属组  o其他用户  a所有用户]  [+增加权限  -减少权限]  [r  w  x]   目录名 
+例如：有一个文件filename，权限为“-rw-r----x” ,将权限值改为"-rwxrw-r-x"，用数值表示为765
+sudo chmod u+x g+w o+r  filename
+上面的例子可以用数值表示
+sudo chmod 765 filename
+</code></pre></div>    </div>
+    <h1 id="shell">Shell</h1>
+    <p>Shell支持自定义变量。</p>
+    <h4 id="定义变量">定义变量</h4>
+    <p>定义变量时，变量名不加美元符号（$），如：</p>
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">variableName</span><span class="o">=</span><span class="s2">"value"</span>
+</code></pre></div>    </div>
+    <p>注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。
+同时，变量名的命名须遵循如下规则：</p>
+  </li>
+  <li>首个字符必须为字母（a-z，A-Z）。</li>
+  <li>中间不能有空格，可以使用下划线（_）。</li>
+  <li>不能使用标点符号。</li>
+  <li>不能使用bash里的关键字（可用help命令查看保留关键字）。
+变量定义举例：
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">myUrl</span><span class="o">=</span><span class="s2">"http://see.xidian.edu.cn/cpp/linux/"</span>
+<span class="nv">myNum</span><span class="o">=</span>100
+</code></pre></div>    </div>
+    <p>使用变量</p>
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">your_name</span><span class="o">=</span><span class="s2">"mozhiyan"</span>
+<span class="nb">echo</span> <span class="nv">$your_name</span>
+<span class="nb">echo</span> <span class="k">${</span><span class="nv">your_name</span><span class="k">}</span>
+</code></pre></div>    </div>
+    <p>变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：</p>
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>skill <span class="k">in </span>Ada Coffe Action Java 
+<span class="k">do
+  </span><span class="nb">echo</span> <span class="s2">"I am good at </span><span class="k">${</span><span class="nv">skill</span><span class="k">}</span><span class="s2">Script"</span>
+<span class="k">done</span>
+</code></pre></div>    </div>
+    <h4 id="只读变量">只读变量</h4>
+    <p>使用 readonly命令可以将变量定义为只读变量，只读变量的值不能被改变。
+下面的例子尝试更改只读变量，结果报错：</p>
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+<span class="nv">myUrl</span><span class="o">=</span><span class="s2">"http://see.xidian.edu.cn/cpp/shell/"</span>
+<span class="nb">readonly </span>myUrl
+<span class="nv">myUrl</span><span class="o">=</span><span class="s2">"http://see.xidian.edu.cn/cpp/danpianji/"</span>
+</code></pre></div>    </div>
+    <h4 id="变量类型">变量类型</h4>
+    <p>运行shell时，会同时存在三种变量：</p>
+    <h4 id="1-局部变量">1) 局部变量</h4>
+    <p>局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。</p>
+    <h4 id="2-环境变量">2) 环境变量</h4>
+    <p>所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。</p>
+    <h4 id="3-shell变量">3) shell变量</h4>
+    <p>shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行</p>
+    <h4 id="运行">运行</h4>
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+.....
+</code></pre></div>    </div>
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/bin/sh run.sh
+</code></pre></div>    </div>
+    <h4 id="crontab">crontab</h4>
+    <p>cron是一个linux下 的定时执行工具，可以在无需人工干预的情况下运行作业。由于Cron 是Linux的内置服务，但它不自动起来，可以用以下的方法启动、关闭这个服务：</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/sbin/service crond start//启动服务
+/sbin/service crond stop //关闭服务
+/sbin/service crond restart  //重启服务
+/sbin/service crond reload//重新载入配置
+/sbin/service crond status//查看服务状态
+</code></pre></div>    </div>
+    <h1 id="copy-files-across-servers">Copy Files Across Servers</h1>
+    <p>以前一直是在服务器上tar打包压缩，下载到本地电脑上，再上传到另外一台服务器上，再解压。
+其实使用scp就可以直接对拷文件或者文件夹了。
+scp就是secure copy,是用来进行远程文件拷贝的.数据传输使用ssh1,并且和ssh1使用相同的认证方式,提供相同的安全保证.与rcp不同的是,scp会要求你输入密码如果需要的话. 
+最简单的应用如下:</p>
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp local_user@IP1:name1 remote_user@IP2:name2 
+</code></pre></div>    </div>
+    <p>意思是将本地的文件名1拷贝到，远程的文件名2内。
+[本地用户名@IP地址:]可以不输入,可能需要输入远程用户名所对应的密码. 
+可能有用的几个参数: 
+-v 和大多数Linux命令中的-v意思一样,用来显示进度.可以用来查看连接,认证,或是配置错误. 
+-C 使能压缩选项. 
+-P 选择端口.注意-p已经被rcp使用. 
+-4 强行使用IPV4地址. 
+-6 强行使用IPV6地址. 
+scp中很多参数都和ssh1有关,需要的话在看.
+例如拷贝单个文件命令：
+scp file username@ip:filepath
+说明：file是要拷贝的文件名 <br />
+username:远程登录的用户名，
+ip：远程服务器ip
+filepath：远程文件路径
+拷贝文件夹命令如下：scp -r file username@ip:filepath
+多加上一个-r参数即可。</p>
+    <h1 id="example">example</h1>
+    <p>```shell
+ssh ziping@60.205.205.xx
+scp -r ~/file yourUserName@60.205.205.xx:~/file/
+`</p>
+  </li>
+</ul>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    
+                </ul>
+
+
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/Zipingxu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Zipping 2018
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
