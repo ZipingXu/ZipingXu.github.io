@@ -1,0 +1,262 @@
+---
+layout:     post
+title:      "Optimization with gurobi"
+subtitle:   "A simple test for opt with gurobi in Python"
+date:       2017-10-29
+author:     "Ziping"
+header-img: "img/python.jpg"
+catalog: true
+tags:
+    - gurobi
+    - python
+---
+
+This article is about how to setup gurobi on mac os x and how to use it in Python.
+# Installation
+
+For acadamic users, we can just register in gurobi's website and apply for an acadamic lisence.
+
+Follow the instruction and activate the lisence.
+
+# Python interface
+
+You have to clasify a module and ``addVar`` is used to add variables in this problem.
+
+Then use ``addConstr`` to add constraints to the problem.
+
+We have an example below.
+
+```python
+from gurobipy import *
+import numpy as np
+import random
+
+random.seed(10)
+m = 5
+n = 5
+var_name = "pi"
+
+# c is the object
+c = np.random.random((m,n))
+mu = np.abs(np.random.random((m)))
+mu = mu / np.sum(mu)
+nu = np.abs(np.random.random((n)))
+nu = nu / np.sum(nu)
+
+c = [[0, 1, 2, 3, 4], [1, 0, 1, 2, 3], [2, 1, 0, 1, 2], [3, 2, 1, 0, 1], [4, 3, 2, 1, 0]]
+c = np.array(c) + 1
+mu = list(range(1, 6, 1))
+mu = [1.0/m] * m
+nu = list(range(5, 0, -1))
+nu = [1.0/n] * n
+pi = []
+
+model = Model("task1")
+for i in range(m):
+    temp = []
+    for j in range(n):
+        temp.append(model.addVar(obj=c[i][j], vtype="C", name="pi_" + str(i) + "_" + str(j)))
+    pi.append(temp)
+
+model.update()
+
+for i in range(m):
+    LT = LinExpr([1]*n, pi[i])
+    model.addConstr(LT,"=",mu[i]) 
+
+for j in range(n):
+    temp_pi = []
+    for i in range(m):
+        temp_pi.append(pi[i][j])
+    
+    LT = LinExpr([1]*n, temp_pi)
+    model.addConstr(LT,"=",nu[j]) 
+
+for i in range(m):
+    for j in range(n):
+        LT = LinExpr([1], [pi[i][j]])
+        model.addConstr(LT,">=", 0) 
+
+model.update()
+
+model.ModelSense = 1
+model.optimize()
+if model.Status == GRB.OPTIMAL:
+    print "Opt. Value=",model.ObjVal
+    final = []
+    for i in range(m):
+        for j in range(n):
+            final.append(pi[i][j].X)
+    final = np.array(final).reshape(5, 5)
+    print(final)
+```
+
+
+## A comparison between simplex and barrier method
+
+### Method Option
+
+Algorithm used to solve continuous models or the root node of a MIP model. Options are: -1=automatic, 0=primal simplex, 1=dual simplex, 2=barrier, 3=concurrent, 4=deterministic con- current.
+
+```python
+# compare mode 0 and 2
+from gurobipy import *
+def run(mode = 1, size = 20):
+    import time
+    import numpy as np
+    import random
+    
+    random.seed(10)
+    m = size
+    n = size
+    var_name = "pi"
+    
+    # c is the object
+    c = np.random.random((m,n))
+    mu = np.abs(np.random.random((m)))
+    mu = mu / np.sum(mu)
+    nu = np.abs(np.random.random((n)))
+    nu = nu / np.sum(nu)
+    pi = []
+    
+    model = Model("task1")
+    for i in range(m):
+        temp = []
+        for j in range(n):
+            temp.append(model.addVar(obj=c[i][j], vtype="C", name="pi_" + str(i) + "_" + str(j)))
+        pi.append(temp)
+    
+    model.update()
+    
+    for i in range(m):
+        LT = LinExpr([1]*n, pi[i])
+        model.addConstr(LT,"=",mu[i]) 
+    
+    for j in range(n):
+        temp_pi = []
+        for i in range(m):
+            temp_pi.append(pi[i][j])
+        
+        LT = LinExpr([1]*n, temp_pi)
+        model.addConstr(LT,"=",nu[j]) 
+    
+    for i in range(m):
+        for j in range(n):
+            LT = LinExpr([1], [pi[i][j]])
+            model.addConstr(LT,">=", 0) 
+    
+    model.update()
+    
+    model.ModelSense = 1
+    model.setParam("Method", mode)
+    start = time.clock()
+    model.optimize()
+    elapsed = (time.clock() - start)
+    print(elapsed)
+
+ 
+
+run(0, 1000)
+run(2, 1000)
+```
+
+### log
+
+```python
+
+Changed value of parameter Method to 0
+   Prev: -1  Min: -1  Max: 5  Default: -1
+Optimize a model with 1002000 rows, 1000000 columns and 3000000 nonzeros
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e-06, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [2e-06, 2e-03]
+Presolve removed 1000000 rows and 0 columns
+Presolve time: 3.31s
+Presolved: 2000 rows, 1000000 columns, 2000000 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -2.7642208e-02   1.228489e+00   1.857000e+09      4s
+   51306   -1.5776968e-02   6.968664e-02   2.196809e+11      6s
+   94929    2.2817164e-03   4.540606e-06   0.000000e+00     11s
+   94930    2.2817164e-03   0.000000e+00   0.000000e+00     12s
+
+Solved in 94930 iterations and 11.50 seconds
+Optimal objective  2.281716447e-03
+10.39895
+>>> 
+>>> run(2, 1000)
+Changed value of parameter Method to 2
+   Prev: -1  Min: -1  Max: 5  Default: -1
+Optimize a model with 1002000 rows, 1000000 columns and 3000000 nonzeros
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [8e-07, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [9e-07, 2e-03]
+Presolve removed 1000000 rows and 0 columns
+Presolve time: 3.17s
+Presolved: 2000 rows, 1000000 columns, 2000000 nonzeros
+
+Ordering time: 0.03s
+
+Barrier statistics:
+ AA' NZ     : 1.000e+06
+ Factor NZ  : 2.001e+06 (roughly 400 MBytes of memory)
+ Factor Ops : 2.669e+09 (less than 1 second per iteration)
+ Threads    : 2
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0   4.99837862e+04  0.00000000e+00  1.00e+02 0.00e+00  8.75e-02     4s
+   1   1.82394749e+03 -4.28099365e-01  3.13e+00 7.77e-16  3.17e-03     5s
+   2   1.61129469e+00 -4.27619125e-01  2.00e-03 1.11e-15  2.90e-06     5s
+   3   3.48527394e-01 -1.13470946e-01  5.77e-05 2.78e-15  4.75e-07     6s
+   4   1.34688449e-01 -2.35884488e-02  1.12e-06 1.15e-14  1.58e-07     7s
+   5   3.33154850e-02 -4.33494217e-03  1.15e-16 6.33e-15  3.77e-08     7s
+   6   8.76774620e-03 -7.84790774e-04  4.60e-16 5.27e-15  9.55e-09     8s
+   7   4.30795049e-03  1.14200789e-03  8.46e-17 5.33e-15  3.17e-09     8s
+   8   2.96307300e-03  1.73413304e-03  1.19e-15 5.44e-15  1.23e-09     9s
+   9   2.51789145e-03  1.89545631e-03  4.43e-15 6.44e-15  6.22e-10     9s
+  10   2.25711362e-03  2.04621297e-03  1.01e-15 6.33e-15  2.11e-10     9s
+  11   2.18964982e-03  2.14628917e-03  6.06e-16 4.39e-15  4.34e-11    10s
+  12   2.17947756e-03  2.16451948e-03  4.16e-16 4.44e-15  1.50e-11    10s
+  13   2.17383285e-03  2.16986747e-03  6.08e-16 4.36e-15  3.97e-12    11s
+  14   2.17198361e-03  2.17094185e-03  9.31e-15 4.77e-15  1.04e-12    12s
+  15   2.17176080e-03  2.17136229e-03  2.00e-14 4.55e-15  3.99e-13    12s
+  16   2.17156735e-03  2.17151668e-03  2.42e-14 3.89e-15  5.07e-14    12s
+  17   2.17153401e-03  2.17153095e-03  3.59e-14 3.66e-15  3.06e-15    13s
+
+Barrier solved model in 17 iterations and 13.07 seconds
+Optimal objective 2.17153401e-03
+
+Crossover log...
+
+       0 DPushes remaining with DInf 2.3246110e+01                13s
+
+       1 PPushes remaining with PInf 1.2828537e-06                13s
+       0 PPushes remaining with PInf 1.2828537e-06                13s
+
+  Push phase complete: Pinf 1.2828537e-06, Dinf 0.0000000e+00     13s
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       6    2.1715310e-03   1.282854e-06   0.000000e+00     14s
+
+Starting sifting (using dual simplex for sub-problems)...
+
+    Iter     Pivots    Primal Obj      Dual Obj        Time
+       0          6     infinity      2.1715310e-03     14s
+
+Sifting complete
+
+       7    2.1715310e-03   0.000000e+00   0.000000e+00     15s
+
+Solved in 7 iterations and 14.87 seconds
+Optimal objective  2.171530999e-03
+
+18.391711
+
+```
+
+Look like barrier is slower than simplex method.

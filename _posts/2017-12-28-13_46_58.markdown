@@ -1,0 +1,46 @@
+---
+layout:     post
+title:      "Python Read Parameters from Commandline"
+subtitle:   "Old fashion?"
+date:       2017-12-28
+author:     "Ziping"
+header-img: "img/python.jpg"
+catalog: true
+tags:
+    - python
+---
+
+The simplest way to do this is to use ``sys`` module.
+
+``python test.py hello world``
+
+```python
+import sys
+print "File name：", sys.argv[0]
+for i in range(1, len(sys.argv)):
+    print "Para", i, sys.argv[i]
+
+# File name：test.py Para 1 hello Para 2 world
+```
+
+If we want to pass parameter in a standard way, we use ``getopt``
+
+```python
+import sys, getopt
+opts, args = getopt.getopt(sys.argv[1:], "hi:o:")
+input_file=""
+output_file=""
+for op, value in opts:
+    if op == "-i":
+        input_file = value
+    elif op == "-o":
+        output_file = value
+    elif op == "-h":
+        usage()
+        sys.exit
+```
+
+Explaination:
+
+- ``sys.argv[1:]``: the list for the parameters we have to handle.
+- "hi: o:": represent the options. If a ":" follows, there have to be a parameters.
