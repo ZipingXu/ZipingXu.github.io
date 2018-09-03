@@ -52,6 +52,16 @@ body, html {
 	width: 100%;
 }
 
+.cbp_tmtimeline > a {
+	font-size: 0.5em;
+	position: relative;
+	box-sizing: border-box;
+	display: inline-block;
+	vertical-align: top;
+	width: 100%;
+	color: #a5a7aa;
+}
+
 /* The date/time */
 .cbp_tmlabel time {
 	font-size: 1.0em;
@@ -83,7 +93,7 @@ body, html {
 
 .cbp_tmtimeline > li .cbp_tmlabel h2 {
 	font-weight: bold;
-	font-size: 15px;
+	font-size: 18px;
 	padding: 14px 20px;
 	margin: 0;
 	height: 64px;
