@@ -1,6 +1,6 @@
 # Ziping Xu
 
-PhD student, department of Statistics at University of Michigan, Ann Arbor
+Second-year Ph.D. student, department of Statistics at University of Michigan, Ann Arbor
 
 > Email: zipingxu at umich dot edu
 >
@@ -8,21 +8,14 @@ PhD student, department of Statistics at University of Michigan, Ann Arbor
 
 ## Biography [[CV](https://github.com/ZipingXu/ZipingXu.github.io/blob/master/ZipingXu.pdf)]
 
-> Machine learning; Hypothesis testing; Visualization; Deep learning
+> Sample Efficient Reinforcement Learning (RL), Transfer Learning for RL and real-world application of RL, Climate Change and air pollution
 
-I just finished my undergraduate study in Data Science in Yuanpei College at Peking University. My advisor is [Prof. Chen Songxi](http://songxichen.gsm.pku.edu.cn/index.php/Index/User) at Peking University and Iowa State University.
+I am a second year Ph.D. student in Statistics at University of Michigan. I am fortunate to work with Professor Ambuj Tewari. Before joining University of Michigan, I obtained my B.S. degree in Data Science from Peking University in 2018.
 
-During my undergraduate study, I worked on application of data science and statistics on environmental problems. My past work involves in non-parametric model for air quality diagnose and high dimensional testing for climate change on grided data. I am also interested in data viualization and interpretation of machine learning algorithms. Details of my project could be find at [PROJECT](https://zipingxu.github.io/projects/).
+My current research interests are on Sample Efficient Reinforcement Learning (RL), Transfer Learning for RL and real-world application of RL.
 
-My another project was on health effect of air pollution in China, collaborating with Tianan Yang in Beijing Institute of Technology. 
+In the first year of Ph.D., I studied sample complexity of perturbation algorithm for RL, as a new randomized exploration method, which is closer to that we use in empirical studies. I proved the first worst-case regret guarantee for this class of methods.
 
-I am currently working on the application of reinforcement learning on medical treatment.
+Apart from theoretical studies, I collaborated with a finance team to release a new machine learning dataset, StockNet, the largest cross-market stock dataset designed for machine learning study. I also working with chemists to apply RL on molecular conformation problem, where I trained agents to achieve lowest-energy structure of a given molecule.
 
-Feel free to reach me if you are interested in my research.
-
-## Publications
-
-1. **Xu, Z. P.**, Wu, X., & Chen, S. X. (2017, Nov) Climate Change and Impacts on Air Quality in North China (Submitted paper, first author)
-2. Liu, W., **Xu, Z. P.**, & Yang, T. (2018). Health Effects of Air Pollution in China. *International journal of environmental research and public health*, *15*(7).
-3. Zhang, S., Guo, B., Dong, A., He, J., **Xu, Z. P.** , & Chen, S. X. (2017, September). Cautionary tales on air-qualityimprovement in Beijing. In Proc. R. Soc. A (Vol. 473, No. 2205, p. 20170457). *The Royal Society*.
-
+At Peking University advised by Professor Songxi Chen, I studied the climate change and its impacts on air pollution usinig hypothesis testinig in North China area.
